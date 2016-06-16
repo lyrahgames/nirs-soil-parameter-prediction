@@ -172,70 +172,10 @@
 \newcommand{\examplecall}{Beispiel}
 \newenvironment{example}[1][]{ \begin{mathproof}{\examplecall}{#1} }{ \end{mathproof} }
 
-% new displaymath command, so that equations will not be stretched
-\newcommand{\D}[1]{\mbox{$ #1 $}}
-% make unnumerated equation
-\newcommand{\E}[1]{\[ #1 \]}
-% command for curly brackets
-\newcommand{\curlb}[1]{\left\{ #1 \right\}}
-% command for box brackets
-\newcommand{\boxb}[1]{\left[ #1 \right]}
-% command for parentheses/curved brackets
-\newcommand{\curvb}[1]{\left( #1 \right)}
-% command for angle brackets
-\newcommand{\angleb}[1]{\left\langle #1 \right\rangle}
-% command for floor brackets
-\newcommand{\floorb}[1]{\left\lfloor #1 \right\rfloor}
-% command for ceil brackets
-\newcommand{\ceilb}[1]{\left\lceil #1 \right\rceil}
-% command for creating sets
-\newcommand{\set}[2]{ \left\{ #1 \enspace \middle\vert \enspace #2 \right\} }
-% command for absolute value
-\newcommand{\abs}[1]{\left\vert #1 \right\vert}
-\newcommand{\norm}[1]{\left\| #1 \right\|}
-% commands for writing limits
-\newcommand{\limit}[3]{\, \longrightarrow \, #1, \ #2 \longrightarrow #3}
-\newcommand{\Limit}[2]{\lim_{#1 \rightarrow #2}}
-% command for differential
-\newcommand{\diff}{\mathrm{d}}
-\newcommand{\Diff}{\mathrm{D}}
-% command for derivative
-\newcommand{\Deriv}[3][]{\Diff_{#2}^{#1}#3}
-\newcommand{\deriv}[3][]{\dfrac{\diff^{#1}#2(#3)}{\diff #3^{#1}}}
-% command for integral
-\newcommand{\integral}[4]{\int_{#1}^{#2} #3\ \diff #4}
-\newcommand{\Integral}[4]{\int\limits_{#1}^{#2} #3\ \diff #4}
-\newcommand{\iintegral}[2]{\int #1\ \diff #2} % indefinite integral
-% mathematical definitions (standard sets)
-\newcommand{\SR}{\mathds{R}} % real numbers
-\newcommand{\SC}{\mathds{C}} % complex numbers
-\newcommand{\SN}{\mathds{N}} % natural numbers
-\newcommand{\SZ}{\mathds{Z}} % integral numbers
-\newcommand{\SQ}{\mathds{Q}} % rational numbers
-\newcommand{\SP}{\mathcal{P}} % power set
-\newcommand{\SFP}{\mathds{P}} % polynom functions
-\newcommand{\SFC}{\mathrm{C}} % complex valued functions (continous or differentiable)
-\newcommand{\SFL}{\mathcal{L}} % space of integrable functions
-\newcommand{\SFLL}{\mathrm{L}} % space of integrable function classes
-\newcommand{\SH}{\mathcal{H}} % hilbert space
-% mathematical standard functions
-\DeclareMathOperator{\real}{Re} % real part
-\DeclareMathOperator{\imag}{Im} % imaginary part
-\DeclareMathOperator{\diag}{diag}
-\DeclareMathOperator{\id}{Id}
-\newcommand{\FF}{\mathcal{F}} % fourier transform
-\newcommand{\FE}{\mathbb{E}} % expectation
-\DeclareMathOperator{\var}{var} % variance
-\newcommand{\FN}{\mathcal{N}} % normal distribution
 
-% command for physical units
-\newcommand{\unit}[1]{\, \mathrm{#1}}
+\input{math-sym}
 
-\newcommand{\m}[1]{\mathrm{#1}}
-% \renewcommand{\implies}{\quad \Longrightarrow \quad}
-\newcommand{\equivalent}{\Longleftrightarrow}
 
-\newcommand{\idmat}{\mathrm{I}}
 
 % package for init listings(non-formatted  text) e.g. different source codes
 \usepackage{listings}
@@ -410,6 +350,3 @@
 	\bigskip
 }
 
-\newcommand{\transp}[1]{ {#1}^\m{T} }
-\newcommand{\inv}[1]{ {#1}^{-1} }
-\newcommand{\conj}[1]{ \overline{#1} }
