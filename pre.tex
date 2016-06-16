@@ -72,107 +72,8 @@
 % change enumeration style of equations
 % \renewcommand\theequation{\thesection.\arabic{equation}}
 
-% init list of math for definitions and theorems
-\newcommand{\listofmathcall}{Verzeichnis der Definitionen und Sätze}
-\newlistof{math}{mathlist}{\listofmathcall}
-% add parentheses around argument
-\newcommand{\parent}[1]{ \ifx&#1&\else (#1) \fi }
-\definecolor{mathdefback}{rgb}{0.95,0.95,0.98}
-% unnumerated mathematical definition environment definiton
-\newenvironment{mathdef*}[2]{
-	\medskip
-	\begin{tcolorbox}[colback=mathdefback, boxrule=0.5pt, colframe=black, boxsep=0pt, enhanced jigsaw, breakable, arc=3pt]
-	\noindent
-	{ \fontfamily{ppl}\selectfont \textbf{\textsc{#1:}} } ~ #2 
-	\par \hfill\\ 
-	\fontfamily{lmr}\selectfont \itshape
-}{
-	\end{tcolorbox}
-	\medskip
-}
-% definitions for numerated mathematical definition environment
-\newcounter{mathdefc}[section]
-\newcommand*{\mathdefnum}{\thesection.\arabic{mathdefc}}
-\renewcommand{\themathdefc}{\mathdefnum}
-\newenvironment{mathdef}[2]{
-	\refstepcounter{mathdefc}
-	\addcontentsline{mathlist}{figure}{\protect{\numberline{\mathdefnum}#1 ~ #2}}
-	\begin{mathdef*}{#1 \mathdefnum}{#2}
-}{
-	\end{mathdef*}
-}
-% standard mathdef calls
-\newcommand{\definitioncall}{Definition}
-\newenvironment{definition*}[1][]{ \begin{mathdef*}{\definitioncall}{\parent{#1}} }{ \end{mathdef*} }
-\newenvironment{definition}[1][]{ \begin{mathdef}{\definitioncall}{\parent{#1}} }{ \end{mathdef} }
 
-\definecolor{maththeoremframe}{rgb}{0.7,0.7,0.73}
-
-% unnumerated theorem environment definition
-\newenvironment{maththeorem*}[2]{
-	\medskip
-	\begin{tcolorbox}[boxrule=0pt, leftrule=2.5pt, arc=2pt, colback=white, colframe=maththeoremframe, enhanced jigsaw, breakable, vfill before first, top=0mm, bottom=0mm, left=2mm, right=0mm, boxsep=1mm]
-	\noindent
-	{ \fontfamily{ppl}\selectfont \textbf{\textsc{#1:}} } ~ #2
-	\par \hfill\\ 
-	\fontfamily{lmr} \fontshape{it} \selectfont
-}{ 
-	\end{tcolorbox}
-	\medskip
-}
-% definitions for numerated theorem environment
-\newcounter{maththeoremc}[section]
-\newcommand*\maththeoremnum{\thesection.\arabic{maththeoremc}}
-\renewcommand{\themaththeoremc}{\maththeoremnum}
-\newenvironment{maththeorem}[2]{
-	\refstepcounter{maththeoremc}
-	\addcontentsline{mathlist}{figure}{\protect{\qquad\numberline{\maththeoremnum}#1 ~ #2}}
-	\begin{maththeorem*}{#1 \maththeoremnum}{#2}
-}{
-	\end{maththeorem*}
-}
-% standard maththeorem calls
-\newcommand{\theoremcall}{Theorem}
-\newenvironment{theorem*}[1][]{ \begin{maththeorem*}{\theoremcall}{\parent{#1}} }{ \end{maththeorem*} }
-\newenvironment{theorem}[1][]{ \begin{maththeorem}{\theoremcall}{\parent{#1}} }{ \end{maththeorem} }
-\newcommand{\lemmacall}{Lemma}
-\newenvironment{lemma*}[1][]{ \begin{maththeorem*}{\lemmacall}{\parent{#1}} }{ \end{maththeorem*} }
-\newenvironment{lemma}[1][]{ \begin{maththeorem}{\lemmacall}{\parent{#1}} }{ \end{maththeorem} }
-\newcommand{\propositioncall}{Proposition}
-\newenvironment{proposition*}[1][]{ \begin{maththeorem*}{\propositioncall}{\parent{#1}} }{ \end{maththeorem*} }
-\newenvironment{proposition}[1][]{ \begin{maththeorem}{\propositioncall}{\parent{#1}} }{ \end{maththeorem} }
-\newcommand{\corollarycall}{Korollar}
-\newenvironment{corollary*}[1][]{ \begin{maththeorem*}{\corollarycall}{\parent{#1}} }{ \end{maththeorem*} }
-\newenvironment{corollary}[1][]{ \begin{maththeorem}{\corollarycall}{\parent{#1}} }{ \end{maththeorem} }
-% q.e.d. definition
-\newcommand{\qed}{ \par \hfill \fontfamily{lmr} \fontshape{it} \selectfont \mbox{q.e.d.} \\}
-\newcommand{\qedbox}{ \hfill $\Box$ }
-% proof environment definition for theorems
-\newenvironment{mathproof}[2]{
-	% \par\hfill\\
-	\medskip
-	% \noindent
-	% \par
-	% { \fontfamily{ppl}\selectfont \small \textsc{#1:} } ~ \parent{#2} \smallskip\\
-	% \begin{adjustwidth}{1em}{}
-	\begin{tcolorbox}[title= { \fontfamily{ppl}\selectfont \small \textsc{#1:} } ~ \parent{#2}, boxrule=0pt, colback=white, colframe=white, coltitle=black, breakable, boxsep=0mm, top=2mm, bottom=0mm, right=0mm, left=0mm, before upper={\parindent1em}]%
-	\normalfont
-	\small
-}{ 
-	\end{tcolorbox}
-	% \end{adjustwidth} 
-	% \qedbox
-	\medskip
-}
-% standard mathproof calls
-\newcommand{\proofcall}{Beweis}
-\newenvironment{proof}[1][]{ \begin{mathproof}{\textbf{\proofcall}}{#1} }{ \qedbox \end{mathproof} }
-\newcommand{\proofideacall}{Beweisidee}
-\newenvironment{proofidea}[1][]{ \begin{mathproof}{\proofideacall}{#1} }{ \end{mathproof} }
-\newcommand{\examplecall}{Beispiel}
-\newenvironment{example}[1][]{ \begin{mathproof}{\examplecall}{#1} }{ \end{mathproof} }
-
-
+\input{math-env}
 \input{math-sym}
 
 
@@ -181,73 +82,7 @@
 \usepackage{listings}
 
 
-% definitions for listing colors
-\definecolor{codeDarkGray}{gray}{0.2}
-\definecolor{codeGray}{gray}{0.4}
-\definecolor{codeLightGray}{rgb}{0.94,0.94,0.91}
-\definecolor{codeBorder}{rgb}{0.34,0.24,0.21}
-% predefinitions for listings
-\newcommand{\listingcall}{Listing}
-\newlength{\listingframemargin}
-\setlength{\listingframemargin}{1em}
-\newlength{\listingmargin}
-\setlength{\listingmargin}{0.08\textwidth}
-% \newlength{\listingwidth}
-% \setlength{\listingwidth}{ ( \textwidth - \listingmargin * \real{2} + \listingframemargin * \real{2} ) }
-% definitions for list of listings
-\newcommand{\listoflistingscall}{\listingcall -Verzeichnis}
-\newlistof{listings}{listinglist}{\listoflistingscall}
-% style definition for standard code listings
-\lstdefinestyle{std}{
-	belowcaptionskip=0.5\baselineskip,
-	breaklines=true,
-	frameround=tttt,
-	% frame=false,
-	xleftmargin=0em,
-	xrightmargin=0em,
-	showstringspaces=false,
-	showtabs=false,
-	% tab=\smash{\rule[-.2\baselineskip]{.4pt}{\baselineskip}\kern.5em},
-	basicstyle= \fontfamily{pcr}\selectfont\footnotesize\bfseries,
-	keywordstyle= \bfseries\color{MidnightBlue}, %\color{codeDarkGray},
-	commentstyle= \itshape\color{codeGray},
-	identifierstyle=\color{codeDarkGray},
-	stringstyle=\color{BurntOrange}, %\color{codeDarkGray},
-	numberstyle=\tiny\ttfamily,
-	% numbers=left,
-	numbersep = 1em,
-	% stepnumber = 1,
-	% captionpos=t,
-	tabsize=4,
-	% backgroundcolor=\color{codebLightGray},
-	rulecolor=\color{codeBorder},
-	framexleftmargin=\listingframemargin,
-	framexrightmargin=\listingframemargin
-}
-% definition for unnumerated listing
-\newcommand{\inputlistingn}[3][]{
-	\begin{center}
-		\begin{adjustwidth}{\listingmargin}{\listingmargin}
-			\centerline{ {\fontfamily{lmr}\selectfont \footnotesize \listingcall:}\quad {\footnotesize #2} }
-			\lstinputlisting[style=std, #1]{#3}
-		\end{adjustwidth}
-	\end{center}
-}
-% definition for numerated listing
-\newcounter{listingc}[section]
-\newcommand*\listingnum{\thesection.\arabic{listingc}}
-\renewcommand{\thelistingc}{\listingnum}
-\newcommand{\inputlisting}[3][]{
-	\refstepcounter{listingc}
-	\addcontentsline{listinglist}{figure}{\protect{\numberline{\listingnum:} #2 } }
-	% \inputlistingn[#1]{#2}{#3}
-	\begin{center}
-		\begin{adjustwidth}{\listingmargin}{\listingmargin}
-			\centerline{ {\fontfamily{lmr}\selectfont \footnotesize \listingcall~\listingnum:}\quad {\footnotesize #2} }
-			\lstinputlisting[style=std, #1]{#3}
-		\end{adjustwidth}
-	\end{center}
-}
+\input{code-env}
 
 
 % package for including csv-tables from file
@@ -310,43 +145,6 @@
 \usepackage{titling}
 \title{}
 \author{}
-\newcommand{\email}{markuspawellek@gmail.com}
-
-
-
-\DeclareMathOperator{\tr}{tr}
-
-
 
 \usepackage{fancyhdr}
-
-\fancypagestyle{titlestyle}{
-	\fancyhf{}
-	% \fancyfoot[C]{\footnotesize\bigskip\thepage/\pageref{LastPage}}
-	\fancyfoot{}
-	\renewcommand{\footrulewidth}{0pt}
-	\renewcommand{\headrulewidth}{0pt}
-}
-
-\fancypagestyle{mainstyle}{
-	\fancyhf{}
-	\fancyfoot[C]{\footnotesize\bigskip\thepage}
-	\fancyhead[LO,RE]{\footnotesize \thetitle} %left
-	\fancyhead[RO,LE]{\footnotesize \theauthor} %right
-	\renewcommand{\footrulewidth}{0.5pt}
-	\renewcommand{\headrulewidth}{0.5pt}
-}
-
-\pagestyle{mainstyle}
-
-
-\newcommand{\articletitle}{
-	\thispagestyle{titlestyle}
-	\hrule
-	\section*{\centering \thetitle} % (fold)
-	\noindent
-	\parbox[b][][c]{0.5\textwidth}{\raggedright{\theauthor}}\hfill\parbox[b][][c]{0.5\textwidth}{\raggedleft{\email}}\\
-	\hrule
-	\bigskip
-}
-
+\input{page-style}
