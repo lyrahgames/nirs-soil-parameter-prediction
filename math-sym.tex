@@ -37,6 +37,9 @@
 \newcommand{\SFC}{\mathrm{C}} % complex valued functions (continous or differentiable)
 \newcommand{\SFL}{\mathcal{L}} % space of integrable functions
 \newcommand{\SFLL}{\mathrm{L}} % space of integrable function classes
+% set of linear maps
+\newcommand{\LM}{L}
+% hilbert space
 \newcommand{\SH}{\mathcal{H}}
 % set of matrices
 \newcommand{\SM}{\mathrm{M}}
@@ -48,6 +51,8 @@
 \newcommand{\SSO}{\mathrm{SO}}
 % group of unitary matrices
 \newcommand{\SU}{\mathrm{U}}
+% hauptraum/generalized eigenspace
+\newcommand{\hau}{\mathrm{Hau}}
 
 
 % elements
@@ -84,6 +89,12 @@
 \DeclareMathOperator{\im}{im}
 % transponent matrix
 \newcommand{\transp}[1]{ {#1}^\m{T} }
+% spectrum of matrix
+\DeclareMathOperator{\spec}{\sigma}
+% rank of matrix
+\DeclareMathOperator{\rank}{rank}
+% signum of permutation or number
+\DeclareMathOperator{\sign}{sign}
 % expectation
 \DeclareMathOperator{\expect}{\mathbb{E}}
 % variance
@@ -105,9 +116,13 @@
 \newcommand{\iintegral}[2]{\int #1\ \diff #2} % indefinite integral
 % scalar product
 \newcommand{\dotp}[1]{\angleb{#1}}
+% cross product sign
+\newcommand{\cross}{\times}
 % linear span
 \newcommand{\lspan}[1]{\angleb{#1}}
-
+% dual space
+\newcommand{\dual}[1]{ {#1}^* }
+\newcommand{\ddual}[1]{ {#1}^{**} }
 
 % converges arrow
 \newcommand{\conv}[1][]{\xrightarrow[]{#1}}
