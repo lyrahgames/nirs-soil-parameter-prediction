@@ -28,7 +28,8 @@
 
 % symbols for sets
 % create sets
-\newcommand{\set}[2][]{ \curlb{#2 \ifx&#1&\else \enspace\middle\vert\enspace #1 \fi} }
+% \newcommand{\set}[2][]{ \curlb{#2 \ifx&#1&\else \enspace\middle\vert\enspace #1 \fi} }
+\newcommand{\set}[2][]{ \curlb{#2 \ifthenelse{\isempty{#1}}{}{\enspace\middle\vert\enspace #1}} }
 % standard sets
 \newcommand{\SR}{\mathds{R}} % real numbers
 \newcommand{\SC}{\mathds{C}} % complex numbers
