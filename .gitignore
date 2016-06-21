@@ -1,6 +1,9 @@
 *.sublime-workspace
 *.sublime-project
 
+# list definitions and theorems
+*.mathlist
+
 # Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
