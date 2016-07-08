@@ -95,5 +95,20 @@
 \newenvironment{proof}[1][]{ \begin{mathproof}{\textbf{\proofcall}}{#1} }{ \qedbox \end{mathproof} }
 \newcommand{\proofideacall}{Beweisidee}
 \newenvironment{proofidea}[1][]{ \begin{mathproof}{\proofideacall}{#1} }{ \end{mathproof} }
+
+% math environment for examples (not numerated)
 \newcommand{\examplecall}{Beispiel}
-\newenvironment{example}[1][]{ \begin{mathproof}{\examplecall}{#1} }{ \end{mathproof} }
+% \newcommand{\examplebox}{\hfill $\blacksquare$}
+\newcommand{\examplebox}{\hfill $\rule{5pt}{5pt}$}
+% \newenvironment{example}[1][]{ \begin{mathproof}{\examplecall}{#1} }{ \end{mathproof} }
+\newenvironment{example}[1][]{
+	\medskip
+	\normalfont
+	\small
+	\textsc{\examplecall}: ~ \parent{#1} \\
+}{
+	% \par
+	\examplebox
+	\par
+	\medskip
+}
