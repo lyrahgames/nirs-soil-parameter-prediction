@@ -1,0 +1,50 @@
+\section{Fundamentals}
+\label{sec:fundamentals}
+	
+	\subsection{Soil Parameters}
+	\label{ssec:soil-parameters}
+	
+		Let $A$ be any substance in a given soil sample with volume $V\in[0,\infty)$ and let $n_A\in[0,\infty)$ be the amount of $A$ in the sample.
+		Then the molar concentration $c_A$ is given by
+		\[
+			c_A \define \frac{n_A}{V}
+		\]
+		Now let $c_0$ be the molar concentration of this sample.
+		We define the amount-of-substance fraction (ASF) $p_A$ of $A$ as 
+		\[
+			p_A \define 100\%\cdot\frac{c_A}{c_0}
+		\]
+
+		In this elaboration we concentrate on three main soil parameters that are given by existing NIRS-measurements.
+		The first two parameters $p_\m{SOC}$ and $p_\m{N}$ are ASFs relating to soil organic carbon (SOC) and nitrogen in the soil sample.
+		SOC is the carbon in this sample which is bound in an organic compound.
+		The third parameter is the $\m{pH}$-value that is used to specify the acidity or basicity of an aqueous solution.
+		It is based on the concentration of hydronium ions $c_\m{H_3O^+}$.
+		\[
+			\m{pH} \define -\log_{10} c_\m{H_3O^+} = -\frac{\ln c_\m{H_3O^+}}{\ln 10}
+		\]
+	
+	% subsection soil-parameters
+
+	\subsection{NIRS}
+	\label{ssec:nirs}
+	
+		In NIRS one uses electromagnetic waves, also known as light, with a wavelength from $780\unit{nm}$ to $3000\unit{nm}$.
+		This area is called the near infrared region and is the most energetic one of the infrared light.
+		% Quelle: https://de.wikipedia.org/wiki/Nahes_Infrarot
+
+		An emitted light wave with a certain wavelength $\lambda$ can interact with a soil sample in three ways.
+		It can be reflected, absorbed or transmitted.
+		For most soil samples measuring the transmittance of light waves is not sensible.
+		So the measurement of the spectrum is reduced to the reflectance since absorptance cannot be directly determined.
+		
+		
+
+		Reflectance $\varrho(\lambda)$ of a surface referring to a wavelength $\lambda$ of a light wave is given by the amount of radiation power $P_\m{r}$ that is reflected from a surface divided by the initial power $P_0$ of this light wave.
+		\[
+			\varrho \define \frac{P_\m{r}}{P_0}
+		\]
+	
+	% subsection nirs
+
+% section fundamentals

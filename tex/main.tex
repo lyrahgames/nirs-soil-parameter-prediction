@@ -1,15 +1,50 @@
 \input{pre}
 
-\title{}
-\author{}
+\title{Statistical Methods: \\ Prediction of Soil Parameters through Near Infrared Spectroscopy}
+\author{Kazimir Menzel \\ Markus Pawellek}
 % \date{}
-\newcommand{\email}{}
+\newcommand{\email}{kazimir.menzel@me.com \\ markuspawellek@gmail.com}
 
 
 \begin{document}
 	
-	\articletitle
+	\twocolumn[
+		{\begin{@twocolumnfalse}
+			\thispagestyle{titlestyle}
+			\section*{\centering \thetitle}
+			\bigskip
+			\begin{minipage}[t][][c]{0.45\textwidth}
+				\raggedleft{Kazimir Menzel \\ kazimir.menzel@me.com}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[t][][c]{0.45\textwidth}
+				\raggedright{Markus Pawellek \\ markuspawellek@gmail.com}
+			\end{minipage}
+			\bigskip
+			\bigskip
+			\hrule
+			\medskip
+			\begin{abstract}
+				\input{sec/abstract}
+			\end{abstract}
+			\medskip
+			\hrule
+			\bigskip
+			\bigskip
+			\bigskip
+		\end{@twocolumnfalse}}
+	]
 
 
+	\input{sec/introduction}
+	\input{sec/fundamentals}
+	\input{sec/model-selection}
+	\input{sec/simulation}
+	\input{sec/conclusion}
+	\appendix
+	\input{sec/parameters}
+	\input{sec/r-source-code}
+
+	\bibliography{}
 
 \end{document}
