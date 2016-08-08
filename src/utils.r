@@ -13,7 +13,7 @@ mlr.rss = function(obs, design_mat){
 	res <- obs - (hat_mat %*% obs)
 
 	# return
-	t(res) %*% res
+	as.numeric(t(res) %*% res)
 }
 
 # multiple linear regression variance estimator
@@ -102,7 +102,7 @@ ms.sa.prob = function(old_cost, new_cost, temp){
 }
 
 # model selection: simulated annealing
-ms.sa = function(obs, design_mat, inv_mlr_var, idx_vec = c(1), temp = 100, alpha = 0.99, it_max = 10000, it_exit = 1200){
+ms.sa = function(obs, design_mat, inv_mlr_var, idx_vec = c(1), temp = 10, alpha = 0.999, it_max = 20000, it_exit = 1200){
 	max_idx <- dim(design_mat)[2]
 	old_cost <- mallows.cp(obs, design_mat, idx_vec, inv_mlr_var);
 	it_same <- 0
@@ -127,6 +127,7 @@ ms.sa = function(obs, design_mat, inv_mlr_var, idx_vec = c(1), temp = 100, alpha
 		# debug information
 		print(idx_vec)
 		print(old_cost)
+		print(temp)
 	}
 
 	# return
