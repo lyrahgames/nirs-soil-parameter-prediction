@@ -35,16 +35,180 @@
 
 		An emitted light wave with a certain wavelength $\lambda$ can interact with a soil sample in three ways.
 		It can be reflected, absorbed or transmitted.
-		For most soil samples measuring the transmittance of light waves is not sensible.
+		For most soil samples measuring the transmittance of light waves is not sensible because thickness of these samples varies.
 		So the measurement of the spectrum is reduced to the reflectance since absorptance cannot be directly determined.
-		
-		
+		% Quelle: Tutorial
 
-		Reflectance $\varrho(\lambda)$ of a surface referring to a wavelength $\lambda$ of a light wave is given by the amount of radiation power $P_\m{r}$ that is reflected from a surface divided by the initial power $P_0$ of this light wave.
+		The amount of reflection divides again in specular and diffuse reflection.
+		For our purpose only the diffuse part shall be considered.
+		This is the one which penetrates the soil sample most.
+		As a consequence, diffuse reflected light is scattered among the hemisphere and contains information about the used soil sample.
+		For a more detailed view on this topic please refer to [Tutorial].
+		% Quelle: Tutorial
+
+		The reflectance $\varrho(\lambda)$ referring to a wavelength $\lambda$ of a light wave of a surface is given by the amount of radiation power $P_\m{r}$ that is reflected from a surface divided by the initial power $P_0$ of this light wave.
 		\[
-			\varrho \define \frac{P_\m{r}}{P_0}
+			\varrho(\lambda) \define \frac{P_\m{r}}{P_0}
 		\]
-	
+		This function $\varrho$ is then called (in our case) the near infrared spectrum of the soil sample.
+
+		Absorptance itself originates from the existence of vibrational modes in molecules.
+		A photon with a wavelength $\lambda$ can only be absorbed if the appropriate frequency $f$ exactly matches a multiple of the transition energy of the bond or group that vibrates.
+		This is why the spectra of soil samples are formed of overtones and combinations bands.
+		% Quelle: Tutorial, https://en.wikipedia.org/wiki/Infrared_spectroscopy
+
+		As a matter of fact it is because of the similarity of diffuse reflected and transmitted light that we can use the Beer-Lambert law as a relation of the attenuation of light and the properties of samples.
+		% Quelle: Tutorial, https://en.wikipedia.org/wiki/Beer%E2%80%93Lambert_law
+		Let $n\in\SN$ be the count of different species in a sample and $c_i$ be the molar concentration of the $i$th species for $i\in\SN,i\leq n$.
+		Is again $\lambda$ the wavelength of the used light then there exist certain coefficients $\varepsilon_i(\lambda)$ for all $i\in\SN,i\leq n$ so that
+
+		\[
+			-\ln \varrho(\lambda) = \sum_{i=1}^{n} \varepsilon_i(\lambda) c_i
+		\]
+
 	% subsection nirs
+
+	\subsection{Measured Data}
+	\label{ssec:measured-data}
+	
+		For the prediction of soil parameters it is inevitable one already got some soil spectra with corresponding directly measured soil parameters.
+		We are using a dataframe made by Dr. A. Don of the Heinrich von Thünen-Institut Braunschweig.
+
+		\begin{figure*}
+			\centering
+			\input{gp/soil-spec-rnd.tex}
+			\caption{This figure shows near infrared soil spectra of six randomly chosen soil samples obtained from the used dataframe.}
+			\label{fig:soil-spec-rnd}
+		\end{figure*}
+
+		The dataframe is made up of $533$ measured soil samples.
+		For everyone of them the in section \ref{ssec:soil-parameters} discussed parameters $p_\m{SOC},p_\m{N},\m{pH}$ and the near infrared spectrum are given.
+		The soil spectra consists of $319$ wavelengths ranging from $1400\unit{nm}$ to $2672\unit{nm}$ by a step of $4\unit{nm}$.
+		The reflectance $\varrho(\lambda)$ of a sample at a given wavelength $\lambda$ is saved as
+		\[
+			-\lg \varrho(\lambda) = -\frac{\ln \varrho(\lambda)}{\ln 10}
+		\]
+		Figure \ref{fig:soil-spec-rnd} shows six randomly chosen soil spectra in a diagram.
+	
+	% subsection measured-data
+
+	\subsection{Statistical Model}
+	\label{ssec:statistical-model}
+	
+		Let $n\in\SN$ be the soil sample count and $k\in\SN$ with $k\leq n$ the number of measured wavelengths.
+		$\varrho_i$ shall be defined as soil spectrum of the $i$th sample for every $i\in\SN,i\leq n$.
+		$\lambda_j$ is the $j$th measured wavelength for every $j\in\SN,j\leq k$, also called predictor.
+		Then according to section \ref{ssec:measured-data} the measured reflectance values are $x_{ij}$ with
+		\[
+			x_{ij} \define -\lg \varrho_i(\lambda_j)
+		\]
+		for every $i,j\in\SN,i\leq n,j\leq k$.
+		Through the following matrix it is possible to get an easier notation.
+		\[
+			X \define (x_{ij}) \in \SR^{n\times k}
+		\]
+		Let $p^\m{(SOC)}_i, p^\m{(N)}_i, \m{pH}_i$ be the measured soil parameters of the $i$th sample for every $i\in\SN,i\leq n$, also known as observables.
+		Then we define the $n$-dimensional vectors
+		\begin{alignat*}{3}
+			p^\m{(SOC)} &\define&&\ \curvb{p^\m{(SOC)}_i} \\
+			p^\m{(N)} &\define&&\ \curvb{p^\m{(N)}_i} \\
+			\m{pH} &\define&&\ \curvb{\m{pH}_i}
+		\end{alignat*}
+
+		The Beer-Lambert law allows us to make assumptions to the relations of soil spectra and soil parameters.
+		In section \ref{ssec:nirs} we saw that the logarithmized reflectance can be written as a linear combination of molar concentrations.
+		Hence, vice versa it makes sense to assume that an ASF can be represented by a linear combination of logarithmized reflectance values.
+
+		Now let $P^\m{(SOC)},P^\m{(N)}$ be the appropriate random variables to the soil parameters $p^\m{(SOC)}$ and $p^{(N)}$.
+		Then with the above assumption the expected values are given by
+		\begin{alignat*}{3}
+			\expect P^\m{(SOC)} &=&&\ X\beta^\m{(SOC)}_k + \beta^\m{(SOC)}_0 \definedby \mathbb{X}\beta^\m{(SOC)} \\
+			\expect P^\m{(N)} &=&&\ X\beta^\m{(N)}_k + \beta^\m{(N)}_0 \definedby \mathbb{X}\beta^\m{(N)}
+		\end{alignat*}
+		When $\m{PH}$ is the corresponding random variable to $\m{pH}$ we have to perform a correction because $\m{pH}$ is a logarithmized molar concentration.
+		It makes sense to model these with the subsequent expected value.
+		\[
+			\expect \m{PH} = \ln(X)\beta^\m{(pH)}_k + \beta^\m{(pH)}_0 \definedby \mathbb{X}_{\ln}\beta^\m{(pH)}
+		\]
+
+		In physics and chemistry it is a common and error-proven method to assume a normal distribution with a certain variance for measuring errors.
+		So with the variances $(\sigma^2)^\m{(SOC)},(\sigma^2)^\m{(N)},(\sigma^2)^\m{(pH)}\in(0,\infty)$ our random variables become
+		\begin{alignat*}{3}
+			P^\m{(SOC)} &\sim&&\ \FN\curvb{\mathbb{X}\beta^\m{(SOC)}, (\sigma^2)^\m{(SOC)}\idmat_n} \\
+			P^\m{(N)} &\sim&&\ \FN\curvb{\mathbb{X}\beta^\m{(N)}, (\sigma^2)^\m{(N)}\idmat_n} \\
+			\m{PH} &\sim&&\ \FN\curvb{\mathbb{X}_{\ln}\beta^\m{(pH)}, (\sigma^2)^\m{(pH)}\idmat_n}
+		\end{alignat*}
+	
+	% subsection statistical-model
+
+	\subsection{MLR}
+	\label{ssec:mlr}
+	
+		Multiple linear regression (MLR) or multivariate linear regression is a statistical method for estimating parameters that depend on linear independent variables.
+		Let $\mathbb{X}\in\SR^{n\times(k+1)}, n,k\in\SN,k<n$ be the design matrix, $\sigma^2\in(0,\infty)$ and $Y$ be the vector of random variables with
+		\[
+			Y \sim \FN\curvb{\mathbb{X}\beta,\sigma^2\idmat_n}
+		\]
+		for a certain $\beta\in\SR^{k+1}$
+		Then through the maximum-likelihood-method and a small correction we get two best unbiased estimators $\hat{\beta},\hat{\sigma^2}$ for $\beta$ and $\sigma^2$
+		\begin{alignat*}{3}
+			\hat{\beta}(Y) &=&&\ \inv{\curvb{\transp{\mathbb{X}}\mathbb{X}}}\transp{\mathbb{X}}Y \\
+			\hat{\sigma^2}(Y) &=&&\ \frac{1}{n-(k+1)}\norm{Y - \mathbb{X}\hat{\beta}(Y)}^2
+		\end{alignat*}
+		Now let $y \define (y_i)\in\SR^n$ be a realization of $Y$.
+		In this case we define
+		\begin{alignat*}{3}
+			\hat{y} &\define&&\ \mathbb{X}\hat{\beta}(y) = \mathbb{X}\inv{\curvb{\transp{\mathbb{X}}\mathbb{X}}}\transp{\mathbb{X}}y \\
+			\hat{\sigma^2} &\define&&\ \hat{\sigma^2}(y)
+		\end{alignat*}
+		For more information please refer to [Quelle:Skript,wikipedia].
+	
+	% subsection mlr
+
+	\subsection{Mallows' $\m{Cp}$}
+	\label{ssec:mallows-cp}
+	
+		According to sections \ref{ssec:statistical-model} and \ref{ssec:mlr} at this time we are using $k+1 = 320$ predictors for our prediction model.
+		Estimating Model Parameters with this large amount of predictors tends to overfit the measured data.
+		% Quelle: Tutorial, Skript
+		So it would be sensible to choose a \enquote{good} subset of predictors
+		\[
+			M\subset \set[i\in\SN_0,i\leq k]{\lambda_i}
+		\]
+		where $\lambda_0$ stands for the defined offset.
+		Now through $M$ one can define a new design matrix $\mathbb{X}^{(M)}$.
+		Applying MLR to this design matrix gives us new estimators
+		\begin{alignat*}{3}
+			\hat{\beta}^{(M)}(Y) &=&&\ \inv{\curvb{\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}}}\transp{\mathbb{X}^{(M)}}Y \\
+			\hat{\sigma^2}^{(M)}(Y) &=&&\ \frac{1}{n-\#M}\norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2
+		\end{alignat*}
+		
+		The term \enquote{good} refers to a criterion by which we can define the \enquote{goodness} of $M$.
+		Here we will use Mallows' $\m{Cp}$.
+		\[
+			\m{Cp}^{(M)} \define \frac{1}{\hat{\sigma^2}}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\#M
+		\]
+		The minimization this value is equivalent to the minimization of the sum of predicted squared errors (SPSE).
+	
+	% subsection mallows-cp
+
+	\subsection{Simulated Annealing}
+	\label{ssec:simulated-annealing}
+	
+		The set of predictors contains $k=319$ free selectable elements (the constant shall remain).
+		Therefore the power set $\s{P}$, the set of possible subsets $M$, contains of $2^{k}=2^{319}$ elements.
+		If we want to find a subset $M$ so that for all $N\in\s{P}$ the inequation holds
+		\[
+			\m{Cp}^{(M)} \leq \m{Cp}^{(N)}
+		\]
+		we have to calculate $\m{Cp}^{(N)}$ for every $N\in\s{P}$.
+		But this is a calculation beyond our current computing power.
+
+		Simulated annealing (SA) is a probabilistic technique for approximating the global optimum of a given function.
+		Specifically, it is a metaheuristic to approximate global optimization in a large search space.
+		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
+		With this algorithm it is possible to find a good local minimum in a short time.
+	
+	% subsection simulated-annealing
 
 % section fundamentals
