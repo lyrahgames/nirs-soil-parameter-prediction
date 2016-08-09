@@ -206,9 +206,41 @@
 
 		Simulated annealing (SA) is a probabilistic technique for approximating the global optimum of a given function.
 		Specifically, it is a metaheuristic to approximate global optimization in a large search space.
+		It simulates the slow cooling of a thermodynamic system through random numbers.
+		With this algorithm it is possible to find a \enquote{good} local minimum in a short time.
 		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
-		With this algorithm it is possible to find a good local minimum in a short time.
+
+		The algorithm works on an arbitrary set, in our case $\s{P}$.
+		Let $x_0\in\s{P}$ be the initial set of predictors, $T_0\in(0,\infty)$ be the initial temperature of the system and $i_\m{max}\in\SN$ be the maximal number of time steps.
+		Then the algorithm needs certain functions.
+		\begin{itemize}
+			\item $\func{\m{cost}}{\s{P}}{\SR}$ \\
+				Calculates the cost of a given predictor set.
+			\item $\func{\m{temp}}{\SR\times\SN^2}{(0,\infty)}$\\
+				Calculates the temperature according to the given initial temperature and time steps.
+			\item $\func{\m{nbr}}{\s{P}}{\s{P}}$ \\
+				Generates a random neighbor of a given predictor set.
+			\item $\func{\m{prob}}{\SR^2\times(0,\infty)}{[0,1]}$ \\
+				Calculates the probability of changing the current set or state to the neighbor.
+			\item $\m{rnd}(0,1)$ \\
+				Returns a random number in the interval $[0,1]$.
+		\end{itemize}
+		The listing shows one variant of the pseudocode of the SA algorithm. 
+
+		\medskip
+		\begin{tcolorbox}[colframe=black,colbacktitle=white,coltitle=black, attach boxed title to top center={yshift=-2mm},enhanced, titlerule=0.1pt, boxrule=0.5pt, arc=5pt,title=Listing:\quad SA algorithm]
+			\input{sec/sa-algorithm}
+		\end{tcolorbox}
+		\medskip
+
 	
 	% subsection simulated-annealing
+
+	\subsection{Model Validation}
+	\label{ssec:model-validation}
+	
+		% goodness of prediction
+	
+	% subsection model-validation
 
 % section fundamentals

@@ -1,0 +1,16 @@
+\begin{tabbing}
+	\qquad\=\qquad\=\qquad\=\qquad\=\kill
+	$c_0 = \m{cost}(x_0)$\\
+	\\
+	\textbf{for} ($i=1$, $i\leq i_\m{max}$) \{\\
+		\>$T = \m{temp}(T_0,i,i_\m{max})$\\
+		\\
+		\>$x_1 = \m{nbr}(x_0)$\\
+		\>$c_1 = \m{cost}(x_1)$\\
+		\\
+		\>\textbf{if} $(\m{prob}(c_0, c_1, T) \geq \m{rnd}(0,1))$ \{\\
+			\>\>$x_0 = x_1$\\
+			\>\>$c_0 = c_1$\\
+		\>\}\\
+	\}
+\end{tabbing}
