@@ -1,5 +1,5 @@
-\section{Fundamentals}
-\label{sec:fundamentals}
+\section{Background}
+\label{sec:background}
 	
 	\subsection{Soil Parameters}
 	\label{ssec:soil-parameters}
@@ -12,55 +12,56 @@
 		Now let $c_0$ be the molar concentration of this whole sample.
 		We define the amount-of-substance fraction (ASF) $p_A$ of $A$ as 
 		\[
-			p_A \define 100\%\cdot\frac{c_A}{c_0}
+			p^{(A)} \define 100\%\cdot\frac{c_A}{c_0}
 		\]
 
-		In this elaboration we concentrate on three main soil parameters that are given by existing NIRS-measurements.
-		The first two parameters $p_\m{SOC}$ and $p_\m{N}$ are ASFs relating to soil organic carbon (SOC) and nitrogen in the soil sample.
-		SOC is the carbon in this sample which is bound in an organic compound.
-		The third parameter is the $\m{pH}$-value that is used to specify the acidity or basicity of an aqueous solution.
-		It is based on the concentration of hydronium ions $c_\m{H_3O^+}$.
+		In this report, we concentrate on three important soil parameters that are given by existing NIRS-measurements. %citation
+		The first two parameters $p^\m{(SOC)}$ and $p^\m{(N)}$ are the ASFs relating to soil organic carbon (SOC) and nitrogen in a given soil sample.
+		SOC refers to the carbon in the sample that is bound in an organic compound.
+		The third parameter is the $\m{pH}$-value that specifies the acidity of an aqueous solution.
+		It links to the concentration of hydronium ions $c_\m{H_3O^+}$.
 		\[
-			\m{pH} \define -\log_{10} c_\m{H_3O^+} = -\frac{\ln c_\m{H_3O^+}}{\ln 10}
+			\m{pH} \define -\lg c_\m{H_3O^+} = -\frac{\ln c_\m{H_3O^+}}{\ln 10}
 		\]
 	
 	% subsection soil-parameters
 
-	\subsection{NIRS}
+	\subsection{Near Infrared Spectroscopy}
 	\label{ssec:nirs}
 	
-		In NIRS one uses electromagnetic waves, also known as light, with a wavelength from $780\unit{nm}$ to $3000\unit{nm}$.
+		NIRS uses electromagnetic waves,%citation
+		 famously known as light, with wavelengths ranging from $780\unit{nm}$ to $3000\unit{nm}$, the so called near infrared spectrum.
 		This area is called the near infrared region and is the most energetic one of the infrared light.
 		% Quelle: https://de.wikipedia.org/wiki/Nahes_Infrarot
 
-		An emitted light wave with a certain wavelength $\lambda$ can interact with a soil sample in three ways.
+		An emitted light wave with wavelength $\lambda \in (0,\infty)$ interacts with a soil sample in three ways:
 		It can be reflected, absorbed or transmitted.
-		For most soil samples measuring the transmittance of light waves is not sensible because thickness of these samples varies.
-		So the measurement of the spectrum is reduced to the reflectance since absorptance cannot be directly determined.
+		For most soil samples measuring the transmittance of light waves is not sensible as the thickness of these samples varies.
+		Since the absorptance cannot be determined directly, reflectance is used.
 		% Quelle: Tutorial
 
-		The amount of reflection divides again in specular and diffuse reflection.
-		For our purpose only the diffuse part shall be considered.
-		This is the one which penetrates the soil sample most.
-		As a consequence, diffuse reflected light is scattered among the hemisphere and contains information about the used soil sample.
+		Reflection can be split in specular and diffuse reflection.
+		NIRS uses the latter as it penetrates the sample the most.
+		As a consequence, diffuse reflected light is hemispherically scattered and contains information about the soil sample composition.
 		For a more detailed view on this topic please refer to [Tutorial].
 		% Quelle: Tutorial
 
-		The reflectance $\varrho(\lambda)$ referring to a wavelength $\lambda$ of a light wave of a surface is given by the amount of radiation power $P_\m{r}$ that is reflected from a surface divided by the initial power $P_0$ of this light wave.
+		The reflectance 
 		\[
-			\varrho(\lambda) \define \frac{P_\m{r}}{P_0}
+			\func{\varrho}{(0,\infty)}{(0,\infty)},\qquad \varrho(\lambda) \define \frac{P_\m{r}(\lambda)}{P_0}
 		\]
-		This function $\varrho$ is then called (in our case) the near infrared spectrum of the soil sample.
+		of a surface depending on wavelength $\lambda$ of a light wave is given by the amount of radiation power $P_\m{r}(\lambda)$ that is reflected from the surface divided by the initial power $P_0$ of the light wave.	
+		In our case, this function $\varrho$ is defined as the near infrared spectrum of the soil sample.
 
 		Absorptance itself originates from the existence of vibrational modes in molecules.
-		A photon with a wavelength $\lambda$ can only be absorbed if the appropriate frequency $f$ exactly matches a multiple of the transition energy of the bond or group that vibrates.
-		This is why the spectra of soil samples are formed of overtones and combinations bands.
+		A photon with a wavelength $\lambda \in (0,\infty)$ can only be absorbed if the appropriate frequency $f$ exactly matches a multiple of the transition energy of the bond or group that vibrates.%citation
+		This is why the spectra of soil samples are formed of overtones and combination bands.
 		% Quelle: Tutorial, https://en.wikipedia.org/wiki/Infrared_spectroscopy
 
-		As a matter of fact it is because of the similarity of diffuse reflected and transmitted light that we can use the Beer-Lambert law as a relation of the attenuation of light and the properties of samples.
+		Due to the similarity of diffuse reflected and transmitted light we can use Beer-Lambert's law as a relation of the attenuation of light and the properties of samples.
 		% Quelle: Tutorial, https://en.wikipedia.org/wiki/Beer%E2%80%93Lambert_law
-		Let $n\in\SN$ be the count of different species in a sample and $c_i$ be the molar concentration of the $i$th species for $i\in\SN,i\leq n$.
-		Is again $\lambda$ the wavelength of the used light then there exist certain coefficients $\varepsilon_i(\lambda)$ for all $i\in\SN,i\leq n$ so that
+		Let $n\in\SN$ be the count of different substances in a sample and $c_i$ be the molar concentration of the $i$th substance for $i\in\SN,i\leq n$.
+		Is again $\lambda \in (0,\infty)$ the wavelength of the used light then there exist certain coefficients $\varepsilon_i(\lambda)$ for all $i\in\SN,i\leq n$ such that
 
 		\[
 			-\ln \varrho(\lambda) = \sum_{i=1}^{n} \varepsilon_i(\lambda) c_i
