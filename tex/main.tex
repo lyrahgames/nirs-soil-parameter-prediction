@@ -5,13 +5,33 @@
 % \date{}
 \newcommand{\email}{kazimir.menzel@me.com \\ markuspawellek@gmail.com}
 
+\usepackage{csvsimple}
+% \titleformat{\section}{\fontfamily{put}\selectfont}{\thesection}{1em}{}
+ % \titleformat{\subsection}
+    % {\normalfont\bf}{\thesection}{1em}{}
+
+\usepackage{times}
+% \usepackage{scrextend}
+% \changefontsizes[9pt]{9pt}
+
+\usepackage{titlesec}
+
+% \titleformat*{\section*}{\LARGE\bfseries}
+\titleformat*{\section}{\large\bfseries}
+\titlespacing*{\section}{0pt}{1.5\baselineskip}{0pt}
+\titlespacing*{\subsection}{0pt}{\baselineskip}{0pt}
+% \titlespacing*{\section}{}{}{}
+\titleformat*{\subsection}{\bfseries}
+% \titleformat*{\subsubsection}{\bfseries}
+% \titleformat*{\paragraph}{\bfseries}
+% \titleformat*{\subparagraph}{\bfseries}
 
 \begin{document}
-	
+	\linespread{1.1}\selectfont
 	\twocolumn[
 		{\begin{@twocolumnfalse}
 			\thispagestyle{titlestyle}
-			\section*{\centering \thetitle}
+			{\LARGE\bfseries \begin{center}{\thetitle}\end{center}}
 			\bigskip
 			\begin{minipage}[t][][c]{0.45\textwidth}
 				\raggedleft{Kazimir Menzel \\ kazimir.menzel@me.com}
@@ -23,7 +43,9 @@
 			\bigskip
 			\bigskip
 			\hrule
-			\medskip			\begin{abstract}
+			\medskip
+			\begin{abstract}
+				\itshape
 				\input{sec/abstract}
 			\end{abstract}
 			\medskip
@@ -34,6 +56,7 @@
 		\end{@twocolumnfalse}}
 	]
 
+	\linespread{1.15}\selectfont
 
 	\input{sec/introduction}
 	\input{sec/fundamentals}
