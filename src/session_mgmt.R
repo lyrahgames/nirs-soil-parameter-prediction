@@ -1,11 +1,11 @@
 # setting up session
 
-setwd("~/Desktop/Projekt_4_NIR")
+setwd("~/Desktop/soil-nirs")
 
 # packages
 
-library(ggplot2)
-library(reshape2)
+require(ggplot2)
+require(reshape2)
 
 # data import
 
