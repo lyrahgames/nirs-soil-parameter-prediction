@@ -4,12 +4,12 @@
 	\subsection{Soil Parameters}
 	\label{ssec:soil-parameters}
 	
-		Let $A$ be any substance in a given soil sample with volume $V\in[0,\infty)$ and let $n_A\in[0,\infty)$ be the amount of $A$ in the sample.
+		Let $A$ be any substance in a given soil sample with volume $V\in(0,\infty)$ and let $n_A\in(0,\infty)$ be the amount of $A$ in the sample.
 		Then the molar concentration $c_A$ is given by
 		\[
 			c_A \define \frac{n_A}{V}
 		\]
-		Now let $c_0$ be the molar concentration of this sample.
+		Now let $c_0$ be the molar concentration of this whole sample.
 		We define the amount-of-substance fraction (ASF) $p_A$ of $A$ as 
 		\[
 			p_A \define 100\%\cdot\frac{c_A}{c_0}
@@ -218,6 +218,7 @@
 				Calculates the cost of a given predictor set.
 			\item $\func{\m{temp}}{\SR\times\SN^2}{(0,\infty)}$\\
 				Calculates the temperature according to the given initial temperature and time steps.
+				It is a monotonically decreasing function in the second parameter.
 			\item $\func{\m{nbr}}{\s{P}}{\s{P}}$ \\
 				Generates a random neighbor of a given predictor set.
 			\item $\func{\m{prob}}{\SR^2\times(0,\infty)}{[0,1]}$ \\

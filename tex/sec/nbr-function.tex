@@ -1,0 +1,14 @@
+\begin{tabbing}
+	\qquad\=\qquad\=\qquad\=\qquad\=\kill
+	\textbf{function} $\m{nbr}(M)$\{\\
+		\>$r = \m{rnd}\set{2,\ldots,k+1}$\\
+		\\
+		\>\textbf{if} ($\lambda_r\in M$)\{\\
+			\>\>$\tilde{M}=M\setminus\set{\lambda_r}$\\
+		\>\}\textbf{else}\{\\
+			\>\>$\tilde{M}=M\cup\set{\lambda_r}$\\
+		\>\}\\
+		\\
+		\>\textbf{return} $\tilde{M}$\\
+	\}
+\end{tabbing}
