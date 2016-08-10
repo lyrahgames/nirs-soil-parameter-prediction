@@ -1,10 +1,16 @@
-# get hat-matrix of a given design-matrix
-# design_mat must have full rank
-hat.mat = function(design_mat){
+# get matrix for calculating parameters
+mlr.par.mat = function(design_mat){
 	transp_design_mat <- t(design_mat)
 
 	# return
-	design_mat %*% solve(transp_design_mat %*% design_mat) %*% transp_design_mat
+	solve(transp_design_mat %*% design_mat) %*% transp_design_mat
+}
+
+# get hat-matrix of a given design-matrix
+# design_mat must have full rank
+mlr.hat.mat = function(design_mat){
+	# return
+	design_mat %*% mlr.par.mat(design_mat)
 }
 
 # multiple linear regression residual sum of squares (rss)
