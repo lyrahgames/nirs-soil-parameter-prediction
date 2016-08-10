@@ -63,3 +63,15 @@ rm(i)
 
 # parameter plot
 
+SOC_idx <- unlist(read.csv(file = "../pro-files/data/gen/ms-sa-soc-idx-vec.csv", header = T))
+
+design_mat <- cbind(1,refl_mat)
+
+beta_SOC <- mlr.par.mat(design_mat[,SOC_idx]) %*% soc_vec
+
+beta_plot_data <- data.frame(wl_vec[(SOC_idx-1)[-1]], beta_SOC[-1])
+colnames(beta_plot_data) <- c("wave_length","parameter")
+
+ggplot(data = beta_plot_data) +
+	geom_polygon( aes(x = wave_length,
+					y = parameter))
