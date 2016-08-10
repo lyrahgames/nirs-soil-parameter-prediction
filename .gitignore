@@ -5,6 +5,7 @@
 *.mathlist
 
 *.zip
+*.history
 
 # Core latex/pdflatex auxiliary files:
 *.aux

@@ -1,18 +1,8 @@
 # setting up session
 
-setwd("~/Desktop/Projekt_4_NIR")
+setwd("~/Desktop/soil-nirs")
 
 # packages
 
-library(ggplot2)
-library(reshape2)
-
-# data import
-
-NIR_data <- read.csv(	file = "./data/NIR.csv",
-						header = TRUE,
-						sep = ";")
-						
-dim(NIR_data)
-str(NIR_data)
-summary(NIR_data)
+require(ggplot2)
+require(reshape2)
