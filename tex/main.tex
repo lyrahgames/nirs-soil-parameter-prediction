@@ -1,10 +1,5 @@
 \input{pre}
 
-\title{Statistical Methods: \\ Prediction of Soil Parameters through Near Infrared Spectroscopy}
-\author{Kazimir Menzel \\ Markus Pawellek}
-% \date{}
-\newcommand{\email}{kazimir.menzel@me.com \\ markuspawellek@gmail.com}
-
 \usepackage{csvsimple}
 % \titleformat{\section}{\fontfamily{put}\selectfont}{\thesection}{1em}{}
  % \titleformat{\subsection}
@@ -14,24 +9,28 @@
 % \usepackage{scrextend}
 % \changefontsizes[9pt]{9pt}
 
-\usepackage{titlesec}
+\usepackage{datatool}
 
-% \titleformat*{\section*}{\LARGE\bfseries}
-\titleformat*{\section}{\large\bfseries}
-\titlespacing*{\section}{0pt}{1.5\baselineskip}{0pt}
-\titlespacing*{\subsection}{0pt}{\baselineskip}{0pt}
-% \titlespacing*{\section}{}{}{}
-\titleformat*{\subsection}{\bfseries}
-% \titleformat*{\subsubsection}{\bfseries}
-% \titleformat*{\paragraph}{\bfseries}
-% \titleformat*{\subparagraph}{\bfseries}
+\title{Statistical Methods: \\ Prediction of Soil Parameters through Near Infrared Spectroscopy}
+\author{Kazimir Menzel \\ Markus Pawellek}
+% \date{}
+\newcommand{\email}{kazimir.menzel@me.com \\ markuspawellek@gmail.com}
 
 \begin{document}
+	\newgeometry{top=40mm,left=45mm,right=45mm}
+	\onecolumn
+	\thispagestyle{empty}
+	\maketitle
+	\tableofcontents
+	\newpage
+	\restoregeometry
+	\pagenumbering{arabic}
+
 	\linespread{1.1}\selectfont
 	\twocolumn[
 		{\begin{@twocolumnfalse}
 			\thispagestyle{titlestyle}
-			{\LARGE\bfseries \begin{center}{\thetitle}\end{center}}
+			{\huge\bfseries \begin{center}{Statistical Methods: \\ Prediction of Soil Parameters through Near Infrared Spectroscopy}\end{center}}
 			\bigskip
 			\begin{minipage}[t][][c]{0.45\textwidth}
 				\raggedleft{Kazimir Menzel \\ kazimir.menzel@me.com}
@@ -60,9 +59,12 @@
 
 	\input{sec/introduction}
 	\input{sec/fundamentals}
+	\input{sec/methodology}
 	\input{sec/model-selection}
 	\input{sec/simulation}
 	\input{sec/conclusion}
+	
+	\bibliography{}
 	
 	\appendix
 	\onecolumn
@@ -71,6 +73,5 @@
 	\input{sec/r-source-code}
 
 	\twocolumn
-	\bibliography{}
 
 \end{document}

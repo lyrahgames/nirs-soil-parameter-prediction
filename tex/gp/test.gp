@@ -1,0 +1,1 @@
+plot 'pro-files/data/gen/ms-sa-soc-par.csv' using 1:(abs($2)) with impulses lt 1 lw 2

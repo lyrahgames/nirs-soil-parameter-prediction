@@ -6,7 +6,7 @@
 
 % package for changing page layout
 \usepackage{geometry}
-\geometry{a4paper, lmargin=30mm, rmargin=30mm, tmargin=30mm, bmargin=45mm}
+\geometry{a4paper, lmargin=27mm, rmargin=27mm, tmargin=30mm, bmargin=45mm}
 % set indentation
 \setlength{\parindent}{1em}
 % set factor for line spacing
@@ -166,6 +166,11 @@
 
 % \usepackage{indentfirst}
 
+\usepackage{titlesec}
+\titleformat*{\section}{\large\bfseries}
+\titlespacing*{\section}{0pt}{1.5\baselineskip}{0pt}
+\titlespacing*{\subsection}{0pt}{\baselineskip}{0pt}
+\titleformat*{\subsection}{\bfseries}
 
 \usepackage{titling}
 \title{}

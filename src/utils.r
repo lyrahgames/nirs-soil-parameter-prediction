@@ -1,9 +1,44 @@
+# calculate the gram matrix of a given matrix
+gram.mat = function(mat){
+	#return
+	t(mat) %*% mat
+}
+
+mlr.transf.obs.vec = function(obs_vec, design_mat){
+
+}
+
 # get matrix for calculating parameters
 mlr.par.mat = function(design_mat){
 	transp_design_mat <- t(design_mat)
 
 	# return
 	solve(transp_design_mat %*% design_mat) %*% transp_design_mat
+}
+
+# calculate parameters
+mlr.par = function(obs_vec, design_mat){
+	# return
+	as.vector(mlr.par.mat(design_mat) %*% obs_vec)
+}
+
+# initialize global variables needed for fast calculation of multiple linear regression and model selection
+mlr.init = function(obs_vec, design_mat){
+	transp_design_mat <- t(design_mat)
+
+	# global variables
+	gv_mlr_design_mat <<- design_mat
+	gv_mlr_max_idx <<- dim(design_mat)[2]
+	gv_mlr_obs_vec <<- obs_vec
+	gv_mlr_sample_size <<- length(obs_vec)
+	gv_mlr_transf_obs_vec <<- transp_design_mat %*% obs_vec
+	gv_mlr_gram_design_mat <<- transp_design_mat %*% design_mat
+	gv_mlr_par_vec <<- solve(_mlr_gram_design_mat, _mlr_transf_obs_vec)
+	gv_mlr_expect_vec <<- design_mat %*% _mlr_par_vec
+	gv_mlr_res_vec << obs_vec - _mlr_expect_vec
+	gv_mlr_rss <<- as.numeric(t(_mlr_res_vec)%*%_mlr_res_vec)
+	gv_mlr_var <<- _mlr_rss  / (length(obs_vec) - dim(design_mat)[2])
+	gv_mlr_inv_var <<- 1.0 / _mlr_var
 }
 
 # get hat-matrix of a given design-matrix
@@ -14,37 +49,42 @@ mlr.hat.mat = function(design_mat){
 }
 
 # multiple linear regression residual sum of squares (rss)
-mlr.rss = function(obs, design_mat){
-	hat_mat <- hat.mat(design_mat)
-	res <- obs - (hat_mat %*% obs)
+mlr.rss = function(obs_vec, design_mat){
+	hat_mat <- mlr.hat.mat(design_mat)
+	res <- obs_vec - (hat_mat %*% obs_vec)
 
 	# return
 	as.numeric(t(res) %*% res)
 }
 
 # multiple linear regression variance estimator
-mlr.var = function(obs, design_mat){
+mlr.var = function(obs_vec, design_mat){
 	# return
-	(mlr.rss(obs, design_mat)) / (length(obs) - dim(design_mat)[2])
+	(mlr.rss(obs_vec, design_mat)) / (length(obs_vec) - dim(design_mat)[2])
+}
+
+# get residual sum of squares for given model (needs mlr.init)
+ms.rss = function(idx_vec){
+	par_vec <- solve(_mlr_gram_design_mat[idx_vec,idx_vec], _mlr_transf_obs_vec[idx_vec])
+	res_vec <- _mlr_obs_vec - ( gv_mlr_design_mat[,idx_vec] %*% par_vec )
+
+	# return
+	as.numeric( t(res_vec) %*% res_vec )
 }
 
 # mallows cp
 # idx_vec describes given model
-# inv_mlr_var is the inverse variance of the given full model
-mallows.cp = function(obs, design_mat, idx_vec, inv_mlr_var){
-	# construct design matrix of given model
-	design_mat_mod <- design_mat[,idx_vec]
-
-	# return (will be returned as matrix; do not know why)
-	(mlr.rss(obs, design_mat_mod) * inv_mlr_var) + (2*length(idx_vec)) - length(obs)
+ms.cp = function(idx_vec){
+	# return
+	(ms.rss(idx_vec) * _mlr_inv_var) + (2*length(idx_vec)) - length(_mlr_obs_vec)
 }
 
 # model selection: forward selection method
-ms.fwd.sel = function(obs, design_mat, inv_mlr_var){
+ms.fwd.sel = function(obs_vec, design_mat, inv_mlr_var){
 	full_idx_vec <- seq(1, dim(design_mat)[2])
 	# first column will be used every time
 	idx_vec <- 1
-	cp <- mallows.cp(obs, design_mat, idx_vec, inv_mlr_var)
+	cp <- mallows.cp(obs_vec, design_mat, idx_vec, inv_mlr_var)
 
 	repeat{
 		# vector of selection
@@ -55,11 +95,11 @@ ms.fwd.sel = function(obs, design_mat, inv_mlr_var){
 		}
 
 		tmp_idx_vec_1 <- c(idx_vec, sel_vec[1])
-		tmp_cp_1 <- mallows.cp(obs, design_mat, tmp_idx_vec_1, inv_mlr_var)
+		tmp_cp_1 <- mallows.cp(obs_vec, design_mat, tmp_idx_vec_1, inv_mlr_var)
 
 		for (i in 2:length(sel_vec)){
 			tmp_idx_vec_2 <- c(idx_vec, sel_vec[i])
-			tmp_cp_2 <- mallows.cp(obs, design_mat, tmp_idx_vec_2, inv_mlr_var)
+			tmp_cp_2 <- mallows.cp(obs_vec, design_mat, tmp_idx_vec_2, inv_mlr_var)
 
 			if (tmp_cp_2 <= tmp_cp_1){
 				tmp_cp_1 <- tmp_cp_2
@@ -108,14 +148,14 @@ ms.sa.prob = function(old_cost, new_cost, temp){
 }
 
 # model selection: simulated annealing
-ms.sa = function(obs, design_mat, inv_mlr_var, idx_vec = c(1), temp = 10, alpha = 0.999, it_max = 20000, it_exit = 1200){
-	max_idx <- dim(design_mat)[2]
-	old_cost <- mallows.cp(obs, design_mat, idx_vec, inv_mlr_var);
+ms.sa = function(idx_vec = c(1), temp = 10, alpha = 0.9, it_max = 1000, it_exit = 120){
+	# max_idx <- dim(design_mat)[2]
+	old_cost <- mallows.cp(obs_vec, design_mat, idx_vec, inv_mlr_var);
 	it_same <- 0
 
 	for (i in 1:it_max){
 		nbr_idx_vec <- ms.sa.nbr(idx_vec, max_idx);
-		new_cost <- mallows.cp(obs, design_mat, nbr_idx_vec, inv_mlr_var)
+		new_cost <- mallows.cp(obs_vec, design_mat, nbr_idx_vec, inv_mlr_var)
 
 		if ( ms.sa.prob(old_cost, new_cost, temp) >= runif(1) ){
 			idx_vec <- nbr_idx_vec
