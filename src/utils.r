@@ -1,12 +1,12 @@
 # calculate the gram matrix of a given matrix
-gram.mat = function(mat){
-	#return
-	t(mat) %*% mat
-}
+# gram.mat = function(mat){
+# 	#return
+# 	t(mat) %*% mat
+# }
 
-mlr.transf.obs.vec = function(obs_vec, design_mat){
+# mlr.transf.obs.vec = function(obs_vec, design_mat){
 
-}
+# }
 
 # get matrix for calculating parameters
 mlr.par.mat = function(design_mat){
@@ -33,12 +33,12 @@ mlr.init = function(obs_vec, design_mat){
 	gv_mlr_sample_size <<- length(obs_vec)
 	gv_mlr_transf_obs_vec <<- transp_design_mat %*% obs_vec
 	gv_mlr_gram_design_mat <<- transp_design_mat %*% design_mat
-	gv_mlr_par_vec <<- solve(_mlr_gram_design_mat, _mlr_transf_obs_vec)
-	gv_mlr_expect_vec <<- design_mat %*% _mlr_par_vec
-	gv_mlr_res_vec << obs_vec - _mlr_expect_vec
-	gv_mlr_rss <<- as.numeric(t(_mlr_res_vec)%*%_mlr_res_vec)
-	gv_mlr_var <<- _mlr_rss  / (length(obs_vec) - dim(design_mat)[2])
-	gv_mlr_inv_var <<- 1.0 / _mlr_var
+	gv_mlr_par_vec <<- solve(gv_mlr_gram_design_mat, gv_mlr_transf_obs_vec)
+	gv_mlr_expect_vec <<- design_mat %*% gv_mlr_par_vec
+	gv_mlr_res_vec <<- obs_vec - gv_mlr_expect_vec
+	gv_mlr_rss <<- as.numeric(t(gv_mlr_res_vec)%*%gv_mlr_res_vec)
+	gv_mlr_var <<- gv_mlr_rss  / (length(obs_vec) - dim(design_mat)[2])
+	gv_mlr_inv_var <<- 1.0 / gv_mlr_var
 }
 
 # get hat-matrix of a given design-matrix
@@ -65,8 +65,11 @@ mlr.var = function(obs_vec, design_mat){
 
 # get residual sum of squares for given model (needs mlr.init)
 ms.rss = function(idx_vec){
-	par_vec <- solve(_mlr_gram_design_mat[idx_vec,idx_vec], _mlr_transf_obs_vec[idx_vec])
-	res_vec <- _mlr_obs_vec - ( gv_mlr_design_mat[,idx_vec] %*% par_vec )
+	par_vec <- solve(gv_mlr_gram_design_mat[idx_vec,idx_vec], gv_mlr_transf_obs_vec[idx_vec])
+	# print(length(par_vec))
+	# print(par_vec)
+	# print(length(gv_mlr_design_mat[,idx_vec]))
+	res_vec <- gv_mlr_obs_vec - ( as.matrix(gv_mlr_design_mat[,idx_vec]) %*% par_vec )
 
 	# return
 	as.numeric( t(res_vec) %*% res_vec )
@@ -76,15 +79,15 @@ ms.rss = function(idx_vec){
 # idx_vec describes given model
 ms.cp = function(idx_vec){
 	# return
-	(ms.rss(idx_vec) * _mlr_inv_var) + (2*length(idx_vec)) - length(_mlr_obs_vec)
+	(ms.rss(idx_vec) * gv_mlr_inv_var) + (2*length(idx_vec)) - length(gv_mlr_obs_vec)
 }
 
 # model selection: forward selection method
-ms.fwd.sel = function(obs_vec, design_mat, inv_mlr_var){
+ms.fwd.sel = function(obs_vec, design_mat, invgv_mlr_var){
 	full_idx_vec <- seq(1, dim(design_mat)[2])
 	# first column will be used every time
 	idx_vec <- 1
-	cp <- mallows.cp(obs_vec, design_mat, idx_vec, inv_mlr_var)
+	cp <- mallows.cp(obs_vec, design_mat, idx_vec, invgv_mlr_var)
 
 	repeat{
 		# vector of selection
@@ -95,11 +98,11 @@ ms.fwd.sel = function(obs_vec, design_mat, inv_mlr_var){
 		}
 
 		tmp_idx_vec_1 <- c(idx_vec, sel_vec[1])
-		tmp_cp_1 <- mallows.cp(obs_vec, design_mat, tmp_idx_vec_1, inv_mlr_var)
+		tmp_cp_1 <- mallows.cp(obs_vec, design_mat, tmp_idx_vec_1, invgv_mlr_var)
 
 		for (i in 2:length(sel_vec)){
 			tmp_idx_vec_2 <- c(idx_vec, sel_vec[i])
-			tmp_cp_2 <- mallows.cp(obs_vec, design_mat, tmp_idx_vec_2, inv_mlr_var)
+			tmp_cp_2 <- mallows.cp(obs_vec, design_mat, tmp_idx_vec_2, invgv_mlr_var)
 
 			if (tmp_cp_2 <= tmp_cp_1){
 				tmp_cp_1 <- tmp_cp_2
@@ -148,14 +151,14 @@ ms.sa.prob = function(old_cost, new_cost, temp){
 }
 
 # model selection: simulated annealing
-ms.sa = function(idx_vec = c(1), temp = 10, alpha = 0.9, it_max = 1000, it_exit = 120){
+ms.sa = function(idx_vec = c(1), temp = 100, alpha = 0.99, it_max = 10000, it_exit = 1200){
 	# max_idx <- dim(design_mat)[2]
-	old_cost <- mallows.cp(obs_vec, design_mat, idx_vec, inv_mlr_var);
+	old_cost <- ms.cp(idx_vec);
 	it_same <- 0
 
 	for (i in 1:it_max){
-		nbr_idx_vec <- ms.sa.nbr(idx_vec, max_idx);
-		new_cost <- mallows.cp(obs_vec, design_mat, nbr_idx_vec, inv_mlr_var)
+		nbr_idx_vec <- ms.sa.nbr(idx_vec, gv_mlr_max_idx);
+		new_cost <- ms.cp(nbr_idx_vec)
 
 		if ( ms.sa.prob(old_cost, new_cost, temp) >= runif(1) ){
 			idx_vec <- nbr_idx_vec
@@ -171,9 +174,9 @@ ms.sa = function(idx_vec = c(1), temp = 10, alpha = 0.9, it_max = 1000, it_exit 
 		temp <- alpha * temp
 
 		# debug information
-		print(idx_vec)
-		print(old_cost)
-		print(temp)
+		# print(idx_vec)
+		# print(old_cost)
+		# print(temp)
 	}
 
 	# return
