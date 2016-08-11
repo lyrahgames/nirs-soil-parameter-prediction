@@ -4,9 +4,18 @@
 	\subsection{Measured Data}
 	\label{ssec:measured-data}
 	
-		For the prediction of soil parameters it is inevitable one already got some soil spectra with corresponding directly measured soil parameters.
-		We are using a dataframe made by Dr. A. Don of the Heinrich von Thünen-Institut Braunschweig.
+		%For the prediction of soil parameters it is inevitable one already got some soil spectra with corresponding directly measured soil parameters.
+		%We are using a dataframe made by Don %citation
+		%of the Heinrich von Thünen-Institut Braunschweig.
+		
+		As a single spectrum contains overlapping information, it is necessary to determine both relevant wavelengths and the respective parameters to apply NIRS to practical problems.
+		To select wavelengths and determine parameters we use an example data set, which contains $p^\m{(SOC)},p^\m{(N)},\m{pH}$ and wave reflectances of 319 wavelengths ranging from $1400 \unit{nm}$ to $2672 \unit{nm}$ by steps of $4 \unit{nm}$ for 533 samples.%citation
 
+		We define $\Lambda$ as the set of all measured wavelengths. The reflectance $\varrho(\lambda)$ of a sample at a wavelength $\lambda \in \Lambda$ is recorded as
+		\[
+			-\lg \varrho(\lambda) = -\frac{\ln \varrho(\lambda)}{\ln 10}
+		\]
+		
 		\begin{figure*}
 			\centering
 			\input{gp/soil-spec-rnd.tex}
@@ -14,13 +23,7 @@
 			\label{fig:soil-spec-rnd}
 		\end{figure*}
 
-		The dataframe is made up of $533$ measured soil samples.
-		For everyone of them the in section \ref{ssec:soil-parameters} discussed parameters $p_\m{SOC},p_\m{N},\m{pH}$ and the near infrared spectrum are given.
-		The soil spectra consists of $319$ wavelengths ranging from $1400\unit{nm}$ to $2672\unit{nm}$ by a step of $4\unit{nm}$.
-		The reflectance $\varrho(\lambda)$ of a sample at a given wavelength $\lambda$ is saved as
-		\[
-			-\lg \varrho(\lambda) = -\frac{\ln \varrho(\lambda)}{\ln 10}
-		\]
+		
 		Figure \ref{fig:soil-spec-rnd} shows six randomly chosen soil spectra in a diagram.
 	
 	% subsection measured-data
