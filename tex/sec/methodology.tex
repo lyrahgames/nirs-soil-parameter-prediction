@@ -4,65 +4,77 @@
 	\subsection{Measured Data}
 	\label{ssec:measured-data}
 	
-		For the prediction of soil parameters it is inevitable one already got some soil spectra with corresponding directly measured soil parameters.
-		We are using a dataframe made by Dr. A. Don of the Heinrich von Thünen-Institut Braunschweig.
+		As a single spectrum contains overlapping information, it is necessary to determine both relevant wavelengths and the respective parameters to apply NIRS to practical problems.
+		To select wavelengths and determine parameters we use an example data set, which contains $p^\m{(SOC)},p^\m{(N)},\m{pH}$ and wave reflectances of 319 wavelengths ranging from $1400 \unit{nm}$ to $2672 \unit{nm}$ by steps of $4 \unit{nm}$ for 533 samples.%citation
 
+		We define $\Lambda$ as the set of all measured wavelengths. The reflectance $\varrho(\lambda)$ of a sample at a wavelength $\lambda \in \Lambda$ is recorded as
+		\[
+			-\lg \varrho(\lambda) = -\frac{\ln \varrho(\lambda)}{\ln 10}
+		\]
+		Figure \ref{fig:soil-spec-rnd} shows six randomly chosen soil spectra in a diagram.
 		\begin{figure*}
 			\centering
 			\input{gp/soil-spec-rnd.tex}
 			\caption{This figure shows near infrared soil spectra of six randomly chosen soil samples obtained from the used dataframe.}
 			\label{fig:soil-spec-rnd}
 		\end{figure*}
-
-		The dataframe is made up of $533$ measured soil samples.
-		For everyone of them the in section \ref{ssec:soil-parameters} discussed parameters $p_\m{SOC},p_\m{N},\m{pH}$ and the near infrared spectrum are given.
-		The soil spectra consists of $319$ wavelengths ranging from $1400\unit{nm}$ to $2672\unit{nm}$ by a step of $4\unit{nm}$.
-		The reflectance $\varrho(\lambda)$ of a sample at a given wavelength $\lambda$ is saved as
-		\[
-			-\lg \varrho(\lambda) = -\frac{\ln \varrho(\lambda)}{\ln 10}
-		\]
-		Figure \ref{fig:soil-spec-rnd} shows six randomly chosen soil spectra in a diagram.
+		
 	
 	% subsection measured-data
 
 	\subsection{Statistical Model}
 	\label{ssec:statistical-model}
 	
-		Let $n\in\SN$ be the soil sample count and $k\in\SN$ with $k\leq n$ the number of measured wavelengths.
-		$\varrho_i$ shall be defined as soil spectrum of the $i$th sample for every $i\in\SN,i\leq n$.
-		$\lambda_j$ is the $j$th measured wavelength for every $j\in\SN,j\leq k$, also called predictor.
+		Let $n\in\SN$ be the size of the data set and $k\in\SN$ with $k\leq n$ the number of measured wavelengths. We define
+		$\varrho_i$ as the soil spectrum of the $i$th sample for every $i\in\SN,i\leq n$.
+		$\lambda_j$ is the $j$th measured wavelength for every $j\in\SN,j\leq k$. We will alternatively refer to these as predictors.%note that we might have to introduce the term predictor at this point
 		Then according to section \ref{ssec:measured-data} the measured reflectance values are $x_{ij}$ with
 		\[
 			x_{ij} \define -\lg \varrho_i(\lambda_j)
 		\]
 		for every $i,j\in\SN,i\leq n,j\leq k$.
-		Through the following matrix it is possible to get an easier notation.
+		
+	
+		We define the measured ASF of $\m{SOC}$ of the $i$th sample for every $i\in\SN,i\leq n$ as $p^\m{(SOC)}_i$ to which we will also refer to as response variable.
+		To simplify notation, we then define the $n$-dimensional vector
+%		\begin{alignat*}{3}
 		\[
-			X \define (x_{ij}) \in \SR^{n\times k}
+			p^\m{(SOC)} \define \curvb{p^\m{(SOC)}_i}
 		\]
-		Let $p^\m{(SOC)}_i, p^\m{(N)}_i, \m{pH}_i$ be the measured soil parameters of the $i$th sample for every $i\in\SN,i\leq n$, also known as observables.
-		Then we define the $n$-dimensional vectors
-		\begin{alignat*}{3}
-			p^\m{(SOC)} &\define&&\ \curvb{p^\m{(SOC)}_i} \\
-			p^\m{(N)} &\define&&\ \curvb{p^\m{(N)}_i} \\
-			\m{pH} &\define&&\ \curvb{\m{pH}_i}
-		\end{alignat*}
+			%p^\m{(N)} &\define&&\ \curvb{p^\m{(N)}_i} \\
+			%\m{pH} &\define&&\ \curvb{\m{pH}_i}
+%		\end{alignat*}
 
-		The Beer-Lambert law allows us to make assumptions to the relations of soil spectra and soil parameters.
-		In section \ref{ssec:nirs} we saw that the logarithmized reflectance can be written as a linear combination of molar concentrations.
-		Hence, vice versa it makes sense to assume that an ASF can be represented by a linear combination of logarithmized reflectance values.
+		The Beer-Lambert law allows us to make assumptions on the relations between soil spectra and the response variable.
+		We saw in section \ref{ssec:nirs} that the logarithmised reflectance can be written as a linear combination of molar concentrations.
+		Hence, it seems plausible to assume that an ASF can be represented by a linear combination of logarithmised reflectance values.
 
-		Now let $P^\m{(SOC)},P^\m{(N)}$ be the appropriate random variables to the soil parameters $p^\m{(SOC)}$ and $p^{(N)}$.
-		Then with the above assumption the expected values are given by
-		\begin{alignat*}{3}
-			\expect P^\m{(SOC)} &=&&\ X\beta^\m{(SOC)}_k + \beta^\m{(SOC)}_0 \definedby \mathbb{X}\beta^\m{(SOC)} \\
-			\expect P^\m{(N)} &=&&\ X\beta^\m{(N)}_k + \beta^\m{(N)}_0 \definedby \mathbb{X}\beta^\m{(N)}
-		\end{alignat*}
-		When $\m{PH}$ is the corresponding random variable to $\m{pH}$ we have to perform a correction because $\m{pH}$ is a logarithmized molar concentration.
-		It makes sense to model these with the subsequent expected value.
+		Now let $P^\m{(SOC)}$ be the appropriate random vector to $p^\m{(SOC)}$.
+		Then under the above assumption the expected values are given for all $i \in \SN, i \leq n$ by
 		\[
-			\expect \m{PH} = \ln(X)\beta^\m{(pH)}_k + \beta^\m{(pH)}_0 \definedby \mathbb{X}_{\ln}\beta^\m{(pH)}
+			\expect P_i^\m{(SOC)} \define \beta^\m{(SOC)}_0 + \sum_{j = 1}^k{x_{ij}\beta^\m{(SOC)}_j} 
 		\]
+		which simplifies with an $\mathbb{X} \in \SR^{n \times (k+1)}$ and a $\beta^\m{(SOC)} \in \SR^{k+1}$ to
+		\[
+			\expect P^\m{(SOC)} = \mathbb{X}\beta^\m{(SOC)}
+		\]
+		
+		To capture the stochastic part of $P^\m{(SOC)}$, we model the error
+		 it is common practice in physics and chemistry to assume a normal distribution of the error term.
+		
+		The model for the second response variable $P^\m{(N)}$ is constructed in analogy.
+		
+		The case for the $\m{pH}$ is slightly different, though. 
+		When modelling the corresponding random variable we have to perform a correction as the $\m{pH}$ is a logarithmised molar concentration.
+		We therefore have to include this into the expected value of the corresponding random variables
+		
+		\[
+			\expect \m{\overline{pH}}_i \define \beta^\m{\m{(pH)}}_0 + \sum_{j = 1}^k{\ln (x_{ij}) \beta^\m{(pH)}_j} 
+		\]
+		and denote the corresponding matrix by $\mathbb{X}_{\ln}$.
+%		\[
+%			\expect \m{PH} = \ln(X)\beta^\m{(pH)}_k + \beta^\m{(pH)}_0 \definedby \beta^\m{(pH)}
+%		\]
 
 		In physics and chemistry it is a common and error-proven method to assume a normal distribution with a certain variance for measuring errors.
 		So with the variances $(\sigma^2)^\m{(SOC)},(\sigma^2)^\m{(N)},(\sigma^2)^\m{(pH)}\in(0,\infty)$ our random variables become
