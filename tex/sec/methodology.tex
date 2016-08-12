@@ -54,14 +54,24 @@
 		\[
 			\expect P_i^\m{(SOC)} \define \beta^\m{(SOC)}_0 + \sum_{j = 1}^k{x_{ij}\beta^\m{(SOC)}_j} 
 		\]
-		which simplifies with an $\mathbb{X} \in \SR^{n \times (k+1)}$ and a $\beta^\m{(SOC)} \in \SR^{k+1}$ to
+		which simplifies with an $\mathbb{X} \in \SR^{n \times (k+1)}$, called design matrix, and a parameter vector $\beta^\m{(SOC)} \in \SR^{k+1}$ to
 		\[
 			\expect P^\m{(SOC)} = \mathbb{X}\beta^\m{(SOC)}
 		\]
 		
-		To capture the stochastic part of $P^\m{(SOC)}$, we model the error
-		 it is common practice in physics and chemistry to assume a normal distribution of the error term.
-		
+		To capture the stochastic part of $P^\m{(SOC)}$, we extend the model to
+		\begin{alignat*}{3}
+			&P^\m{(SOC)} = \mathbb{X}\beta^\m{(SOC)} + \varepsilon^\m{(SOC)} \\
+			&\expect \varepsilon^\m{(SOC)} = 0, \qquad \cov \varepsilon^\m{(SOC)} = (\sigma^2)^\m{(SOC)} \idmat
+		\end{alignat*}
+		where $(\sigma^2)^\m{(SOC)} \in (0,\infty)$. Following common practice in physics and chemistry, we further assume that 
+		\[
+			\varepsilon^\m{(SOC)} \sim \FN \curvb{0,(\sigma^2)^\m{(SOC)}\idmat}
+		\]
+		This results in the complete model
+		\[
+			P^\m{(SOC)} \sim \FN \curvb{\mathbb{X}\beta^\m{(SOC)},(\sigma^2)^\m{(SOC)} \idmat}
+		\]
 		The model for the second response variable $P^\m{(N)}$ is constructed in analogy.
 		
 		The case for the $\m{pH}$ is slightly different, though. 
@@ -72,41 +82,31 @@
 			\expect \m{\overline{pH}}_i \define \beta^\m{\m{(pH)}}_0 + \sum_{j = 1}^k{\ln (x_{ij}) \beta^\m{(pH)}_j} 
 		\]
 		and denote the corresponding matrix by $\mathbb{X}_{\ln}$.
-%		\[
-%			\expect \m{PH} = \ln(X)\beta^\m{(pH)}_k + \beta^\m{(pH)}_0 \definedby \beta^\m{(pH)}
-%		\]
 
-		In physics and chemistry it is a common and error-proven method to assume a normal distribution with a certain variance for measuring errors.
-		So with the variances $(\sigma^2)^\m{(SOC)},(\sigma^2)^\m{(N)},(\sigma^2)^\m{(pH)}\in(0,\infty)$ our random variables become
-		\begin{alignat*}{3}
-			P^\m{(SOC)} &\sim&&\ \FN\curvb{\mathbb{X}\beta^\m{(SOC)}, (\sigma^2)^\m{(SOC)}\idmat_n} \\
-			P^\m{(N)} &\sim&&\ \FN\curvb{\mathbb{X}\beta^\m{(N)}, (\sigma^2)^\m{(N)}\idmat_n} \\
-			\m{PH} &\sim&&\ \FN\curvb{\mathbb{X}_{\ln}\beta^\m{(pH)}, (\sigma^2)^\m{(pH)}\idmat_n}
-		\end{alignat*}
 	
 	% subsection statistical-model
 
 	\subsection{Multivariate Linear Regression}
 	\label{ssec:mlr}
 	
-		Multiple linear regression (MLR) or multivariate linear regression is a statistical method for estimating parameters that depend on linear independent variables.
-		Let $\mathbb{X}\in\SR^{n\times(k+1)}, n,k\in\SN,k<n$ be the design matrix, $\sigma^2\in(0,\infty)$ and $Y$ be the vector of random variables with
+		Multiple linear regression (MLR) or multivariate linear regression is a statistical method for estimating parameters of linear relations between a response variable and a set of predictors and to use these to predict new responses.
+		Let $\mathbb{X}\in\SR^{n\times(k+1)}, n,k\in\SN,k<n$ be the design matrix, $\sigma^2\in(0,\infty)$ and $Y$ be the random vector variables with
 		\[
 			Y \sim \FN\curvb{\mathbb{X}\beta,\sigma^2\idmat_n}
 		\]
 		for a certain $\beta\in\SR^{k+1}$
-		Then through the maximum-likelihood-method and a small correction we get two best unbiased estimators $\hat{\beta},\hat{\sigma^2}$ for $\beta$ and $\sigma^2$
+		Then through the maximum-likelihood-method and a correction we get two best unbiased estimators $\hat{\beta},\hat{\sigma}^2$ for $\beta$ and $\sigma^2$
 		\begin{alignat*}{3}
 			\hat{\beta}(Y) &=&&\ \inv{\curvb{\transp{\mathbb{X}}\mathbb{X}}}\transp{\mathbb{X}}Y \\
-			\hat{\sigma^2}(Y) &=&&\ \frac{1}{n-(k+1)}\norm{Y - \mathbb{X}\hat{\beta}(Y)}^2
+			\hat{\sigma}^2(Y) &=&&\ \frac{1}{n-(k+1)}\norm{Y - \mathbb{X}\hat{\beta}(Y)}^2
 		\end{alignat*}
 		Now let $y \define (y_i)\in\SR^n$ be a realization of $Y$.
-		In this case we define
+		Then we define
 		\begin{alignat*}{3}
 			\hat{y} &\define&&\ \mathbb{X}\hat{\beta}(y) = \mathbb{X}\inv{\curvb{\transp{\mathbb{X}}\mathbb{X}}}\transp{\mathbb{X}}y \\
-			\hat{\sigma^2} &\define&&\ \hat{\sigma^2}(y)
+			\hat{\sigma}^2 &\define&&\ \hat{\sigma}^2(y)
 		\end{alignat*}
-		For more information please refer to [Quelle:Skript,wikipedia].
+		%citation
 	
 	% subsection mlr
 
@@ -125,13 +125,13 @@
 		Applying MLR to this design matrix gives us new estimators
 		\begin{alignat*}{3}
 			\hat{\beta}^{(M)}(Y) &=&&\ \inv{\curvb{\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}}}\transp{\mathbb{X}^{(M)}}Y \\
-			\hat{\sigma^2}^{(M)}(Y) &=&&\ \frac{1}{n-\#M}\norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2
+			\curvb{\hat{\sigma}^2}^{(M)}(Y) &=&&\ \frac{1}{n-\#M}\norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2
 		\end{alignat*}
 		
 		The term \enquote{good} refers to a criterion by which we can define the \enquote{goodness} of $M$.
 		Here we will use Mallows' $\m{Cp}$.
 		\[
-			\m{Cp}^{(M)} \define \frac{1}{\hat{\sigma^2}}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\#M
+			\m{Cp}^{(M)} \define \frac{1}{\hat{\sigma}^2}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\#M
 		\]
 		The minimization this value is equivalent to the minimization of the sum of predicted squared errors (SPSE).
 	
