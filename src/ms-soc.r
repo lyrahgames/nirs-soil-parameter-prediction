@@ -26,8 +26,23 @@ source("init.r")
 # write.csv(sa_idx_vec, "../pro-files/data/gen/ms-sa-soc-idx-vec.csv", col.names = FALSE, row.names = FALSE)
 
 mlr.init(soc_vec, soc_design_mat)
+
 t1 <- proc.time()
-print(idx <- sort(ms.sa(idx_vec=1)))
+print(idx_vec <- sort(ms.sa(idx_vec=1)))
 t2 <- proc.time()
-ms.cp(idx)
+
+print("mallows' cp:")
+ms.cp(idx_vec)
+print("time:")
 t2-t1
+
+wl_idx_vec <- (idx_vec-1)[-1]
+print(wl_idx_vec)
+
+data <- read.csv("../pro-files/data/soil-spec-rnd.csv",sep="\t",header=F)
+new_data <- as.matrix(data[wl_idx_vec,])
+
+
+
+# print(new_data)
+# write.table(new_data, "../pro-files/data/gen/ms-sa-soc-spec-rnd.csv", sep="\t", col.names=F,row.names=F)

@@ -66,9 +66,6 @@ mlr.var = function(obs_vec, design_mat){
 # get residual sum of squares for given model (needs mlr.init)
 ms.rss = function(idx_vec){
 	par_vec <- solve(gv_mlr_gram_design_mat[idx_vec,idx_vec], gv_mlr_transf_obs_vec[idx_vec])
-	# print(length(par_vec))
-	# print(par_vec)
-	# print(length(gv_mlr_design_mat[,idx_vec]))
 	res_vec <- gv_mlr_obs_vec - ( as.matrix(gv_mlr_design_mat[,idx_vec]) %*% par_vec )
 
 	# return
@@ -151,7 +148,7 @@ ms.sa.prob = function(old_cost, new_cost, temp){
 }
 
 # model selection: simulated annealing
-ms.sa = function(idx_vec = c(1), temp = 100, alpha = 0.99, it_max = 10000, it_exit = 1200){
+ms.sa = function(idx_vec = c(1), temp = 100, alpha = 0.999, it_max = 10000, it_exit = 1200){
 	# max_idx <- dim(design_mat)[2]
 	old_cost <- ms.cp(idx_vec);
 	it_same <- 0
