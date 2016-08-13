@@ -75,7 +75,7 @@
 		The model for the second response variable $P^\m{(N)}$ is constructed in analogy.
 		
 		The case for the $\m{pH}$ is slightly different, though. 
-		When modelling the corresponding random variable we have to perform a correction as the $\m{pH}$ is a logarithmised molar concentration.
+		When modelling the corresponding random variable we have to adjust the model as the $\m{pH}$ is a logarithmised molar concentration.
 		We therefore have to include this into the expected value of the corresponding random variables
 		
 		\[
@@ -113,25 +113,26 @@
 	\subsection{Mallows' $\m{Cp}$}
 	\label{ssec:mallows-cp}
 	
-		According to sections \ref{ssec:statistical-model} and \ref{ssec:mlr} at this time we are using $k+1 = 320$ predictors for our prediction model.
-		Estimating Model Parameters with this large amount of predictors tends to overfit the measured data.
-		% Quelle: Tutorial, Skript
-		So it would be sensible to choose a \enquote{good} subset of predictors
+		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole measured spectra for each soil sample.
+		[this is wrong] We know from \ref{ssec:nirs} that the light waves contain redundant information.
+		This might lead to overfitting, i.e. the variance of our estimated parameters $\hat{\beta}_i(Y)$ might be too large, compromising their usability for future measurements.
+		To address this problem, it is sensible to limit each actual model to a \enquote{good} subset of the predictors. Hence, our task becomes to select the best or at least a \enquote{sufficiently} good model $M$ defined by
 		\[
-			M\subset \set[i\in\SN_0,i\leq k]{\lambda_i}
+			M\subset \Lambda \cup \set{\lambda_0}
 		\]
-		where $\lambda_0$ stands for the defined offset.
-		Now through $M$ one can define a new design matrix $\mathbb{X}^{(M)}$.
-		Applying MLR to this design matrix gives us new estimators
+		where $\lambda_0$ stands for the intercept.
+		We denote the design matrix for each $M$ by $\mathbb{X}^{(M)}$.
+		Applying MLR to the new design matrix yields the new estimators
 		\begin{alignat*}{3}
 			\hat{\beta}^{(M)}(Y) &=&&\ \inv{\curvb{\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}}}\transp{\mathbb{X}^{(M)}}Y \\
-			\curvb{\hat{\sigma}^2}^{(M)}(Y) &=&&\ \frac{1}{n-\#M}\norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2
+			\curvb{\hat{\sigma}^2}^{(M)}(Y) &=&&\ \frac{1}{n-\abs{ M}}\norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2
 		\end{alignat*}
 		
-		The term \enquote{good} refers to a criterion by which we can define the \enquote{goodness} of $M$.
-		Here we will use Mallows' $\m{Cp}$.
+		%to follow the logic of our argumentation, we should start with the SPSE
+		
+		To determine the \enquote{goodness} of $M$, we use Mallow's $\m{Cp}$ given by
 		\[
-			\m{Cp}^{(M)} \define \frac{1}{\hat{\sigma}^2}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\#M
+			\m{Cp}^{(M)} \define \frac{1}{\hat{\sigma}^2}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\abs{M}
 		\]
 		The minimization this value is equivalent to the minimization of the sum of predicted squared errors (SPSE).
 	

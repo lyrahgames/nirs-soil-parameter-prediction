@@ -1,15 +1,15 @@
 # calculate the gram matrix of a given matrix
-# gram.mat = function(mat){
+# gram.mat <- function(mat){
 # 	#return
 # 	t(mat) %*% mat
 # }
 
-# mlr.transf.obs.vec = function(obs_vec, design_mat){
+# mlr.transf.obs.vec <- function(obs_vec, design_mat){
 
 # }
 
 # get matrix for calculating parameters
-mlr.par.mat = function(design_mat){
+mlr.par.mat <- function(design_mat){
 	transp_design_mat <- t(design_mat)
 
 	# return
@@ -17,13 +17,13 @@ mlr.par.mat = function(design_mat){
 }
 
 # calculate parameters
-mlr.par = function(obs_vec, design_mat){
+mlr.par <- function(obs_vec, design_mat){
 	# return
 	as.vector(mlr.par.mat(design_mat) %*% obs_vec)
 }
 
 # initialize global variables needed for fast calculation of multiple linear regression and model selection
-mlr.init = function(obs_vec, design_mat){
+mlr.init <- function(obs_vec, design_mat){
 	transp_design_mat <- t(design_mat)
 
 	# global variables
@@ -43,13 +43,13 @@ mlr.init = function(obs_vec, design_mat){
 
 # get hat-matrix of a given design-matrix
 # design_mat must have full rank
-mlr.hat.mat = function(design_mat){
+mlr.hat.mat <- function(design_mat){
 	# return
 	design_mat %*% mlr.par.mat(design_mat)
 }
 
 # multiple linear regression residual sum of squares (rss)
-mlr.rss = function(obs_vec, design_mat){
+mlr.rss <- function(obs_vec, design_mat){
 	hat_mat <- mlr.hat.mat(design_mat)
 	res <- obs_vec - (hat_mat %*% obs_vec)
 
@@ -58,13 +58,13 @@ mlr.rss = function(obs_vec, design_mat){
 }
 
 # multiple linear regression variance estimator
-mlr.var = function(obs_vec, design_mat){
+mlr.var <- function(obs_vec, design_mat){
 	# return
 	(mlr.rss(obs_vec, design_mat)) / (length(obs_vec) - dim(design_mat)[2])
 }
 
 # get residual sum of squares for given model (needs mlr.init)
-ms.rss = function(idx_vec){
+ms.rss <- function(idx_vec){
 	par_vec <- solve(gv_mlr_gram_design_mat[idx_vec,idx_vec], gv_mlr_transf_obs_vec[idx_vec])
 	res_vec <- gv_mlr_obs_vec - ( as.matrix(gv_mlr_design_mat[,idx_vec]) %*% par_vec )
 
@@ -74,13 +74,13 @@ ms.rss = function(idx_vec){
 
 # mallows cp
 # idx_vec describes given model
-ms.cp = function(idx_vec){
+ms.cp <- function(idx_vec){
 	# return
 	(ms.rss(idx_vec) * gv_mlr_inv_var) + (2*length(idx_vec)) - length(gv_mlr_obs_vec)
 }
 
 # model selection: forward selection method
-ms.fwd.sel = function(obs_vec, design_mat, invgv_mlr_var){
+ms.fwd.sel <- function(obs_vec, design_mat, invgv_mlr_var){
 	full_idx_vec <- seq(1, dim(design_mat)[2])
 	# first column will be used every time
 	idx_vec <- 1
@@ -88,7 +88,7 @@ ms.fwd.sel = function(obs_vec, design_mat, invgv_mlr_var){
 
 	repeat{
 		# vector of selection
-		sel_vec = setdiff(full_idx_vec, idx_vec)
+		sel_vec <- setdiff(full_idx_vec, idx_vec)
 
 		if (length(sel_vec) == 0){
 			break
@@ -124,7 +124,7 @@ ms.fwd.sel = function(obs_vec, design_mat, invgv_mlr_var){
 }
 
 # model selection: simulated annealing: neighbour function
-ms.sa.nbr = function(idx_vec, max_idx){
+ms.sa.nbr <- function(idx_vec, max_idx){
 	# get random index (1 is not used)
 	rand_idx <- sample(2:max_idx, size = 1)
 
@@ -142,13 +142,13 @@ ms.sa.nbr = function(idx_vec, max_idx){
 
 # model selection: simulated annealing: probability function
 # costs will be minimized 
-ms.sa.prob = function(old_cost, new_cost, temp){
+ms.sa.prob <- function(old_cost, new_cost, temp){
 	# return
 	exp( (old_cost - new_cost) / temp )
 }
 
 # model selection: simulated annealing
-ms.sa = function(idx_vec = c(1), temp = 100, alpha = 0.999, it_max = 10000, it_exit = 1200){
+ms.sa <- function(idx_vec = c(1), temp = 100, alpha = 0.999, it_max = 10000, it_exit = 1200){
 	# max_idx <- dim(design_mat)[2]
 	old_cost <- ms.cp(idx_vec);
 	it_same <- 0
