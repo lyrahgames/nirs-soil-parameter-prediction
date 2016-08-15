@@ -1,10 +1,10 @@
 # calculate the gram matrix of a given matrix
-# gram.mat = function(mat){
+# gram.mat <- function(mat){
 # 	#return
 # 	t(mat) %*% mat
 # }
 
-# mlr.transf.obs.vec = function(obs_vec, design_mat){
+# mlr.transf.obs.vec <- function(obs_vec, design_mat){
 
 # }
 
@@ -198,7 +198,7 @@ ms.sa.nbr = function(idx_vec){
 
 # model selection: simulated annealing: probability function
 # costs will be minimized 
-ms.sa.prob = function(old_cost, new_cost, temp){
+ms.sa.prob <- function(old_cost, new_cost, temp){
 	# return
 	exp( (old_cost - new_cost) / temp )
 }

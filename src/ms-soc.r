@@ -38,7 +38,7 @@ print("mallows' cp:")
 ms.cp(idx_vec)
 print("estimated spse:")
 ms.spse(idx_vec)
-print("time:")
+rint("time:")
 t2-t1
 
 ms.init.dist(idx_vec)

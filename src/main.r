@@ -67,36 +67,38 @@ test_ph_idx_vec = match(c(
 # mallows.cp(soc_vec, refl_mat, sa_idx, inv_mlr_var)
 
 # soc test
-soc_design_mat <- cbind(1,refl_mat)
-mlr_var_soc <- mlr.var(soc_vec, soc_design_mat)
-inv_mlr_var_soc <- 1.0 / mlr_var_soc
-test_soc_idx_vec <- c(1,test_soc_idx_vec + 1)
-mallows.cp(soc_vec, soc_design_mat, test_soc_idx_vec, inv_mlr_var_soc)
+# soc_design_mat <- cbind(1,refl_mat)
+# mlr_var_soc <- mlr.var(soc_vec, soc_design_mat)
+# inv_mlr_var_soc <- 1.0 / mlr_var_soc
+# test_soc_idx_vec <- c(1,test_soc_idx_vec + 1)
+# mallows.cp(soc_vec, soc_design_mat, test_soc_idx_vec, inv_mlr_var_soc)
 
-data_soc <- read.csv("../pro-files/data/gen/ms-sa-soc-idx-vec.csv")
-mallows.cp(soc_vec, soc_design_mat, as.vector(data_soc[,1]), inv_mlr_var_soc)
+# data_soc <- read.csv("../pro-files/data/gen/ms-sa-soc-idx-vec.csv")
+# mallows.cp(soc_vec, soc_design_mat, as.vector(data_soc[,1]), inv_mlr_var_soc)
 
 # mallows.cp(soc_vec, cbind(1,refl_mat), test_soc_idx_vec_2, inv_mlr_var_soc)
 # mallows.cp(soc_vec, cbind(1,refl_mat), sort(test_soc_idx_vec_2), inv_mlr_var_soc)
 
 # n test
-n_design_mat <- soc_design_mat
-mlr_var_n <- mlr.var(n_vec, n_design_mat)
-inv_mlr_var_n <- 1.0 / mlr_var_n
-test_n_idx_vec <- c(1,test_n_idx_vec + 1)
-mallows.cp(n_vec, n_design_mat, test_n_idx_vec, inv_mlr_var_n)
+# n_design_mat <- soc_design_mat
+# mlr_var_n <- mlr.var(n_vec, n_design_mat)
+# inv_mlr_var_n <- 1.0 / mlr_var_n
+# test_n_idx_vec <- c(1,test_n_idx_vec + 1)
+# mallows.cp(n_vec, n_design_mat, test_n_idx_vec, inv_mlr_var_n)
 
-data_n <- read.csv("../pro-files/data/gen/ms-sa-n-idx-vec.csv")
-mallows.cp(n_vec, n_design_mat, as.vector(data_n[,1]), inv_mlr_var_n)
+# data_n <- read.csv("../pro-files/data/gen/ms-sa-n-idx-vec.csv")
+# mallows.cp(n_vec, n_design_mat, as.vector(data_n[,1]), inv_mlr_var_n)
 
 # ph test
-ph_design_mat <- cbind(1,log(refl_mat))
-mlr_var_ph <- mlr.var(ph_vec, ph_design_mat)
-inv_mlr_var_ph <- 1.0 / mlr_var_ph
-test_ph_idx_vec <- c(1,test_ph_idx_vec + 1)
-mallows.cp(ph_vec, ph_design_mat, test_ph_idx_vec, inv_mlr_var_ph)
+# ph_design_mat <- cbind(1,log(refl_mat))
+# mlr_var_ph <- mlr.var(ph_vec, ph_design_mat)
+# inv_mlr_var_ph <- 1.0 / mlr_var_ph
+# test_ph_idx_vec <- c(1,test_ph_idx_vec + 1)
+# mallows.cp(ph_vec, ph_design_mat, test_ph_idx_vec, inv_mlr_var_ph)
 
-data_ph <- read.csv("../pro-files/data/gen/ms-sa-ph-idx-vec.csv")
-mallows.cp(ph_vec, ph_design_mat, as.vector(data_ph[,1]), inv_mlr_var_ph)
+# data_ph <- read.csv("../pro-files/data/gen/ms-sa-ph-idx-vec.csv")
+# mallows.cp(ph_vec, ph_design_mat, as.vector(data_ph[,1]), inv_mlr_var_ph)
+
+
 
 

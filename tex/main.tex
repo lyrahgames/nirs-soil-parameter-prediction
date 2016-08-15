@@ -21,6 +21,14 @@
 	\onecolumn
 	\thispagestyle{empty}
 	\maketitle
+	\hrule
+	\medskip
+	\begin{abstract}
+		\itshape
+		\input{sec/abstract}
+	\end{abstract}
+	\medskip
+	\hrule
 	\tableofcontents
 	\newpage
 	\restoregeometry
@@ -63,6 +71,13 @@
 	\input{sec/model-selection}
 	\input{sec/simulation}
 	\input{sec/conclusion}
+
+	\begin{figure}[htb]
+		\centering
+		\input{gp/ms-sa-soc-spec-rnd}
+		\caption{}
+		\label{fig:}
+	\end{figure}
 	
 	\bibliography{}
 	
