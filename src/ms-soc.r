@@ -25,9 +25,29 @@ source("init.r")
 
 # write.csv(sa_idx_vec, "../pro-files/data/gen/ms-sa-soc-idx-vec.csv", col.names = FALSE, row.names = FALSE)
 
-mlr.init(soc_vec, soc_design_mat)
+init.data(soc_vec, soc_design_mat)
+mlr.init()
+
 t1 <- proc.time()
-print(idx <- sort(ms.sa(idx_vec=1)))
+idx_vec <- sort(ms.sa())
 t2 <- proc.time()
-ms.cp(idx)
+
+print("index vector:")
+idx_vec
+print("mallows' cp:")
+ms.cp(idx_vec)
+print("estimated spse:")
+ms.spse(idx_vec)
+print("time:")
+t2-t1
+
+ms.init.dist(idx_vec)
+
+t1 <- proc.time()
+sim_spse <- ms.sim(gv_expect_vec, gv_sd, sim_count=10)
+t2 <- proc.time()
+
+print("simulated spse:")
+sim_spse
+print("time:")
 t2-t1
