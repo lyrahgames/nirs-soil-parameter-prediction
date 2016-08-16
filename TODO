@@ -1,7 +1,8 @@
 tex doc:
 	☐	definition molar concentration
 		(volume of water or solution)
-	☐	header not shown right
+	✔	header not shown right @done (16-08-16 14:09)
+	☐	header: check font size, check left- or rightmark
 	☐	calculate r² value
 
 code:

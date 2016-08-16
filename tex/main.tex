@@ -19,8 +19,8 @@
 \begin{document}
 	\newgeometry{top=40mm,left=45mm,right=45mm}
 	\onecolumn
-	\thispagestyle{empty}
 	\maketitle
+	\thispagestyle{empty}
 	\hrule
 	\medskip
 	\begin{abstract}
@@ -30,6 +30,9 @@
 	\medskip
 	\hrule
 	\tableofcontents
+	\newpage
+	\null
+	\thispagestyle{empty}
 	\newpage
 	\restoregeometry
 	\pagenumbering{arabic}
@@ -68,6 +71,7 @@
 	\input{sec/introduction}
 	\input{sec/fundamentals}
 	\input{sec/methodology}
+	\input{sec/implementation}
 	\input{sec/model-selection}
 	\input{sec/simulation}
 	\input{sec/conclusion}
