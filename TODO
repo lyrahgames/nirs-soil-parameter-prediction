@@ -1,0 +1,11 @@
+tex doc:
+	☐	definition molar concentration
+		(volume of water or solution)
+	☐	header not shown right
+	☐	calculate r² value
+
+code:
+	☐	easier implementation
+	☐	rich matrix
+	☐	stepwise regression
+		(forward, backward, bidirectional)

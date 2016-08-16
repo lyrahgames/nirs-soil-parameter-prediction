@@ -11,15 +11,17 @@ set xtics 200
 
 set xrange [1370:2700]
 
-unset key
+# unset key
 set grid lt 1 lw 3 lc rgb "#FAFAFA"
 
-set label "SOC" at 2500,0.525 front
+# set label "SOC" at 2500,0.525 front
 
-plot 'pro-files/data/gen/ms-sa-soc-spec-rnd.csv' using 1:7 with impulses lt 1 lw 3 lc rgb "#AAAAAA",\
-	'pro-files/data/soil-spec-rnd.csv' using 1:2 with lines lt 1 lw 4 lc rgb "black",\
-	'' using 1:3 with lines lt 1 lw 4 lc rgb "#FF5555",\
-	'' using 1:4 with lines lt 1 lw 4 lc rgb "#5555FF",\
-	'' using 1:5 with lines lt 1 lw 4 lc rgb "#55FF55",\
-	'' using 1:6 with lines lt 1 lw 4 lc rgb "#FFAA55",\
-	'' using 1:7 with lines lt 1 lw 4 lc rgb "#FF55FF"
+set key title 'SOC' box
+
+plot 'pro-files/data/gen/ms-sa-soc-spec-rnd.csv' using 1:7 with impulses lt 1 lw 3 lc rgb "#AAAAAA" notitle,\
+	'pro-files/data/soil-spec-rnd.csv' using 1:2 with lines lt 1 lw 4 lc rgb "black" notitle,\
+	'' using 1:3 with lines lt 1 lw 4 lc rgb "#FF5555" notitle,\
+	'' using 1:4 with lines lt 1 lw 4 lc rgb "#5555FF" notitle,\
+	'' using 1:5 with lines lt 1 lw 4 lc rgb "#55FF55" notitle,\
+	'' using 1:6 with lines lt 1 lw 4 lc rgb "#FFAA55" notitle,\
+	'' using 1:7 with lines lt 1 lw 4 lc rgb "#FF55FF" notitle

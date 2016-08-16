@@ -114,6 +114,12 @@ ms.init.dist = function(idx_vec){
 # 	(mlr.rss(obs_vec, design_mat)) / (length(obs_vec) - dim(design_mat)[2])
 # }
 
+ms.expect.vec = function(idx_vec){
+	par_vec <- solve(gv_gram_design_mat[idx_vec,idx_vec], gv_transf_obs_vec[idx_vec])
+
+	# return
+	as.matrix(gv_design_mat[,idx_vec]) %*% par_vec
+}
 
 # get residual sum of squares for given model (needs mlr.init)
 ms.rss = function(idx_vec){
