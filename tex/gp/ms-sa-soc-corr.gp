@@ -1,4 +1,4 @@
-set terminal epslatex size 5.5cm,5cm
+set terminal epslatex size 7cm,5cm
 set output "tex/gp/ms-sa-soc-corr.tex"
 
 set object 1 rect from graph 0,graph 0 to graph 1,graph 1 fc rgb "#EEEEEE" fs solid 1.0 noborder behind 
