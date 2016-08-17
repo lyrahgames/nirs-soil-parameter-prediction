@@ -1,37 +1,43 @@
 \section{Implementation}
 \label{sec:implementation}
+	\subsection{Simulated Annealing in R}
+	\label{ssec:sann-R}
 	
-	\subsection{Choosing a Neighbour}
-	\label{ssec:choosing-a-neighbour}
+		\subsubsection{Choosing a Neighbour}
+		\label{ssec:choosing-a-neighbour}
 	
-		We stated in section \ref{ssec:model-selec} that we want to select a \enquote{good} model for the prediction.
-		To this goal, we have to define the functions and parameters of the algorithm.
-		The most important one is the $\m{nbr}$ function whose purpose is to choose a neighbour efficiently since the final solution depends on a sequence of neighbours.
-		In most cases it is best to select a neighbour not too far away from the given subset. %citation!
-		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
+			We stated in section \ref{ssec:model-selec} that we want to select a \enquote{good} model for the prediction.
+			To this goal, we have to define the functions and parameters of the algorithm.
+			The most important one is the $\m{nbr}$ function whose purpose is to choose a neighbour efficiently since the final solution depends on a sequence of neighbours.
+			In most cases it is best to select a neighbour not too far away from the given subset. %citation!
+			% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
 
-		Our $\m{nbr}$-function generates a random natural number $r\in\set{2,\ldots,k+1}$ that represents the index of a measured wavelength.
-		If this predictor is already in our current subset then we remove it.
-		If not, we include it to the new subset.
-		That way, new neighbours are not too far away from the current parameter vector.
-		The pseudocode is shown in the following listing.
-
-		All other functions were defined following a standard scheme.
-		It follows from \ref{ssec:mallows-C_p} that
-		\[
-			\m{cost}(M)\define \m{C_p}^{(M)}
-		\]
-		In most applications $\m{prob}$ is defined in analogy to the transition of a physical system.
-		%here we need maybe some elaboration
-		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
-		\[
-			\m{prob}(c_0,c_1,T) \define \exp\curvb{\frac{c_0 - c_1}{T}}
-		\]
-		Details of $\m{temp}$ are not really important as long as it monotonically decreases in the second parameter.
-		So let $\alpha\in(0,1)$.
-		\[
-			\m{temp}(T_0,i,i_\m{max})\define T_0\alpha^i
-		\]
+			Our $\m{nbr}$-function generates a random natural number $r\in\set{2,\ldots,k+1}$ that represents the index of a measured wavelength.
+			If this predictor is already in our current subset then we remove it.
+			If not, we include it to the new subset.
+			That way, new neighbours are not too far away from the current parameter vector.
+			The pseudocode is shown in the following listing.
+		% subsubsection choosing-a-neighbour
+		
+		\subsection{Further Functions}
+			All other functions were defined following a standard scheme.
+			It follows from \ref{ssec:mallows-C_p} that
+			\[
+				\m{cost}(M)\define \m{C_p}^{(M)}
+			\]
+			In most applications $\m{prob}$ is defined in analogy to the transition of a physical system.
+			%here we need maybe some elaboration
+			% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
+			\[
+				\m{prob}(c_0,c_1,T) \define \exp\curvb{\frac{c_0 - c_1}{T}}
+			\]
+			Details of $\m{temp}$ are not really important as long as it monotonically decreases in the second parameter.
+			So let $\alpha\in(0,1)$.
+			\[
+				\m{temp}(T_0,i,i_\m{max})\define T_0\alpha^i
+			\]
+		%subsubsection Further Functions
 	
-	% subsection choosing-a-neighbour
+	%subsection Simulated Annealing in R
+		
 % section implementation
