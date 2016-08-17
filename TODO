@@ -15,7 +15,7 @@ tex doc:
 
 code:
 	☐	easier implementation
-	☐	rich matrix
+	☐	ridge condition matrix
 	☐	stepwise regression
 		(forward, backward, bidirectional)
 	☐	easy calculation and generation of new parameters
