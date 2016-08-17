@@ -1,20 +1,19 @@
 \section{Model Selection}
 \label{sec:model-selection}
 	
-	\subsection{Choosing a Neighbor}
-	\label{ssec:choosing-a-neighbor}
+	\subsection{Choosing a neighbour}
+	\label{ssec:choosing-a-neighbour}
 	
-		As said in section \ref{ssec:simulated-annealing} with simulated annealing we want to select a good model for the prediction.
-		For this we have to define the functions and parameters of the algorithm.
-		The most important one is the $\m{nbr}$-function whose purpose it is to choose a neighbor with high quality since the final solution will be determined by a sequence of neighbors.
-		In the most cases it is best to select a neighbor not too far away from the given subset.
+		We stated in section \ref{sssec:simulated-annealing} that we want to select a \enquote{good} model for the prediction.
+		To this goal, we have to define the functions and parameters of the algorithm.
+		The most important one is the $\m{nbr}$-function whose purpose it is to choose a neighbour efficiently since the final solution will be determined by a sequence of neighbours.
+		In the most cases it is best to select a neighbour not too far away from the given subset.
 		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
 
-		Our $\m{nbr}$-function generates a random natural number $r\in\set{2,\ldots,k+1}$.
-		This number represents the index of a measured wavelength.
+		Our $\m{nbr}$-function generates a random natural number $r\in\set{2,\ldots,k+1}$ that represents the index of a measured wavelength.
 		If this predictor is already in our current subset then we remove it.
-		In the other case we append it to the subset.
-		That way our function obviously picks a near neighbor.
+		If not, we include it to the new subset.
+		That way, our function neighbours that are not too far away.
 		The pseudocode is shown in the following listing.
 
 		\medskip
@@ -23,12 +22,13 @@
 		\end{tcolorbox}
 		\medskip
 
-		All other functions were defined with a standard scheme, respectively.
-		It is clear that we set
+		All other functions were defined following a standard scheme.
+		It follows from \ref{ssec:mallows-cp} that
 		\[
 			\m{cost}(M)\define \m{Cp}^{(M)}
 		\]
-		In most applications $\m{prob}$ is defined to be an analogy with the transitions of a physical system.
+		In most applications $\m{prob}$ is defined in analogy to the transition of a physical system.
+		%here we need maybe some elaboration
 		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
 		\[
 			\m{prob}(c_0,c_1,T) \define \exp\curvb{\frac{c_0 - c_1}{T}}
@@ -39,7 +39,7 @@
 			\m{temp}(T_0,i,i_\m{max})\define T_0\alpha^i
 		\]
 	
-	% subsection choosing-a-neighbor
+	% subsection choosing-a-neighbour
 
 	\subsection{Calibration}
 	\label{ssec:calibration}

@@ -138,50 +138,59 @@
 	
 	% subsection mallows-cp
 
-	\subsection{Simulated Annealing}
-	\label{ssec:simulated-annealing}
+	\subsection{Model Selection}
+	\label{ssec:model-selec}
 	
-		The set of predictors contains $k=319$ free selectable elements (the constant shall remain).
-		Therefore the power set $\s{P}$, the set of possible subsets $M$, contains of $2^{k}=2^{319}$ elements.
-		If we want to find a subset $M$ so that for all $N\in\s{P}$ the inequation holds
-		\[
-			\m{Cp}^{(M)} \leq \m{Cp}^{(N)}
-		\]
-		we have to calculate $\m{Cp}^{(N)}$ for every $N\in\s{P}$.
-		But this is a calculation beyond our current computing power.
+	As the set of predictors is comparatively large, $n-k < k$, the full-sized model might overfit the data and hence lower the confidence in our parameter estimator.
+	The proposed solution in \ref{mallows-cp} is to reduce the number of predictors.
+	Still, with a size of the hypothesis space of $\abs{\s{H}} = 2^{319}$, complete search or even best $k$ approaches are beyond feasibility.
+	To reduce the time spent on model search, we will compare two \textsl{do we?} model selection algorithms, simulated annealing and bidirectional elimination.
 
-		Simulated annealing (SA) is a probabilistic technique for approximating the global optimum of a given function.
-		Specifically, it is a metaheuristic to approximate global optimization in a large search space.
-		It simulates the slow cooling of a thermodynamic system through random numbers.
-		With this algorithm it is possible to find a \enquote{good} local minimum in a short time.
-		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
+		\subsubsection{Simulated Annealing}
+		\label{sssec:simulated-annealing}
+	
+			%The set of predictors contains $k=319$ free selectable elements (the constant shall remain).
+			%Therefore the power set $\s{H}$, the set of possible subsets $M$, contains of $2^{k}=2^{319}$ elements.
+			We want to find a subset $M$ such that for all $N\in\s{H}$ the inequality
+			\[
+				\m{Cp}^{(M)} \leq \m{Cp}^{(N)}
+			\]
+			holds.
 
-		The algorithm works on an arbitrary set, in our case $\s{P}$.
-		Let $x_0\in\s{P}$ be the initial set of predictors, $T_0\in(0,\infty)$ be the initial temperature of the system and $i_\m{max}\in\SN$ be the maximal number of time steps.
-		Then the algorithm needs certain functions.
-		\begin{itemize}
-			\item $\func{\m{cost}}{\s{P}}{\SR}$ \\
-				Calculates the cost of a given predictor set.
-			\item $\func{\m{temp}}{\SR\times\SN^2}{(0,\infty)}$\\
-				Calculates the temperature according to the given initial temperature and time steps.
-				It is a monotonically decreasing function in the second parameter.
-			\item $\func{\m{nbr}}{\s{P}}{\s{P}}$ \\
-				Generates a random neighbor of a given predictor set.
-			\item $\func{\m{prob}}{\SR^2\times(0,\infty)}{[0,1]}$ \\
-				Calculates the probability of changing the current set or state to the neighbor.
-			\item $\m{rnd}(0,1)$ \\
-				Returns a random number in the interval $[0,1]$.
-		\end{itemize}
-		The listing shows one variant of the pseudocode of the SA algorithm. 
+			Simulated annealing (SANN) is a probabilistic technique for approximating the global optimum of a given function.
+			Specifically, it is a metaheuristic to approximate global optimisation in large search spaces.
+			It simulates the slow cooling of a thermodynamic system through random numbers.
+			With this algorithm it is possible to find a \enquote{good} local minimum in a short time.
+			% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
 
-		\medskip
-		\begin{tcolorbox}[colframe=black,colbacktitle=white,coltitle=black, attach boxed title to top center={yshift=-2mm},enhanced, titlerule=0.1pt, boxrule=0.5pt, arc=5pt,title=Listing:\quad SA algorithm]
-			\input{sec/sa-algorithm}
-		\end{tcolorbox}
-		\medskip
+			The algorithm is applicable to arbitrary sets, in our case $\s{H}$.
+			Let $x_0\in\s{H}$ be the initial set of predictors, $T_0\in(0,\infty)$ be the initial temperature of the system and $i_\m{max}\in\SN$ be the maximal number of time steps.
+			Then the algorithm requires the following functions:
+			\begin{itemize}
+				\item $\func{\m{cost}}{\s{H}}{\SR}$ \\
+					Calculates the cost of a given predictor set.
+				\item $\func{\m{temp}}{\SR\times\SN^2}{(0,\infty)}$\\
+					Calculates the temperature according to the given initial temperature and time steps.
+					It is a monotonically decreasing function in the second parameter.
+				\item $\func{\m{nbr}}{\s{H}}{\s{H}}$ \\
+					Generates a random neighbor of a given predictor set.
+				\item $\func{\m{prob}}{\SR^2\times(0,\infty)}{[0,1]}$ \\
+					Calculates the probability of changing the current set or state to the neighbor.
+				\item $\m{rnd}(0,1)$ \\
+					Returns a random number in the interval $[0,1]$.
+			\end{itemize}
+			The listing shows one variant of the pseudocode of the SANN algorithm. 
+
+			\medskip
+			\begin{tcolorbox}[colframe=black,colbacktitle=white,coltitle=black, attach boxed title to top center={yshift=-2mm},enhanced, titlerule=0.1pt, boxrule=0.5pt, arc=5pt,title=Listing:\quad SANN algorithm]
+				\input{sec/sann-algorithm}
+			\end{tcolorbox}
+			\medskip
 
 	
-	% subsection simulated-annealing
+		% subsubsection simulated-annealing
+		
+		\subsubsection{Bidirectional Elimination}
 
 	\subsection{Model Validation}
 	\label{ssec:model-validation}
