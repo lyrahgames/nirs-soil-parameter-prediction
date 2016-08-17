@@ -45,8 +45,14 @@ int main(int argc, char *argv[]){
 	target.open(target_file_path);
 
 	const uint colcount = 4;
-	uint colsize = (wl.size() / colcount)+1;
-	uint colspace = colcount - (wl.size() % colcount);
+	const uint rem = wl.size() % colcount;
+	uint colsize = wl.size() / colcount;
+	uint colspace = 0;
+
+	if (rem != 0){
+		colsize += 1;
+		colspace = colcount - (wl.size() % colcount);
+	}
 
 	for (int i = 0; i < colsize - colspace; i++){
 		target << wl[i] << " & " << par[i];

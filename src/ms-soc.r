@@ -22,8 +22,15 @@ ms.spse(idx_vec)
 print("time:")
 t2-t1
 
-wl_idx_vec <- (idx_vec-1)[-1]
+# save relevant data 
+write.table(idx_vec, "../pro-files/data/gen/ms-sa-soc-idx-vec.csv", sep="\t", col.names=F, row.names=F)
 
+wl_const_vec <- c(0, wl_vec)
+par_vec <- ms.par.vec(idx_vec)
+par_mat <- cbind(wl_const_vec[idx_vec], par_vec)
+write.table(par_mat, "../pro-files/data/gen/ms-sa-soc-par.csv", sep="\t", col.names=F, row.names=F)
+
+wl_idx_vec <- (idx_vec-1)[-1]
 rnd_spec_data <- read.csv("../pro-files/data/soil-spec-rnd.csv", sep="\t", header=F)
 write.table(rnd_spec_data[wl_idx_vec,], "../pro-files/data/gen/ms-sa-soc-spec-rnd.csv", sep="\t", col.names=F, row.names=F)
 
