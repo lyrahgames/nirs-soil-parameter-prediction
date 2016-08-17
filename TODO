@@ -1,0 +1,17 @@
+tex doc:
+	☐	definition molar concentration
+		(volume of water or solution)
+	✔	header not shown right @done (16-08-16 14:09)
+	☐	header: check font size, check left- or rightmark
+	☐	calculate r² value
+	☐	references
+	☐	caption of tables and axes
+	☐	colors of plots
+
+code:
+	☐	easier implementation
+	☐	rich matrix
+	☐	stepwise regression
+		(forward, backward, bidirectional)
+	☐	easy calculation and generation of new parameters
+	☐	simulation scripts

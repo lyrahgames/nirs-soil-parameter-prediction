@@ -19,8 +19,8 @@
 \begin{document}
 	\newgeometry{top=40mm,left=45mm,right=45mm}
 	\onecolumn
-	\thispagestyle{empty}
 	\maketitle
+	\thispagestyle{empty}
 	\hrule
 	\medskip
 	\begin{abstract}
@@ -30,6 +30,9 @@
 	\medskip
 	\hrule
 	\tableofcontents
+	\newpage
+	\null
+	\thispagestyle{empty}
 	\newpage
 	\restoregeometry
 	\pagenumbering{arabic}
@@ -66,18 +69,12 @@
 	\linespread{1.15}\selectfont
 
 	\input{sec/introduction}
-	\input{sec/fundamentals}
+	\input{sec/background}
 	\input{sec/methodology}
+	\input{sec/implementation}
 	\input{sec/model-selection}
 	\input{sec/simulation}
 	\input{sec/conclusion}
-
-	\begin{figure}[htb]
-		\centering
-		\input{gp/ms-sa-soc-spec-rnd}
-		\caption{}
-		\label{fig:}
-	\end{figure}
 	
 	\bibliography{}
 	
@@ -86,7 +83,5 @@
 	\pagenumbering{roman}
 	\input{sec/parameters}
 	\input{sec/r-source-code}
-
-	\twocolumn
 
 \end{document}
