@@ -15,7 +15,7 @@
 		\begin{figure*}
 			\centering
 			\input{gp/soil-spec-rnd.tex}
-			\caption{Six near infrared soil spectra of randomly chosen soil samples obtained from the data set, where $\lambda$ is the wavelength and $\rho(\lambda)$ the corresponding reflectance and each colour refers to one sample.}
+			\caption{Six near infrared soil spectra of randomly chosen soil samples obtained from the data set, where $\lambda$ is the wavelength and $\rho(\lambda)$ the corresponding reflectance and each colour refers to one sample}
 			\label{fig:soil-spec-rnd}
 		\end{figure*}
 		
@@ -110,7 +110,7 @@
 	
 	% subsection mlr
 
-	\subsection{Mallows' $\m{C_p}$}
+	\subsection{Mallows' $C_\m{p}$}
 	\label{ssec:mallows-C_p}
 	
 		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole measured spectra for each soil sample.
@@ -130,15 +130,15 @@
 		where $\m{p} \in \set{2,\ldots,k}$ corresponds to the number of predictors included in $M$.
 		%to follow the logic of our argumentation, we should start with the SPSE
 		
-		To determine the \enquote{goodness} of $M$, we use Mallow's $\m{C_p}$ given by
+		To determine the \enquote{goodness} of $M$, we use Mallow's $C_\m{p}$ given by
 		\[
-			\m{C_p}^{(M)} \define \frac{1}{\hat{\sigma}^2}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
+			C_\m{p}^{(M)} \define \frac{1}{\hat{\sigma}^2}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
 		\]
 		The minimization this value is equivalent to the minimization of the sum of predicted squared errors (SPSE).
 	
 	% subsection mallows-C_p
 
-	\subsection{Model Selection}
+	\subsection{Selecting A Model}
 	\label{ssec:model-selec}
 	
 	As the set of predictors is comparatively large, $n-k < k$, the full-sized model might overfit the data and hence lower the confidence in our parameter estimator.
@@ -153,7 +153,7 @@
 			%Therefore the power set $\s{H}$, the set of possible subsets $M$, contains of $2^{k}=2^{319}$ elements.
 			We want to find a subset $M$ such that for all $N\in\s{H}$ the inequality
 			\[
-				\m{C_p}^{(M)} \leq \m{C_p}^{(N)}
+				C_\m{p}^{(M)} \leq C_\m{p}^{(N)}
 			\]
 			holds.
 
