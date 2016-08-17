@@ -1,12 +1,17 @@
 tex doc:
-	☐	definition molar concentration
+	✔	definition molar concentration @done (16-08-17 17:47)
 		(volume of water or solution)
 	✔	header not shown right @done (16-08-16 14:09)
-	☐	header: check font size, check left- or rightmark
+	✔	header: check font size, check left- or rightmark @done (16-08-17 17:53)
 	☐	calculate r² value
 	☐	references
-	☐	caption of tables and axes
-	☐	colors of plots
+	✔	caption of tables and axes @done (16-08-17 20:29)
+	✔	colors of plots @done (16-08-17 18:02)
+	☐	plot model selection: add wavelength count to subcaption
+	☐	plot model selection: make labels cool
+	☐	plot correlation: subcaptions alignment
+	☐	plot correlation: delete labels
+	☐	add source code to appendix
 
 code:
 	☐	easier implementation
@@ -15,3 +20,8 @@ code:
 		(forward, backward, bidirectional)
 	☐	easy calculation and generation of new parameters
 	☐	simulation scripts
+
+questions:
+	☐	spse calculation
+	☐	cross validation / validation
+	☐	is it ok?
