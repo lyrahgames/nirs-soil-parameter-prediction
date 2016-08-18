@@ -114,89 +114,107 @@
 	\label{ssec:mallows-C_p}
 	
 		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole measured spectra for each soil sample.
-		\textbf{[this is wrong]} We know from \ref{ssec:nirs} that the light waves contain redundant information.
+		The reflectances of neighbouring lightwaves are correlated. % citation
 		This might lead to overfitting, i.e. the variance of our estimated parameters $\hat{\beta}_i(Y)$ might be too large, compromising their usability for future measurements.
 		To address this problem, it is sensible to limit each actual model to a \enquote{good} subset of the predictors. Hence, our task becomes to select the best or at least a \enquote{sufficiently} good model $M$ defined by
 		\[
-			M\subset \Lambda \cup \set{\lambda_0}
+			M\subset \Lambda \cup \set{\lambda_0} \definedby \overline{\Lambda}
 		\]
 		where $\lambda_0$ stands for the intercept.
 		We denote the design matrix for each $M$ by $\mathbb{X}^{(M)}$.
 		Applying MLR to the new design matrix yields the new estimators
 		\begin{alignat*}{3}
 			\hat{\beta}^{(M)}(Y) &=&&\ \inv{\curvb{\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}}}\transp{\mathbb{X}^{(M)}}Y \\
-			\curvb{\hat{\sigma}^2}^{(M)}(Y) &=&&\ \frac{1}{n-\m{p}}\norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2,
+			\curvb{\hat{\sigma}^2}^{(M)}(Y) &=&&\ \frac{1}{n-\m{p}}\norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2_2,
 		\end{alignat*}
 		where $\m{p} \in \set{2,\ldots,k}$ corresponds to the number of predictors included in $M$.
 		%to follow the logic of our argumentation, we should start with the SPSE
 		
+		\[
+			\m{SPSE} \define \sum_{i = 1}^n \expect \curvb{Y_{n+i} - \hat{Y}_i^{(M)}}^2,
+		\]
+		which simplifies to % to be elaborated
+		\[
+			\m{SPSE} = n\sigma^2 + \m{p}\sigma^2
+		\]
+		As $\sigma^2$ is unobservable, we have to estimate it so that our estimator for the true $\m{SPSE}$ becomes
+		\[
+			\widehat{\m{SPSE}} \define \norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2_2 + 2\m{p}\curvb{\hat{\sigma}^2}^{(\overline{\Lambda})}
+		\]
 		To determine the \enquote{goodness} of $M$, we use Mallow's $C_\m{p}$ given by
 		\[
 			C_\m{p}^{(M)} \define \frac{1}{\hat{\sigma}^2}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
 		\]
-		The minimization this value is equivalent to the minimization of the sum of predicted squared errors (SPSE).
+		The minimization this value is equivalent to the minimization of the sum of predicted squared errors ($\widehat{\m{SPSE}}$).
 	
 	% subsection mallows-C_p
 
-	\subsection{Selecting A Model}
+	\subsection{Simulated Annealing}
 	\label{ssec:model-selec}
 	
-	As the set of predictors is comparatively large, $n-k < k$, the full-sized model might overfit the data and hence lower the confidence in our parameter estimator.
-	The proposed solution in \ref{mallows-C_p} is to reduce the number of predictors.
-	Still, with a size of the hypothesis space of $\abs{\s{H}} = 2^{319}$, complete search or even best $k$ approaches are beyond feasibility.
-	To reduce the time spent on model search, we will compare two \textsl{do we?} model selection algorithms, simulated annealing and bidirectional elimination.
+		As the set of predictors is comparatively large, $n-k < k$, the full-sized model might overfit the data and hence lower the confidence in our parameter estimator.
+		The proposed solution in \ref{mallows-C_p} is to reduce the number of predictors.
+		Still, with a size of the hypothesis space of $\abs{\s{H}} = 2^{319}$, complete search or even best $k$ approaches are beyond feasibility.
+		To reduce the time spent on model search, we will compare two \textsl{do we?} model selection algorithms, simulated annealing and bidirectional elimination.	
+		We want to find a subset $M$ such that for all $N\in\s{H}$ the inequality
+		\[
+			C_\m{p}^{(M)} \leq C_\m{p}^{(N)}
+		\]
+		holds.
 
-		\subsubsection{Simulated Annealing}
-		\label{sssec:simulated-annealing}
-	
-			%The set of predictors contains $k=319$ free selectable elements (the constant shall remain).
-			%Therefore the power set $\s{H}$, the set of possible subsets $M$, contains of $2^{k}=2^{319}$ elements.
-			We want to find a subset $M$ such that for all $N\in\s{H}$ the inequality
-			\[
-				C_\m{p}^{(M)} \leq C_\m{p}^{(N)}
-			\]
-			holds.
+		Simulated annealing (SANN) is a probabilistic technique for approximating the global optimum of a given function.
+		Specifically, it is a metaheuristic to approximate global optimisation in large search spaces.
+		It simulates the slow cooling of a thermodynamic system through random numbers.
+		With this algorithm it is possible to find a \enquote{good} local minimum in a short time.
+		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
 
-			Simulated annealing (SANN) is a probabilistic technique for approximating the global optimum of a given function.
-			Specifically, it is a metaheuristic to approximate global optimisation in large search spaces.
-			It simulates the slow cooling of a thermodynamic system through random numbers.
-			With this algorithm it is possible to find a \enquote{good} local minimum in a short time.
-			% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
+		The algorithm is applicable to arbitrary sets, in our case $\s{H}$.
+		Let $x_0\in\s{H}$ be the initial set of predictors, $T_0\in(0,\infty)$ be the initial temperature of the system and $i_\m{max}\in\SN$ be the maximal number of time steps.
+		Then the algorithm requires the following functions:
+		\begin{itemize}
+			\item $\func{\m{cost}}{\s{H}}{\SR}$ \\
+				Calculates the cost of a given predictor set.
+			\item $\func{\m{temp}}{\SR\times\SN^2}{(0,\infty)}$\\
+				Calculates the temperature according to the given initial temperature and time steps.
+				It is a monotonically decreasing function in the second parameter.
+			\item $\func{\m{nbr}}{\s{H}}{\s{H}}$ \\
+				Generates a random neighbor of a given predictor set.
+			\item $\func{\m{prob}}{\SR^2\times(0,\infty)}{[0,1]}$ \\
+				Calculates the probability of changing the current set or state to the neighbor.
+			\item $\m{rnd}(0,1)$ \\
+				Returns a random number in the interval $[0,1]$.
+		\end{itemize}
+		The listing shows one variant of the pseudocode of the SANN algorithm. 
 
-			The algorithm is applicable to arbitrary sets, in our case $\s{H}$.
-			Let $x_0\in\s{H}$ be the initial set of predictors, $T_0\in(0,\infty)$ be the initial temperature of the system and $i_\m{max}\in\SN$ be the maximal number of time steps.
-			Then the algorithm requires the following functions:
-			\begin{itemize}
-				\item $\func{\m{cost}}{\s{H}}{\SR}$ \\
-					Calculates the cost of a given predictor set.
-				\item $\func{\m{temp}}{\SR\times\SN^2}{(0,\infty)}$\\
-					Calculates the temperature according to the given initial temperature and time steps.
-					It is a monotonically decreasing function in the second parameter.
-				\item $\func{\m{nbr}}{\s{H}}{\s{H}}$ \\
-					Generates a random neighbor of a given predictor set.
-				\item $\func{\m{prob}}{\SR^2\times(0,\infty)}{[0,1]}$ \\
-					Calculates the probability of changing the current set or state to the neighbor.
-				\item $\m{rnd}(0,1)$ \\
-					Returns a random number in the interval $[0,1]$.
-			\end{itemize}
-			The listing shows one variant of the pseudocode of the SANN algorithm. 
+		\medskip
+		\begin{tcolorbox}[colframe=black,colbacktitle=white,coltitle=black, attach boxed title to top center={yshift=-2mm},enhanced, titlerule=0.1pt, boxrule=0.5pt, arc=5pt,title=Listing:\quad SANN algorithm]
+			\input{sec/sann-algorithm}
+		\end{tcolorbox}
+		\medskip
 
-			\medskip
-			\begin{tcolorbox}[colframe=black,colbacktitle=white,coltitle=black, attach boxed title to top center={yshift=-2mm},enhanced, titlerule=0.1pt, boxrule=0.5pt, arc=5pt,title=Listing:\quad SANN algorithm]
-				\input{sec/sann-algorithm}
-			\end{tcolorbox}
-			\medskip
-
-	
-		% subsubsection simulated-annealing
+	% subsection simulated-annealing
 		
-		\subsubsection{Bidirectional Elimination}
-
 	\subsection{Model Validation}
 	\label{ssec:model-validation}
 	
-		% goodness of prediction
+		% goodness of prediction/R^2 discussion
 	
 	% subsection model-validation
-
+	
+	\subsection{Simulation}
+	\label{ssec:simulation}
+	
+		In the following section, we assume that $\mu$ and $\sigma^2$ are known. true $\m{SPSE}$
+		% rationale
+		% idea
+		% implementation
+		To generate pseudoobservations, we use the selected model's estimators instead $\mu$ and $\sigma^2$ by adding a Gaussian error term to the predictions by the selected model.
+		Then we forget both and proceed to select a best model and estimate its parameters for each simulation.
+		We then proceed to calculate the $\widehat{\m{SPSE}}$ for each simulation.
+		We then compute the arithmetic mean of the $\widehat{\m{SPSE}}$ and compare it to the known true $\m{SPSE}$.
+		
+		% subsampling along the lines of data size and full model size
+		
+		
+	% subsection simulation
 % section methodology

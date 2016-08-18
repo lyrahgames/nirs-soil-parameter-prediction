@@ -20,6 +20,10 @@ code:
 		(forward, backward, bidirectional)
 	☐	easy calculation and generation of new parameters
 	☐	simulation scripts
+-) final model selection for all 3 response variables (incl. plots, tables, …)
+-) generate 1000 pseudo observation vectors of length 533 of SOC (using selected model and estimated variance => save as .csv
+-) finalise simulation script (index vector as input)
+-) start simulation & save simulation script
 
 questions:
 	☐	spse calculation
