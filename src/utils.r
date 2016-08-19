@@ -135,7 +135,7 @@ ms.rss = function(idx_vec){
 	as.numeric( t(res_vec) %*% res_vec )
 }
 
-ms.spse = function(idx_vec){
+ms.spse.est = function(idx_vec){
 	# return
 	ms.rss(idx_vec) + (2 * gv_mlr_var * length(idx_vec))
 }

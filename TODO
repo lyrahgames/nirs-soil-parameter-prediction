@@ -3,29 +3,32 @@ tex doc:
 		(volume of water or solution)
 	✔	header not shown right @done (16-08-16 14:09)
 	✔	header: check font size, check left- or rightmark @done (16-08-17 17:53)
-	☐	calculate r² value
-	☐	references
 	✔	caption of tables and axes @done (16-08-17 20:29)
 	✔	colors of plots @done (16-08-17 18:02)
+	☐	references
 	☐	plot model selection: add wavelength count to subcaption
 	☐	plot model selection: make labels cool
 	☐	plot correlation: subcaptions alignment
 	☐	plot correlation: delete labels
+	☐	plot correlation: show r² value
 	☐	add source code to appendix
 
 code:
 	☐	easier implementation
-	☐	ridge condition matrix
-	☐	stepwise regression
+	✘	ridge condition matrix @cancelled (16-08-19 07:42)
+	✘	stepwise regression @cancelled (16-08-19 07:42)
 		(forward, backward, bidirectional)
 	☐	easy calculation and generation of new parameters
-	☐	simulation scripts
--) final model selection for all 3 response variables (incl. plots, tables, …)
--) generate 1000 pseudo observation vectors of length 533 of SOC (using selected model and estimated variance => save as .csv
--) finalise simulation script (index vector as input)
--) start simulation & save simulation script
+	☐	simulation script
+	✔	compute r² in model selection @done (16-08-19 08:13)
+	✔	compute wavelength count @done (16-08-19 08:14)
+	☐	final model selection for all 3 response variables (incl. plots, tables, …)
+	☐	generate 1000 pseudo observation vectors of length 533 of SOC (using selected model and estimated variance => save as .csv
+	☐	finalise simulation script (index vector as input)
+	☐	start simulation & save simulation script
+	☐	redo commentary
 
 questions:
-	☐	spse calculation
-	☐	cross validation / validation
-	☐	is it ok?
+	✔	spse calculation @done (16-08-19 07:39)
+	✔	cross validation / validation @done (16-08-19 07:39)
+	✔	is it ok? @done (16-08-19 07:39)
