@@ -19,7 +19,7 @@ set yr [-0.1:0.8]
 # set key left height 1 width 1
 set grid lt 1 lw 3 lc rgb "#FAFAFA"
 unset key
-set label "N" at 0.1,0.6 left front
+set label "$P^\\m{(N)}$" at graph 0.15,0.85 left front
 
 plot 'pro-files/data/gen/ms-sa-n-corr.csv' using 1:2 with points pt 13 title 'sample',\
-	x with lines lt 1 lw 5 lc rgb "#55AAAA" title 'identity'
+	x with lines lt 1 lw 5 lc rgb "#5555FF" title 'identity'

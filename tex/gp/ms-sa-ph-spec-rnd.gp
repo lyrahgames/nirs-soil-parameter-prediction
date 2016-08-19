@@ -14,7 +14,7 @@ set xrange [1370:2700]
 unset key
 set grid lt 1 lw 3 lc rgb "#FAFAFA"
 
-set label "pH" at 2500,0.525 front
+set label "$\\overline{\\m{pH}}$" at 2500,0.525 right front
 
 plot 'pro-files/data/gen/ms-sa-ph-spec-rnd.csv' using 1:7 with impulses lt 1 lw 3 lc rgb "#AAAAAA",\
 	'pro-files/data/soil-spec-rnd.csv' using 1:2 with lines lt 1 lw 4 lc rgb "black",\

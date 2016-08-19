@@ -11,12 +11,11 @@ set xtics 200
 
 set xrange [1370:2700]
 
-# unset key
+unset key
 set grid lt 1 lw 3 lc rgb "#FAFAFA"
 
-# set label "SOC" at 2500,0.525 front
+set label "$P^\\m{(SOC)}$" at 2500,0.525 front right
 
-set key title 'SOC' box
 
 plot 'pro-files/data/gen/ms-sa-soc-spec-rnd.csv' using 1:7 with impulses lt 1 lw 3 lc rgb "#AAAAAA" notitle,\
 	'pro-files/data/soil-spec-rnd.csv' using 1:2 with lines lt 1 lw 4 lc rgb "black" notitle,\
