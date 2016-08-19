@@ -13,13 +13,22 @@ length(idx_vec)
 
 ms.init.dist(idx_vec)
 
-pseudo_obs_mat <- rnorm(gv_sample_size, gv_expect_vec, gv_sd)
+# pseudo_obs_mat <- rnorm(gv_sample_size, gv_expect_vec, gv_sd)
 
-for (i in 2:1000){
-	pseudo_obs_mat <- cbind(pseudo_obs_mat, rnorm(gv_sample_size, gv_expect_vec, gv_sd))
-	print(dim(pseudo_obs_mat))
-}
+# for (i in 2:1000){
+# 	pseudo_obs_mat <- cbind(pseudo_obs_mat, rnorm(gv_sample_size, gv_expect_vec, gv_sd))
+# 	print(dim(pseudo_obs_mat))
+# }
 
-write.table(pseudo_obs_mat, "../pro-files/data/gen/pseudo-obs.csv", sep="\t", col.names=F, row.names=F)
+# write.table(pseudo_obs_mat, "../pro-files/data/gen/pseudo-obs.csv", sep="\t", col.names=F, row.names=F)
 
+gv_var <- gv_sd^2
 
+print("expectation vector:")
+gv_expect_vec
+print("standard deviation:")
+gv_sd
+print("variance:")
+gv_var
+print("spse:")
+(gv_sample_size + length(idx_vec)) * gv_var
