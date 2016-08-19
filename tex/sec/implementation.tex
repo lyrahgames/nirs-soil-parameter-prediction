@@ -41,19 +41,37 @@
 	\subsection{Preprocessing}
 	\label{ssec:preprocessing}
 	
-		 From \ref{sec:methodology} becomes that we have plenty of computations to perform. % how much?
-		 We need to compute the RSS in order to compute the $C_\m{p}$.
-		 To compute the RSS we have to compute the $\hat{Y}$.
-		 difficult		 % hat matrix
-		 better: % compute \beta
-		 		% matrix inversion is bad => QR solving (X'X)\beta = X'y
-		we then only have to precompute X'X, X'y [most important precomputations]
-		% we use different models:
-			we use a function of the indices to the models
-			we also precompute the full model $\sigma^2$
+		 Implementing the algorithm described in \ref{ssec:model-selec} takes a sizeable toll on computing power.
+		 The most expensive calculations are performed in the computation of the residual sum of squares
+		 \[
+		 	\norm{y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(y)}^2_2,
+		 \] 
+		 which requires the computation of
+		 \[
+		 	\hat{\beta}^{(M)}(y) = \inv{\curvb{\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}}}\transp{\mathbb{X}^{(M)}}y
+		\]
+		
+		 It is more efficient to compute $\hat{\beta}$ first and then proceed to solve
+		 \[
+		 	\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}\hat{\beta}(y) = \transp{\mathbb{X}^{(M)}}y,
+		\]
+		which can be done through QR-decomposition or an adequate alternative.
+		
+		The design matrices $\mathbb{X}^{(M)}$ are full rank by construction \textbf{[assumption]?}.
+		It follows then from the definition of $M$ that we can define an injective, monotone increasing function
+		\[
+			\delta_M : \set{0,\ldots, \abs{M}-1} \rightarrow \set{0,\ldots, k}
+		\]
+		that maps the indices of the design matrix $\mathbb{X}^{(M)}$ to the indices of the full design matrix $\mathbb{X}$.
+		We then only have to precompute $\transp{\mathbb{X}}\mathbb{X}$ and $\transp{\mathbb{X}}y$ and construct $\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}$ and $\transp{\mathbb{X}^{(M)}}y$ by 
+		\begin{alignat*}{3}
+		 	\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)} &=& \curvb{\angleb{x_{\delta(i)}, x_{\delta(j)}}} \qquad i,j& &\ \in&\  M \\
+			\transp{\mathbb{X}^{(M)}}y &=& \curvb{\curvb{\transp{\mathbb{X}}y}_{\delta(i)}} \qquad i& &\ \in&\  M
+		\end{alignat*}
+		 where $x_{\delta(i)}$ is the $\delta(i)$th column vector of $\mathbb{X}$.
+		 
+		 As $\curvb{\sigma^2}^{(\overline{\Lambda})}$ and by consequence $\curvb{\hat\sigma^2}^{(\overline{\Lambda})}$ are constant, we can precompute the estimated variance of the complete model as well.
 
-		we define an injective, monotone increasing function $\delta_M : \set{0,\ldots, \abs{M}-1} \rightarrow \set{0,\ldots, k}$ to describe the current model in terms of the indices of the included parameters.
-		Then resulting $X_M$ is full rank.
 	% subsection Preprocessing
 	
 		

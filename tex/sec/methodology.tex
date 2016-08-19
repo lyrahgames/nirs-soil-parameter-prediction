@@ -130,22 +130,26 @@
 		where $\m{p} \in \set{2,\ldots,k}$ corresponds to the number of predictors included in $M$.
 		%to follow the logic of our argumentation, we should start with the SPSE
 		
+		The sum of predicted squared errors ($\m{SPSE}$) is a theoretical criterion to compare the merits of different models.
+		The $\m{SPSE}^{(M)}$ measures how well a model does in predicting new responses from new data:
 		\[
-			\m{SPSE} \define \sum_{i = 1}^n \expect \curvb{Y_{n+i} - \hat{Y}_i^{(M)}}^2,
+			\m{SPSE}^{(M)} \define \sum_{i = 1}^n \expect \curvb{Y_{n+i} - \hat{Y}_i^{(M)}}^2
 		\]
 		which simplifies to % to be elaborated
 		\[
-			\m{SPSE} = n\sigma^2 + \m{p}\sigma^2
+			\m{SPSE}^{(M)} = n\sigma^2 + \m{p}\sigma^2
 		\]
-		As $\sigma^2$ is unobservable, we have to estimate it so that our estimator for the true $\m{SPSE}$ becomes
+		Unfortunately, the true $\sigma^2$ is unobservable so that it has to be estimated by
 		\[
-			\widehat{\m{SPSE}} \define \norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2_2 + 2\m{p}\curvb{\hat{\sigma}^2}^{(\overline{\Lambda})}
+			\widehat{\m{SPSE}}^{(M)} \define \norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2_2 + 2\m{p}\curvb{\hat{\sigma}^2}^{(\overline{\Lambda})}
 		\]
-		To determine the \enquote{goodness} of $M$, we use Mallow's $C_\m{p}$ given by
+		
+		Instead of using the $\widehat{\m{SPSE}}^{(M)}$ directly, we will use Mallow's $C_\m{p}$ instead, given by
 		\[
-			C_\m{p}^{(M)} \define \frac{1}{\hat{\sigma}^2}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
+			C_\m{p}^{(M)} \define \frac{1}{\curvb{\hat{\sigma}^2}^{(\overline{\Lambda})}}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
 		\]
-		The minimization this value is equivalent to the minimization of the sum of predicted squared errors ($\widehat{\m{SPSE}}$).
+		The minimization this value is equivalent to the minimization of the estimated sum of predicted squared errors ($\widehat{\m{SPSE}}$).
+		The proof is trivial, just biject it to a conext-free residue class, whose elements are open manifolds. %citation
 	
 	% subsection mallows-C_p
 
