@@ -10,26 +10,26 @@
 			\begin{subfigure}[b]{\textwidth}
 				\centering
 				\input{gp/ms-sa-soc-spec-rnd}
-				\caption{$p^{(\m{SOC})}$ with $\m{p} = 72$}
-				\label{fig:}
+				\caption{$p^{(\m{SOC})}$ with $\m{p}^{(\m{SOC})} = 72$}
+				\label{sfig:calib-soc}
 			\end{subfigure}
 			
 			\begin{subfigure}[b]{\textwidth}
 				\centering
 				\input{gp/ms-sa-n-spec-rnd}
-				\caption{$p^{(\m{N})}$ with $\m{p} = 69$}
-				\label{fig:}
+				\caption{$p^{(\m{N})}$ with $\m{p}^{(\m{N})} = 69$}
+				\label{sfig:calib-n}
 			\end{subfigure}
 
 			\begin{subfigure}[b]{\textwidth}
 				\centering
 				\input{gp/ms-sa-ph-spec-rnd}
-				\caption{$p^{(\m{pH})}$ with $\m{p} = 58$}
-				\label{fig:}
+				\caption{$\m{pH}$ with $\m{p}^{(\m{pH})} = 58$} % why again do we use a different notation in captions and on plots?
+				\label{sfig:calib-ph}
 			\end{subfigure}
 			\caption{Displaying the spectra from figure \ref{fig:soil-spec-rnd} with wavelength included in the selected models for each response highlighted by vertical grey lines}
 		\end{figure*}
-
+				
 		\begin{figure*}
 			\center
 			% \subcaphangtrue
@@ -56,44 +56,49 @@
 					\input{gp/ms-sa-ph-corr}
 				}
 				\caption{\parbox[t]{0.43\textwidth}{
-					$\hat{p}^{(\m{pH})} \sim p^{(\m{pH})}$ \smallskip \\
+					$\widehat{\m{pH}} \sim \m{pH}$ \smallskip \\
 					$(R^2)^{(\m{pH})} = 0.940$
 					}}
+				\label{sfig:gof-ph}
 			\end{subfigure}
-			\caption{Correlation diagrams plotting $\hat{y}$ on $y$ and the BLUE line representing the $\id_y$}
+			\caption{Correlation diagrams plotting $\hat{y}$ on $y$ and the BLUE line representing the $\id$}
+			\label{fig:gof}
 		\end{figure*}
 	
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	
+		Figures \ref{sfig:calib-soc}, \ref{sfig:calib-n} and \ref{sfig:calib-ph} show the selected wavelengths highlighted in grey.
+		One notes that the density of selected lightwaves varies strongly along the wavelength for all three response variables, where $p^{(\m{SOC})}$ uses the most and $\m{pH}$ the lowest amount of predictors.
+		
+		For $p^{(\m{SOC})}$ and $p^{(\m{N})}$, we find that similar regions seem relevant for prediction, albeit the predictors for $p^{(\m{N})}$ appear to beslightly more evenly distributed along the whole bandwidth \textbf{[Is that the correct term?]}.
+		In the selected model for $p^{(\m{SOC})}$, predictors are highly concentrated in the regions from 1550 - 1650 $\unit{nm}$, 1790 - 1810 $\unit{nm}$, 1980 - 1990 $\unit{nm}$, around 2500 $\unit{nm}$ and between 2600 and 2672 $\unit{nm}$.
+		
+		The distribution of predictors for the $\m{pH}$ appears to be highly distinct from the other two models.
+		In particular, the lower-middle wavelengths seem to have more predictive power than for $p^{(\m{SOC})}$ and $p^{(\m{N})}$.
+		
+		Appendix \ref{sec:parameters} hosts the tables with the estimated parameters for the predictors for each model.
+		It is noteworthy to inspect the values of the intercepts for each model.
+		We find that these appear relatively close to commonly known \enquote{neutral} figures -- 0 in case of $p^{\m{(SOC)}}$ and $p^{\m{(N)}}$ and not too far from 7 in case of the $\m{pH}$. %albeit a distance of roughly on  1 point is still quite I assume
+		
 	% subsection calibration
 
 	\subsection{Goodness of Fit}
 	\label{ssec:suitability}
 	
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	
+		Figure \ref{fig:gof} displays the correlation diagrams introduced in \ref{ssec:model-validation} for each response variable together with the values for the $R^2$.
+		Both indicate that our estimation and model selection to predict $\m{pH}$ are working best.
+		Assuming that pure error exists due to measurement, an $R^2 = 0.940$ shows a good accordance between predictions by the model and the actual observed values.
+		The clear pattern in diagram \ref{sfig:gof-ph} corroborates these findings further.
+		
+		We have already seen on several occasions that $\m{pH}$ has to be treated slighted different from the other two response variables.
+		This pattern repeats itself here as well.
+		$p^{\m{(SOC)}}$ and $p^{\m{(N)}}$ display not only somewhat lower values for $R^2$, but their correlation diagrams show a common divergence from the identity.
+		Our predictions seem to underestimate the observed values for the upper third of the observed interval.
+		This could be due to a lack of data, which are considerably scarcer in that region than in the regions where the fits appear good.
+		Only less than 5 \% of the whole measurements lie in the upper tiers of both response variables.
+		
+		Another reason might be that the linear assumption is misplaced, by judging from the visual aspects of the scatter plot alone.
+		As we have strong reason to maintain the linear hypothesis (cf. \ref{ssec:nirs}) and taking into account that for most values the correlation seems even better than in the case of $\m{pH}$, we maintain that it is safe to assume higher measurement errors in as $p^{\m{(SOC)}}$ and $p^{\m{(N)}}$ increase, which in turn contributes to higher levels of pure error and thus to lower values of $R^2$.
+		In sum, there is not sufficient evidence to reject the selected and estimated models at this point.
+		
 	% subsection suitability
 
 % section model-selection
