@@ -215,32 +215,33 @@
 	\subsection{Simulation}
 	\label{ssec:simulation}
 	
-		% In the following section, we assume that $\mu$ and $\sigma^2$ are known. true $\m{SPSE}$
-		% rationale
 		Having chosen the selection criterion based on the performance in predicting the responses, we need to assess how well the model selection algorithm minimises the $\m{SPSE}$.
 		We have seen in \ref{ssec:mallows-C_p}, our algorithm heuristically minimises the estimator $\widehat{\m{SPSE}}$.
-		% idea
+		
 		As the true $\m{SPSE}$ is unobservable, we resort to simulations of one response variable $\tilde{Y}^{(j)}, j \in \SN, j \leq 1000$, where we can fix both, $\expect{\tilde{Y}^{(j)}}$ and $C^{(j)}$.
 		The resulting values for the response variable are also called pseudo-observations.
 		We then apply our model selection algorithm to each simulation and compare the resulting estimators $\widehat{\m{SPSE}}^{(j)}$ with the \enquote{true} $\m{SPSE}$ computed from the fixed parameters.
 				
-		% implementation
 		The pseudo-observations of one simulation are generated as follows
 		\begin{alignat*}{3}
-			\tilde{Y} &&=& \hat{Y} + \varepsilon \\
-			\varepsilon &&\sim& \FN \curvb{0,(\hat{\sigma}^2)\idmat}
+			\tilde{Y} &&\, = \, & \hat{Y} + \varepsilon \\
+			\varepsilon &&\, \sim \, & \FN \curvb{0,\hat{\sigma}^2\idmat}
 		\end{alignat*}
 		where $\hat{Y}$ is the selected model from \ref{ssec:model-selec} and $\hat{\sigma}^2$ the estimator for $\sigma^2$ in said model.
 		We then proceed to use the complete model space $\overline{\Lambda}$ to select the best model for each simulation and estimate the $\m{SPSE}$ through $\widehat{\m{SPSE}}^{(j)}$.
 		We then compare the estimates with the fixed \enquote{true} $\m{SPSE}$.
 		
-		To assess how much the resolution of the NIRS influences the model selection, we repeat the model selection on the simulations, but allow only models from
+		To gauge how much the resolution of the NIRS influences the model selection, we repeat the model selection on the simulations, but allow only models from
 		\[
-			\Lambda^{m} \define \set{\lambda_{mi} \vline \lambda_{mi} \in \Lambda, i \in \SN} \qquad m \in \set{2, 3, 4}
+			\Lambda^{m} \define \set{\lambda_{mi} | \lambda_{mi} \in \Lambda, i = 1, 2, \ldots} \qquad m \in \set{2, 3, 4}
 		\]
+		where $\overline{\Lambda}^{m}$ takes the place of $\overline\Lambda$ in the algorithm.
 		
-		% subsampling along the lines of data size and full model size
+		Just as with resolution, we can also assess the influence of availability of measurements.
+		Choosing a suitable $N \in \SN^L$ with entries $N_l \ge k, l \in \set{1,\ldots,L}$, we randomly select a subset of the simulation data of size $N_l$ and proceed as above.
+		As $n-k \le k$, we perform this inquiry with $\Lambda^{3}$ instead to reduce computational cost and capture a larger variety of L.
 		
+		Using the same algorithm for all three response variables, we can limit the algorithm examination to one response variable, $\m{SOC}$, to be better able to compare the results and reduce redundant analyses.		
 		
 	% subsection simulation
 % section methodology
