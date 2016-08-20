@@ -148,7 +148,7 @@
 		\[
 			C_\m{p}^{(M)} \define \frac{1}{\curvb{\hat{\sigma}^2}^{(\overline{\Lambda})}}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
 		\]
-		The minimization this value is equivalent to the minimization of the estimated sum of predicted squared errors ($\widehat{\m{SPSE}}$).
+		The minimization this value is equivalent to the minimisation of the estimated sum of predicted squared errors ($\widehat{\m{SPSE}}$).
 		The proof is trivial, just biject it to a conext-free residue class, whose elements are open manifolds. %citation
 	
 	% subsection mallows-C_p
@@ -202,20 +202,42 @@
 	\label{ssec:model-validation}
 	
 		% goodness of prediction/R^2 discussion
-	
+		To examine the models selected through \ref{ssec:model-selec}, we recur to the often used $R^2$ measure.
+		It is given by
+		\[
+			\curvb{R^2}^{(M)} \define \frac {\sum_{i=1}^n \curvb{\hat{y}_i - \overline{y}}^2}{\sum_{i=1}^n \curvb{y_i - \overline{y}}^2}
+		\]
+		and describes how much of the total variation of $y$ is explained by the selected model.
+		
+		In addition, we will use correlation diagrams for each model, plotting $\hat{y}$ on $y$, to check for grave divergences.
 	% subsection model-validation
 	
 	\subsection{Simulation}
 	\label{ssec:simulation}
 	
-		In the following section, we assume that $\mu$ and $\sigma^2$ are known. true $\m{SPSE}$
+		% In the following section, we assume that $\mu$ and $\sigma^2$ are known. true $\m{SPSE}$
 		% rationale
+		Having chosen the selection criterion based on the performance in predicting the responses, we need to assess how well the model selection algorithm minimises the $\m{SPSE}$.
+		We have seen in \ref{ssec:mallows-C_p}, our algorithm heuristically minimises the estimator $\widehat{\m{SPSE}}$.
 		% idea
+		As the true $\m{SPSE}$ is unobservable, we resort to simulations of one response variable $\tilde{Y}^{(j)}, j \in \SN, j \leq 1000$, where we can fix both, $\expect{\tilde{Y}^{(j)}}$ and $C^{(j)}$.
+		The resulting values for the response variable are also called pseudo-observations.
+		We then apply our model selection algorithm to each simulation and compare the resulting estimators $\widehat{\m{SPSE}}^{(j)}$ with the \enquote{true} $\m{SPSE}$ computed from the fixed parameters.
+				
 		% implementation
-		To generate pseudoobservations, we use the selected model's estimators instead $\mu$ and $\sigma^2$ by adding a Gaussian error term to the predictions by the selected model.
-		Then we forget both and proceed to select a best model and estimate its parameters for each simulation.
-		We then proceed to calculate the $\widehat{\m{SPSE}}$ for each simulation.
-		We then compute the arithmetic mean of the $\widehat{\m{SPSE}}$ and compare it to the known true $\m{SPSE}$.
+		The pseudo-observations of one simulation are generated as follows
+		\begin{alignat*}{3}
+			\tilde{Y} &&=& \hat{Y} + \varepsilon \\
+			\varepsilon &&\sim& \FN \curvb{0,(\hat{\sigma}^2)\idmat}
+		\end{alignat*}
+		where $\hat{Y}$ is the selected model from \ref{ssec:model-selec} and $\hat{\sigma}^2$ the estimator for $\sigma^2$ in said model.
+		We then proceed to use the complete model space $\overline{\Lambda}$ to select the best model for each simulation and estimate the $\m{SPSE}$ through $\widehat{\m{SPSE}}^{(j)}$.
+		We then compare the estimates with the fixed \enquote{true} $\m{SPSE}$.
+		
+		To assess how much the resolution of the NIRS influences the model selection, we repeat the model selection on the simulations, but allow only models from
+		\[
+			\Lambda^{m} \define \set{\lambda_{mi} \vline \lambda_{mi} \in \Lambda, i \in \SN} \qquad m \in \set{2, 3, 4}
+		\]
 		
 		% subsampling along the lines of data size and full model size
 		
