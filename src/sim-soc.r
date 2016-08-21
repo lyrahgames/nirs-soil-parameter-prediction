@@ -1,3 +1,5 @@
+measure_t1 <- proc.time()
+
 # load source files
 source("utils.r")
 source("init.r")
@@ -18,7 +20,7 @@ mlr.init()
 ms.init.dist(idx_vec)
 
 # sim_count <- dim(pseudo_obs_mat)[2]
-sim_count <- 10
+sim_count <- 1000
 
 spse_vec <- numeric()
 
@@ -40,14 +42,16 @@ for (i in 1:sim_count){
 	tmp_t2 <- proc.time()
 
 	# debug
-	print("sorted index vector:")
-	print(sort(tmp_idx_vec))
-	print("tmp spse:")
-	print(tmp_spse)
-	print("tmp mallows' cp:")
-	print(ms.cp(tmp_idx_vec))
+	# print("sorted index vector:")
+	# print(sort(tmp_idx_vec))
+	# print("tmp spse:")
+	# print(tmp_spse)
+	# print("tmp mallows' cp:")
+	# print(ms.cp(tmp_idx_vec))
 	print("tmp time:")
 	print(tmp_t2-tmp_t1)
+	print("status:")
+	print(i)
 }
 
 t2 <- proc.time()
@@ -58,3 +62,14 @@ print("spse variance:")
 print(var(spse_vec))
 print("time:")
 print(t2-t1)
+
+
+# code addendum to sketch the plot I'm envisioning
+# note that I introduced the variable 'gv_spse_soc', but didn't make it global,
+# so the gv is just for easy retrieval and removal
+
+spse_data <- data.frame(est_spse = spse_vec)
+spse_data <- cbind(run = c("533x319"), spse_data)
+qplot(data = spse_data, y = est_spse, x = run, geom = "violin") + geom_hline(yintercept = gv_spse_soc)
+
+proc.time() - measure_t1

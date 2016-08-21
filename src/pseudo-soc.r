@@ -24,6 +24,12 @@ ms.init.dist(idx_vec)
 
 gv_var <- gv_sd^2
 
+# for usage in the simulation analysis
+#introduced by Kaz.
+
+gv_spse_soc <- (gv_sample_size + length(idx_vec)) * gv_var
+
+
 print("expectation vector:")
 gv_expect_vec
 print("standard deviation:")
@@ -31,4 +37,4 @@ gv_sd
 print("variance:")
 gv_var
 print("spse:")
-(gv_sample_size + length(idx_vec)) * gv_var
+gv_spse_soc
