@@ -25,7 +25,7 @@
 	\subsection{Statistical Model}
 	\label{ssec:statistical-model}
 	
-		Let $n\in\SN$ be the size of the data set and $k\in\SN$ with $k\leq n$ the number of measured wavelengths. We define
+		Let $n\in\SN$ be the size of the data set and $k\in\SN$ with $k< n$ the number of measured wavelengths. We define
 		$\varrho_i$ as the soil spectrum of the $i$th sample for every $i\in\SN,i\leq n$.
 		$\lambda_j$ is the $j$th measured wavelength for every $j\in\SN,j\leq k$. We will alternatively refer to these as predictors.%note that we might have to introduce the term predictor at this point
 		Then according to section \ref{ssec:measured-data} the measured reflectance values are $x_{ij}$ with
@@ -89,8 +89,9 @@
 	\subsection{Multivariate Linear Regression}
 	\label{ssec:mlr}
 	
-		Multiple linear regression (MLR) or multivariate linear regression is a statistical method for estimating parameters of linear relations between a response variable and a set of predictors and to use these to predict new responses.
-		Let $\mathbb{X}\in\SR^{n\times(k+1)}, n,k\in\SN,k<n$ be the design matrix, $\sigma^2\in(0,\infty)$ and $Y$ be the random vector variables with
+		Multivariate linear regression (MLR) is a statistical method for finding parameters of linear relations between a response variable and a set of predictors.
+		These can be reused to predict new responses.
+		Let $\mathbb{X}\in\SR^{n\times(k+1)}, n,k\in\SN,k<n$ be the design matrix, $\sigma^2\in(0,\infty)$ and $Y$ be the random vector of a response variable with
 		\[
 			Y \sim \FN\curvb{\mathbb{X}\beta,\sigma^2\idmat_n}
 		\]
@@ -104,18 +105,19 @@
 		Then we define
 		\begin{alignat*}{3}
 			\hat{y} &\define&&\ \mathbb{X}\hat{\beta}(y) = \mathbb{X}\inv{\curvb{\transp{\mathbb{X}}\mathbb{X}}}\transp{\mathbb{X}}y \\
-			\hat{\sigma}^2 &\define&&\ \hat{\sigma}^2(y)
+			\widehat{{\sigma}^2} &\define&&\ \hat{\sigma}^2(y)
 		\end{alignat*}
 		%citation
-	
+
 	% subsection mlr
 
 	\subsection{Mallows' $\m{C_p}$}
 	\label{ssec:mallows-C_p}
 	
 		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole measured spectra for each soil sample.
-		The reflectances of neighbouring lightwaves are correlated. % citation
-		This might lead to overfitting, i.e. the variance of our estimated parameters $\hat{\beta}_i(Y)$ might be too large, compromising their usability for future measurements.
+		This set of predictors is comparatively large, $n-k < k$.
+		Further, the reflectances of neighbouring lightwaves are correlated. % citation
+		In these circumstances, we might overfit the data, i.e. the variance of our estimated parameters $\hat{\beta}_i(Y)$ might be too large, compromising their usability for future measurements.
 		To address this problem, it is sensible to limit each actual model to a \enquote{good} subset of the predictors. Hence, our task becomes to select the best or at least a \enquote{sufficiently} good model $M$ defined by
 		\[
 			M\subset \Lambda \cup \set{\lambda_0} \definedby \overline{\Lambda}
@@ -141,38 +143,46 @@
 		\]
 		Unfortunately, the true $\sigma^2$ is unobservable so that it has to be estimated by
 		\[
-			\widehat{\m{SPSE}}^{(M)} \define \norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2_2 + 2\m{p}\curvb{\hat{\sigma}^2}^{(\overline{\Lambda})}
+			\widehat{\m{SPSE}}^{(M)}(Y) \define \norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2_2 + 2\m{p}\hat{\sigma}^2(Y)
 		\]
 		
 		Instead of using the $\widehat{\m{SPSE}}^{(M)}$ directly, we will use Mallow's $C_\m{p}$ instead, given by
 		\[
-			\m{C_p}^{(M)} \define \frac{1}{\curvb{\hat{\sigma}^2}^{(\overline{\Lambda})}}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
+			\m{C_p}^{(M)} \define \frac{1}{\widehat{{\sigma}^2}}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
 		\]
-		The minimization this value is equivalent to the minimisation of the estimated sum of predicted squared errors ($\widehat{\m{SPSE}}$).
-		The proof is trivial, just biject it to a conext-free residue class, whose elements are open manifolds. %citation
+		Minimising this value is equivalent to the minimisation of the $\widehat{\m{SPSE}}^{(M)}$.
+		% The proof is trivial, just biject it to a conext-free residue class, whose elements are open manifolds. %citation
 	
 	% subsection mallows-C_p
 
 	\subsection{Simulated Annealing}
 	\label{ssec:model-selec}
 	
-		As the set of predictors is comparatively large, $n-k < k$, the full-sized model might overfit the data and hence lower the confidence in our parameter estimator.
-		The proposed solution in \ref{ssec:mallows-C_p} is to reduce the number of predictors.
-		Still, with a size of the hypothesis space of $\abs{\s{H}} = 2^{319}$, complete search or even best $k$ approaches are beyond feasibility.
-		To reduce the time spent on model search, we will compare two \textsl{do we?} model selection algorithms, simulated annealing and bidirectional elimination.	
-		We want to find a subset $M$ such that for all $N\in\s{H}$ the inequality
+		
+		% The proposed solution in \ref{ssec:mallows-C_p} is to reduce the number of predictors.
+		We can now formulate the following minimisation problem.
+		Let
 		\[
-			C_\m{p}^{(M)} \leq C_\m{p}^{(N)}
+			\s{H} \define \set[A\in\setpow(\Lambda)]{A \cup \set{\lambda_0}} \subset \setpow\curvb{\overline{\Lambda}}
 		\]
-		holds.
+		Then the model we want to select is a solution to
+		\[
+			\Omega \define \minimize_{M\in\s{H}} C_\m{p}^{(M)}
+		\]
+		\[
+			\Omega \define \minimize \set[M\in\s{H}]{C_\m{p}^{(M)}}
+		\]
+		This problem is a discrete optimisation problem, which is in general np-hard. %citation
+		Unfortunately, $\abs{\s{H}} = 2^{319}$, which is too large for a complete search.
+		Therefore, we need a heuristic search algorithm that does not depend on further information of the cost function.
 
-		Simulated annealing (SANN) is a probabilistic technique for approximating the global optimum of a given function.
-		Specifically, it is a metaheuristic to approximate global optimisation in large search spaces.
-		It simulates the slow cooling of a thermodynamic system through random numbers.
-		With this algorithm it is possible to find a \enquote{good} local minimum in a short time.
+		Simulated annealing (SANN) is a heuristic algorithm that approximates global optima of a given function.
+		Note that the SANN returns only a probabilistically good approximation $\s{M}\in\s{H}$ to a true solution to $\Omega$.
+		Lacking similarly reliable and computationally feasible alternatives we use the solution returned by SANN instead.
 		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
 
 		The algorithm is applicable to arbitrary sets, in our case $\s{H}$.
+		It simulates the slow cooling of a thermodynamic system.
 		Let $x_0\in\s{H}$ be the initial set of predictors, $T_0\in(0,\infty)$ be the initial temperature of the system and $i_\m{max}\in\SN$ be the maximal number of time steps.
 		Then the algorithm requires the following functions:
 		\begin{itemize}
@@ -202,14 +212,17 @@
 	\label{ssec:model-validation}
 	
 		% goodness of prediction/R^2 discussion
-		To examine the models selected through \ref{ssec:model-selec}, we recur to the often used $R^2$ measure.
-		It is given by
+		To examine the models selected by SANN, we recur to the often used $R^2$ measure.
+		For $M\in\s{H}$ it is given by
 		\[
-			\curvb{R^2}^{(M)} \define \frac {\sum_{i=1}^n \curvb{\hat{y}_i - \overline{y}}^2}{\sum_{i=1}^n \curvb{y_i - \overline{y}}^2}
+			\curvb{R^2}^{(M)} \define \frac {\sum_{i=1}^n \curvb{\hat{y}^{(M)}_i - \overline{y}}^2}{\sum_{i=1}^n \curvb{y_i - \overline{y}}^2} \in [0,1]
 		\]
-		and describes how much of the total variation of $y$ is explained by the selected model.
-		
-		In addition, we will use correlation diagrams for each model, plotting $\hat{y}$ on $y$, to check for grave divergences.
+		where $\overline{y}$ is the arithmetic mean of $y_i$ for $i=1,\ldots,n$ and describes how much of the total variation of $y$ is explained by the model $M$.
+		$\curvb{R^2}^{(M)} = 0$ is equivalent to no, $\curvb{R^2}^{(M)} = 1$ to full agreement of the model with the observations.
+		We shall be note though, that the measure is increasing with $\abs{M}$.
+		In contrast the actual upper bound of $R^2$ is lowered by the presence of measurement errors.
+		We will therefore consult the correlation diagrams for each response variable observation vector and its respective prediction vector to complement our judgement based on the $R^2$ measure.
+
 	% subsection model-validation
 	
 	\subsection{Simulation}
@@ -223,11 +236,10 @@
 		We then apply our model selection algorithm to each simulation and compare the resulting estimators $\widehat{\m{SPSE}}^{(j)}$ with the \enquote{true} $\m{SPSE}$ computed from the fixed parameters.
 				
 		The pseudo-observations of one simulation are generated as follows
-		\begin{alignat*}{3}
-			\tilde{Y} &&\, = \, & \hat{Y} + \varepsilon \\
-			\varepsilon &&\, \sim \, & \FN \curvb{0,\hat{\sigma}^2\idmat}
-		\end{alignat*}
-		where $\hat{Y}$ is the selected model from \ref{ssec:model-selec} and $\hat{\sigma}^2$ the estimator for $\sigma^2$ in said model.
+		\[
+			\tilde{Y} = \hat{y}^{(\s{M})} + \varepsilon,\qquad \varepsilon \sim  \FN \curvb{0,\curvb{\widehat{\sigma^2}}^{(\s{M})}\idmat}
+		\]
+		where $\hat{y}$ is the selected model from \ref{ssec:model-selec} and $\curvb{\widehat{\sigma^2}}^{(\s{M})}$ the estimator for $\sigma^2$ in said model.
 		We then proceed to use the complete model space $\overline{\Lambda}$ to select the best model for each simulation and estimate the $\m{SPSE}$ through $\widehat{\m{SPSE}}^{(j)}$.
 		We then compare the estimates with the fixed \enquote{true} $\m{SPSE}$.
 		

@@ -19,31 +19,31 @@ tex doc:
 		✘	model selection plot: labels with boxes @cancelled (16-08-19 23:56)
 
 	problem:
-		☐	introduction: paper -> report
-		☐	background/soil parameters: molar concentration c_A >>of A<<
-		☐	background/nirs: space after comma
-		☐	background/nirs: first paragraph not sounds right
-		☐	background/nirs: wavelength lambda with set definition
-		☐	background/nirs: beer-lambert law as approximation
-		☐	methodology/statistical model: >> k<n <<
-		☐	methodology/mlr: first sentence with three >>and<<
-		☐	methodology/mlr: redefine sigma² for realization
-		☐	methodology/cp: check variance of parameters for overfitting argument
-		☐	methodology/cp: merits?
-		☐	methodology/cp: reference to definitions of last section (esp: sigma²)
-		☐	methodology/cp: the minimization >>of<< this...
-		☐	methodology/cp: check estimated spse in brackets (where is the M)
-		☐	methodology/cp: delete last funny sentence
-		☐	methodology/sa: refer to the last sections for definitions
-		☐	methodology/sa: condition n-k<k with citation, context not clear
-		☐	methodology/sa: hypothesis space H makes no sense at this point
-		☐	methodology/sa: what is best k?
-		☐	methodology/sa: we do not compare two methods
-		☐	methodology/sa: inequation does not hold in our method; computing is beyond feasibility, so we want to find a good local minimum
+		✔	introduction: paper -> report @done (16-08-21 16:42)
+		✔	background/soil parameters: molar concentration c_A >>of A<< @done (16-08-21 16:43)
+		✔	background/nirs: space after comma @done (16-08-21 16:46)
+		✔	background/nirs: first paragraph not sounds right @done (16-08-21 19:46)
+		✘	background/nirs: wavelength lambda with set definition @cancelled (16-08-21 19:48)
+		✔	background/nirs: beer-lambert law as approximation @done (16-08-21 19:51)
+		✔	methodology/statistical model: >> k<n << @done (16-08-21 19:52)
+		✔	methodology/mlr: first sentence with three >>and<< @done (16-08-21 19:57)
+		✔	methodology/mlr: redefine sigma² for realization @done (16-08-21 20:00)
+		✔	methodology/cp: check variance of parameters for overfitting argument @done (16-08-21 20:03)
+		✔	methodology/cp: merits? @done (16-08-21 20:05)
+		✔	methodology/cp: reference to definitions of last section (esp: sigma²) @done (16-08-21 20:17)
+		✔	methodology/cp: the minimization >>of<< this... @done (16-08-21 20:19)
+		✔	methodology/cp: check estimated spse in brackets (where is the M) @done (16-08-21 20:23)
+		✔	methodology/cp: delete last funny sentence @done (16-08-21 20:19)
+		✘	methodology/sa: refer to the last sections for definitions @cancelled (16-08-21 20:31)
+		✔	methodology/sa: condition n-k<k with citation, context not clear @done (16-08-21 20:42)
+		✔	methodology/sa: hypothesis space H makes no sense at this point @done (16-08-21 21:02)
+		✘	methodology/sa: what is best k? @cancelled (16-08-21 21:10)
+		✔	methodology/sa: we do not compare two methods @done (16-08-21 21:11)
+		✘	methodology/sa: inequation does not hold in our method; computing is beyond feasibility, so we want to find a good local minimum @cancelled (16-08-21 21:12)
 		☐	methodology/sa: change rnd function description
-		☐	methodology/mv: R² measure -> R²-measure
-		☐	methodology/mv: refer to last definitions
-		☐	methodology/mv: every variable has to be defined: M,arithmetic mean, maybe second definition of R²
+		✘	methodology/mv: R² measure -> R²-measure @cancelled (16-08-21 21:45)
+		✔	methodology/mv: refer to last definitions @done (16-08-21 21:45)
+		✔	methodology/mv: every variable has to be defined: M,arithmetic mean, maybe second definition of R² @done (16-08-21 22:03)
 		☐	methodology/simulation: spse est. needs the M
 		☐	methodology/simulation: second paragraph not clear (definitions), why using 1000?, what is C^(j), what is ...
 		☐	methodology/simulation: pseudo generation: hat{Y} -> hat{y}, equations in one line
@@ -65,7 +65,8 @@ tex doc:
 		☐	ms/gof: corroborate?
 		☐	ms/gof: maybe no new paragraph at the end? 
 		☐	simulation/cs: again problem spse
-
+		☐	methodology/sa: choose between two formulation of minimization problem
+		☐	methodology/cp: definition of M
 
 code:
 	☐	easier implementation
