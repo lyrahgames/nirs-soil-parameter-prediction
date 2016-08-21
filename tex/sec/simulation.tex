@@ -1,6 +1,47 @@
 \section{Simulation}
 \label{sec:simulation}
 	
+	% it would be nice to have a figure, plotting the true SPSE
+	% as an hline and for each simulation type a box plot (or
+	% even cooler a violin plot).
+	% if we use the following setup:
+	% 1 at full resolution and full data set,
+	% 3 at reduced resolution,
+	% 3 at reduced data set
+	% we have 7 boxplots/violins, which we can easily
+	% plot in one figure of the size of fig 1.
 	
+	% The text that follows is a bogus text, capturing the style of the report here
+	
+	\subsection{Complete Simulations}
+	\label{ssec:comp-sim}
+	
+		% report the results on the $\m{SPSE} - \widehat{\m{SPSE}}$
+		Applying SANN on the 1000 simulations with the full design matrix showed that the $\widehat{\m{SPSE}}$ values underestimate the true $\m{SPSE}$ as displayed in figure \ref{fig:spse}.
+		The mean $\widehat{\m{SPSE}}$ lies about $\mathcal{X}$ below its true value.
+		It shall be noted though that the true $\m{SPSE}$ lies within one standard deviation of the estimate.
+	
+	% subsecton complete simulations
+	
+	\subsection{Resolution}
+	\label{ssec:resolution}
+	
+		% report the results on the $\m{SPSE} - \widehat{\m{SPSE}} | m$
+		Reducing the resolution at which we measure the lightwaves ameliorates the situation somewhat.
+		Estimates lie much closer to the true $\m{SPSE}$, albeit the risk of obtaining outliers increases dramatically.
+		The best result are yielded at a resolution of every $\frac{1}{2}$ of the original one.
+	
+	% subsection resolution
+	
+	\subsection{Sample Size}
+	\label{ssec:samp-size}
+	
+		% report the results on the $\m{SPSE} - \widehat{\m{SPSE}} | l$
+		% report the results on the $\m{SPSE} - \widehat{\m{SPSE}} | m$
+		Reducing the data set at resolution $\frac{1}{3}$ shows even more dramatic effects on the variance of the estimates around the true $\m{SPSE}$.
+		Compared to the full data set estimates at the same resolution, we notice a considerably wider interval around the mean.
+		This is to be expected as lesser data increases the risk of variance.
+	
+	% subsection sample size
 
 % section simulation

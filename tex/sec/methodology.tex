@@ -110,7 +110,7 @@
 	
 	% subsection mlr
 
-	\subsection{Mallows' $C_\m{p}$}
+	\subsection{Mallows' $\m{C_p}$}
 	\label{ssec:mallows-C_p}
 	
 		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole measured spectra for each soil sample.
@@ -146,9 +146,9 @@
 		
 		Instead of using the $\widehat{\m{SPSE}}^{(M)}$ directly, we will use Mallow's $C_\m{p}$ instead, given by
 		\[
-			C_\m{p}^{(M)} \define \frac{1}{\curvb{\hat{\sigma}^2}^{(\overline{\Lambda})}}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
+			\m{C_p}^{(M)} \define \frac{1}{\curvb{\hat{\sigma}^2}^{(\overline{\Lambda})}}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
 		\]
-		The minimization this value is equivalent to the minimization of the estimated sum of predicted squared errors ($\widehat{\m{SPSE}}$).
+		The minimization this value is equivalent to the minimisation of the estimated sum of predicted squared errors ($\widehat{\m{SPSE}}$).
 		The proof is trivial, just biject it to a conext-free residue class, whose elements are open manifolds. %citation
 	
 	% subsection mallows-C_p
@@ -157,7 +157,7 @@
 	\label{ssec:model-selec}
 	
 		As the set of predictors is comparatively large, $n-k < k$, the full-sized model might overfit the data and hence lower the confidence in our parameter estimator.
-		The proposed solution in \ref{mallows-C_p} is to reduce the number of predictors.
+		The proposed solution in \ref{ssec:mallows-C_p} is to reduce the number of predictors.
 		Still, with a size of the hypothesis space of $\abs{\s{H}} = 2^{319}$, complete search or even best $k$ approaches are beyond feasibility.
 		To reduce the time spent on model search, we will compare two \textsl{do we?} model selection algorithms, simulated annealing and bidirectional elimination.	
 		We want to find a subset $M$ such that for all $N\in\s{H}$ the inequality
@@ -202,23 +202,46 @@
 	\label{ssec:model-validation}
 	
 		% goodness of prediction/R^2 discussion
-	
+		To examine the models selected through \ref{ssec:model-selec}, we recur to the often used $R^2$ measure.
+		It is given by
+		\[
+			\curvb{R^2}^{(M)} \define \frac {\sum_{i=1}^n \curvb{\hat{y}_i - \overline{y}}^2}{\sum_{i=1}^n \curvb{y_i - \overline{y}}^2}
+		\]
+		and describes how much of the total variation of $y$ is explained by the selected model.
+		
+		In addition, we will use correlation diagrams for each model, plotting $\hat{y}$ on $y$, to check for grave divergences.
 	% subsection model-validation
 	
 	\subsection{Simulation}
 	\label{ssec:simulation}
 	
-		In the following section, we assume that $\mu$ and $\sigma^2$ are known. true $\m{SPSE}$
-		% rationale
-		% idea
-		% implementation
-		To generate pseudoobservations, we use the selected model's estimators instead $\mu$ and $\sigma^2$ by adding a Gaussian error term to the predictions by the selected model.
-		Then we forget both and proceed to select a best model and estimate its parameters for each simulation.
-		We then proceed to calculate the $\widehat{\m{SPSE}}$ for each simulation.
-		We then compute the arithmetic mean of the $\widehat{\m{SPSE}}$ and compare it to the known true $\m{SPSE}$.
+		Having chosen the selection criterion based on the performance in predicting the responses, we need to assess how well the model selection algorithm minimises the $\m{SPSE}$.
+		We have seen in \ref{ssec:mallows-C_p}, our algorithm heuristically minimises the estimator $\widehat{\m{SPSE}}$.
 		
-		% subsampling along the lines of data size and full model size
+		As the true $\m{SPSE}$ is unobservable, we resort to simulations of one response variable $\tilde{Y}^{(j)}, j \in \SN, j \leq 1000$, where we can fix both, $\expect{\tilde{Y}^{(j)}}$ and $C^{(j)}$.
+		The resulting values for the response variable are also called pseudo-observations.
+		We then apply our model selection algorithm to each simulation and compare the resulting estimators $\widehat{\m{SPSE}}^{(j)}$ with the \enquote{true} $\m{SPSE}$ computed from the fixed parameters.
+				
+		The pseudo-observations of one simulation are generated as follows
+		\begin{alignat*}{3}
+			\tilde{Y} &&\, = \, & \hat{Y} + \varepsilon \\
+			\varepsilon &&\, \sim \, & \FN \curvb{0,\hat{\sigma}^2\idmat}
+		\end{alignat*}
+		where $\hat{Y}$ is the selected model from \ref{ssec:model-selec} and $\hat{\sigma}^2$ the estimator for $\sigma^2$ in said model.
+		We then proceed to use the complete model space $\overline{\Lambda}$ to select the best model for each simulation and estimate the $\m{SPSE}$ through $\widehat{\m{SPSE}}^{(j)}$.
+		We then compare the estimates with the fixed \enquote{true} $\m{SPSE}$.
 		
+		To gauge how much the resolution of the NIRS influences the model selection, we repeat the model selection on the simulations, but allow only models from
+		\[
+			\Lambda^{(m)} \define \set{\lambda_{mi} | \lambda_{mi} \in \Lambda, i = 1, 2, \ldots} \qquad m \in \set{2, 3, 4}
+		\]
+		where $\overline{\Lambda}^{(m)}$ takes the place of $\overline\Lambda$ in the algorithm.
+		
+		Just as with resolution, we can also assess the influence of availability of measurements.
+		Choosing a suitable $N \in \SN^L$ with entries $N_l > k, l \in \set{1,\ldots,L}$, we randomly select a subset of the simulation data of size $N_l$ and proceed as above.
+		As $n-k \le k$, we perform this inquiry with $\Lambda^{(3)}$ instead to reduce computational cost and capture a larger variety of L.
+		
+		Using the same algorithm for all three response variables, we can limit the algorithm examination to one response variable, $\m{SOC}$, to be better able to compare the results and reduce redundant analyses.		
 		
 	% subsection simulation
 % section methodology
