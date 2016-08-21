@@ -15,15 +15,15 @@ tex doc:
 
 	think about it:
 		☐	constant count of significant digits in parameter table
-		☐	model selection plot: labels with boxes
+		✘	model selection plot: labels with boxes @cancelled (16-08-19 23:56)
 
 code:
 	☐	easier implementation
 	✘	ridge condition matrix @cancelled (16-08-19 07:42)
 	✘	stepwise regression @cancelled (16-08-19 07:42)
 		(forward, backward, bidirectional)
-	☐	easy calculation and generation of new parameters
-	☐	simulation script
+	✔	easy calculation and generation of new parameters @done (16-08-19 23:55)
+	✔	simulation script @done (16-08-19 23:56)
 	✔	compute r² in model selection @done (16-08-19 08:13)
 	✔	compute wavelength count @done (16-08-19 08:14)
 	✔	final model selection for all 3 response variables (incl. plots, tables, …) @done (16-08-19 10:54)

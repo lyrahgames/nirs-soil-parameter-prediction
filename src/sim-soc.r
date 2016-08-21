@@ -17,8 +17,8 @@ mlr.init()
 
 ms.init.dist(idx_vec)
 
-# sim_count <- dim(pseudo_obs_mat)[2]
-sim_count <- 10
+sim_count <- dim(pseudo_obs_mat)[2]
+# sim_count <- 10
 
 spse_vec <- numeric()
 
@@ -40,12 +40,12 @@ for (i in 1:sim_count){
 	tmp_t2 <- proc.time()
 
 	# debug
-	print("sorted index vector:")
-	print(sort(tmp_idx_vec))
+	# print("sorted index vector:")
+	# print(sort(tmp_idx_vec))
 	print("tmp spse:")
 	print(tmp_spse)
-	print("tmp mallows' cp:")
-	print(ms.cp(tmp_idx_vec))
+	# print("tmp mallows' cp:")
+	# print(ms.cp(tmp_idx_vec))
 	print("tmp time:")
 	print(tmp_t2-tmp_t1)
 }
@@ -58,3 +58,5 @@ print("spse variance:")
 print(var(spse_vec))
 print("time:")
 print(t2-t1)
+
+write.table(spse_vec, "../pro-files/data/gen/sim-soc-spse-vec.csv", sep="\t", col.names=F, row.names=F)
