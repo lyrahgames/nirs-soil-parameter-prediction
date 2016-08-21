@@ -39,7 +39,7 @@ tex doc:
 		✔	methodology/sa: hypothesis space H makes no sense at this point @done (16-08-21 21:02)
 		✘	methodology/sa: what is best k? @cancelled (16-08-21 21:10)
 		✔	methodology/sa: we do not compare two methods @done (16-08-21 21:11)
-		✘	methodology/sa: inequation does not hold in our method; computing is beyond feasibility, so we want to find a good local minimum @cancelled (16-08-21 21:12)
+		✘	methodology/sa: inequality does not hold in our method; computing is beyond feasibility, so we want to find a good local minimum @cancelled (16-08-21 21:12)
 		☐	methodology/sa: change rnd function description
 		✘	methodology/mv: R² measure -> R²-measure @cancelled (16-08-21 21:45)
 		✔	methodology/mv: refer to last definitions @done (16-08-21 21:45)
@@ -57,6 +57,7 @@ tex doc:
 		☐	implementation/pre: X^M is full rank (right), place for stating full rank of X
 		☐	implementation/pre: reformat equation system
 		☐	implementation/pre: inverse of sigma²
+		☐	implementation/simulation: spse needs the amount of parameters for each best model (pseudo-observation-wise) @added by kaz
 		☐	ms/calibration: beslightly -> be slightly
 		☐	ms/calibration: introduction to the selected model too short
 		☐	ms/calibration: bandwidth is not the right term
