@@ -12,10 +12,60 @@ tex doc:
 	✘	plot correlation: delete labels @cancelled (16-08-19 10:54)
 	✔	plot correlation: show r² value @done (16-08-19 10:54)
 	☐	add source code to appendix
+	✔	theory of r² in methodology @done (16-08-21 15:50)
 
 	think about it:
 		☐	constant count of significant digits in parameter table
 		✘	model selection plot: labels with boxes @cancelled (16-08-19 23:56)
+
+	problem:
+		☐	introduction: paper -> report
+		☐	background/soil parameters: molar concentration c_A >>of A<<
+		☐	background/nirs: space after comma
+		☐	background/nirs: first paragraph not sounds right
+		☐	background/nirs: wavelength lambda with set definition
+		☐	background/nirs: beer-lambert law as approximation
+		☐	methodology/statistical model: >> k<n <<
+		☐	methodology/mlr: first sentence with three >>and<<
+		☐	methodology/mlr: redefine sigma² for realization
+		☐	methodology/cp: check variance of parameters for overfitting argument
+		☐	methodology/cp: merits?
+		☐	methodology/cp: reference to definitions of last section (esp: sigma²)
+		☐	methodology/cp: the minimization >>of<< this...
+		☐	methodology/cp: check estimated spse in brackets (where is the M)
+		☐	methodology/cp: delete last funny sentence
+		☐	methodology/sa: refer to the last sections for definitions
+		☐	methodology/sa: condition n-k<k with citation, context not clear
+		☐	methodology/sa: hypothesis space H makes no sense at this point
+		☐	methodology/sa: what is best k?
+		☐	methodology/sa: we do not compare two methods
+		☐	methodology/sa: inequation does not hold in our method; computing is beyond feasibility, so we want to find a good local minimum
+		☐	methodology/sa: change rnd function description
+		☐	methodology/mv: R² measure -> R²-measure
+		☐	methodology/mv: refer to last definitions
+		☐	methodology/mv: every variable has to be defined: M,arithmetic mean, maybe second definition of R²
+		☐	methodology/simulation: spse est. needs the M
+		☐	methodology/simulation: second paragraph not clear (definitions), why using 1000?, what is C^(j), what is ...
+		☐	methodology/simulation: pseudo generation: hat{Y} -> hat{y}, equations in one line
+		☐	methodology/simulation: redefine variance estimator
+		☐	methodology/simulation: Lambda^(m): use cdot (lambda does not have two indices)
+		☐	methodology/simulation: too complicated definition of random subsets and other predictor subsets
+		☐	implementation/can: use only one: nbr-function, nbr function
+		☐	implementation/can: change set of r to {1,...,k} (intercept is 0)
+		☐	implementation/can: where is the listing?
+		☐	implementation/pre: check second paragraph
+		☐	implementation/pre: X^M is full rank (right), place for stating full rank of X
+		☐	implementation/pre: reformat equation system
+		☐	implementation/pre: inverse of sigma²
+		☐	ms/calibration: beslightly -> be slightly
+		☐	ms/calibration: introduction to the selected model too short
+		☐	ms/calibration: bandwidth is not the right term
+		☐	ms/calibration: intercepts are not 0 for soc and n
+		☐	ms/gof: figure caption: blue in small letters
+		☐	ms/gof: corroborate?
+		☐	ms/gof: maybe no new paragraph at the end? 
+		☐	simulation/cs: again problem spse
+
 
 code:
 	☐	easier implementation

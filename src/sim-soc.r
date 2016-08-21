@@ -11,11 +11,22 @@ idx_vec <- as.vector(read.csv("../pro-files/data/gen/ms-sa-soc-idx-vec.csv", hea
 # idx_vec
 # length(idx_vec)
 
+
 init.data(soc_vec, soc_design_mat)
 mlr.init()
 
 
 ms.init.dist(idx_vec)
+
+
+
+# choose predictor index
+step <- 2
+pred_idx_vec <- seq(1, dim(soc_design_mat)[2], by=step)
+init.data(soc_vec, soc_design_mat[,pred_idx_vec])
+mlr.init()
+
+
 
 sim_count <- dim(pseudo_obs_mat)[2]
 # sim_count <- 10
@@ -59,4 +70,4 @@ print(var(spse_vec))
 print("time:")
 print(t2-t1)
 
-write.table(spse_vec, "../pro-files/data/gen/sim-soc-spse-vec.csv", sep="\t", col.names=F, row.names=F)
+write.table(spse_vec, "../pro-files/data/gen/sim-soc-s2-spse-vec.csv", sep="\t", col.names=F, row.names=F)
