@@ -228,17 +228,22 @@
 	\subsection{Simulation}
 	\label{ssec:simulation}
 	
-		Having chosen the selection criterion based on the performance in predicting the responses, we need to assess how well the model selection algorithm minimises the $\m{SPSE}$.
-		We have seen in \ref{ssec:mallows-C_p}, our algorithm heuristically minimises the estimator $\widehat{\m{SPSE}}$.
+		As the true $\m{SPSE}$ is unobservable, we need to assess how well our procedure minimises the true $\m{SPSE}$ in general.
+		For limitation of data we have to resort to so called pseudo-observations of a response variable.
+		These are collected in a random vector as follows
 		
-		As the true $\m{SPSE}$ is unobservable, we resort to simulations of one response variable $\tilde{Y}^{(j)}, j \in \SN, j \leq 1000$, where we can fix both, $\expect{\tilde{Y}^{(j)}}$ and $C^{(j)}$.
+		\[
+			\widetilde{Y} \define \hat{y}^{(\s{M})} + \varepsilon,\qquad \varepsilon \sim  \FN \curvb{0,\curvb{\widehat{\sigma^2}}^{(\s{M})}\idmat_n}
+		\]
+
+		As we have fixed the parameters for the random vector $\widetilde{Y}$ we can now calculate the true $\m{SPSE}$ for the model.
+
+		we resort to simulation of pseudo response variable $\tilde{Y}^{(j)}, j \in \SN, j \leq 1000$, where we can fix both, $\expect{\tilde{Y}^{(j)}}$ and $C^{(j)}$.
 		The resulting values for the response variable are also called pseudo-observations.
 		We then apply our model selection algorithm to each simulation and compare the resulting estimators $\widehat{\m{SPSE}}^{(j)}$ with the \enquote{true} $\m{SPSE}$ computed from the fixed parameters.
 				
 		The pseudo-observations of one simulation are generated as follows
-		\[
-			\tilde{Y} = \hat{y}^{(\s{M})} + \varepsilon,\qquad \varepsilon \sim  \FN \curvb{0,\curvb{\widehat{\sigma^2}}^{(\s{M})}\idmat}
-		\]
+		
 		where $\hat{y}$ is the selected model from \ref{ssec:model-selec} and $\curvb{\widehat{\sigma^2}}^{(\s{M})}$ the estimator for $\sigma^2$ in said model.
 		We then proceed to use the complete model space $\overline{\Lambda}$ to select the best model for each simulation and estimate the $\m{SPSE}$ through $\widehat{\m{SPSE}}^{(j)}$.
 		We then compare the estimates with the fixed \enquote{true} $\m{SPSE}$.

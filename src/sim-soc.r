@@ -24,7 +24,7 @@ step <- 4
 pred_idx_vec <- seq(1, dim(soc_design_mat)[2], by=step)
 
 # choose observable index
-sample_count <- 500
+sample_count <- 100
 obs_idx_vec <- sample(dim(soc_design_mat)[1], sample_count)
 
 # 
@@ -85,4 +85,4 @@ print(t2-t1)
 # spse_data <- cbind(run = c("533x319"), spse_data)
 # qplot(data = spse_data, y = est_spse, x = run, geom = "violin") + geom_hline(yintercept = gv_spse_soc)
 
-write.table(spse_vec, "../pro-files/data/gen/sim-soc-500-s4-spse-vec.csv", sep="\t", col.names=F, row.names=F)
+write.table(spse_vec, "../pro-files/data/gen/sim-soc-100-s4-spse-vec.csv", sep="\t", col.names=F, row.names=F)

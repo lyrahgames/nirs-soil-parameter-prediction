@@ -52,7 +52,7 @@ tex doc:
 		☐	methodology/simulation: too complicated definition of random subsets and other predictor subsets
 		☐	implementation/can: use only one: nbr-function, nbr function
 		☐	implementation/can: change set of r to {1,...,k} (intercept is 0)
-		☐	implementation/can: where is the listing?
+		✔	implementation/can: where is the listing? @done (16-08-22 00:12)
 		☐	implementation/pre: check second paragraph
 		☐	implementation/pre: X^M is full rank (right), place for stating full rank of X
 		☐	implementation/pre: reformat equation system
