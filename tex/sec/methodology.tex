@@ -235,18 +235,9 @@
 			\widetilde{Y} \sim \FN\curvb{\mathbb{X}\widetilde{\beta},\sigma^2\idmat_n}
 		\]
 		treating $\sigma^2$ as unknown.
-		The algorithm returns a model $\widetilde{\s{M}}$. We can now calculate $\widehat{\m{SPSE}}^{(\widetilde{\s{M}})}$ and compare it to the true value
-		
-
-		
-%		The resulting values for the response variable are also called pseudo-observations.
-%		We then apply our model selection algorithm to each simulation and compare the resulting estimators $\widehat{\m{SPSE}}^{(j)}$ with the \enquote{true} $\m{SPSE}$ computed from the fixed parameters.
-%				
-%		The pseudo-observations of one simulation are generated as follows
-%		
-%		where $\hat{y}$ is the selected model from \ref{ssec:model-selec} and $\curvb{\widehat{\sigma^2}}^{(\s{M})}$ the estimator for $\sigma^2$ in said model.
-%		We then proceed to use the complete model space $\overline{\Lambda}$ to select the best model for each simulation and estimate the $\m{SPSE}$ through $\widehat{\m{SPSE}}^{(j)}$.
-		We then compare the estimates with the fixed \enquote{true} $\m{SPSE}$.
+		The algorithm returns a model $\widetilde{\s{M}}$. We can now calculate $\widehat{\m{SPSE}}^{(\widetilde{\s{M}})}$ and compare it to the true $\m{SPSE}$.
+		Due to the heuristic nature of the selection algorithm, we might end up with an exceptionally bad value.
+		To address this, we repeat this process $r$ times.
 		
 		To gauge how much the resolution of the NIRS influences the model selection, we repeat the model selection on the simulations, but allow only models from
 		\[
