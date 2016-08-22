@@ -5,7 +5,7 @@ tex doc:
 	✔	header: check font size, check left- or rightmark @done (16-08-17 17:53)
 	✔	caption of tables and axes @done (16-08-17 20:29)
 	✔	colors of plots @done (16-08-17 18:02)
-	☐	references
+	✔	references
 	✔	plot model selection: add wavelength count to subcaption @done (16-08-19 10:53)
 	✔	plot model selection: make labels cool @done (16-08-19 10:53)
 	✔	plot correlation: subcaptions alignment @done (16-08-19 10:54)

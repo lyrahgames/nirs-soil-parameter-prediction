@@ -86,7 +86,7 @@
 	\label{ssec:mlr}
 	
 		Multivariate linear regression (MLR) is a statistical method for finding parameters of linear relations between a response variable and a set of predictors.
-		These can be reused to predict new responses.
+		These can be reused to predict new responses \cite{draper:98a, pardoe:12a, schumacher:16a}
 		Let $\mathbb{X}\in\SR^{n\times(k+1)}, n,k\in\SN,k<n$ be the design matrix, $\sigma^2\in(0,\infty)$ and $Y$ be the random vector of a response variable with
 		\[
 			Y \sim \FN\curvb{\mathbb{X}\beta,\sigma^2\idmat_n}
@@ -103,7 +103,6 @@
 			\hat{y} &\define&&\ \mathbb{X}\hat{\beta}(y) = \mathbb{X}\inv{\curvb{\transp{\mathbb{X}}\mathbb{X}}}\transp{\mathbb{X}}y \\
 			\widehat{{\sigma}^2} &\define&&\ \hat{\sigma}^2(y)
 		\end{alignat*}
-		%citation
 
 	% subsection mlr
 
@@ -112,7 +111,7 @@
 	
 		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole measured spectra for each soil sample.
 		This set of predictors is comparatively large, $n-k < k$.
-		Further, the reflectances of neighbouring lightwaves are correlated. % citation
+		Further, the reflectances of neighbouring lightwaves are correlated \cite[252]{agelet:10a}.
 		In these circumstances, we might overfit the data, i.e. the variance of our estimated parameters $\hat{\beta}_i(Y)$ might be too large, compromising their usability for future measurements.
 		To address this problem, it is sensible to limit each actual model to a \enquote{good} subset of the predictors. Hence, our task becomes to select the best or at least a \enquote{sufficiently} good model $M$ defined by
 		\[
@@ -126,14 +125,13 @@
 			\curvb{\hat{\sigma}^2}^{(M)}(Y) &=&&\ \frac{1}{n-\m{p}}\norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2_2,
 		\end{alignat*}
 		where $\m{p} \in \set{2,\ldots,k}$ corresponds to the number of predictors included in $M$.
-		%to follow the logic of our argumentation, we should start with the SPSE
 		
 		The sum of predicted squared errors ($\m{SPSE}$) is a theoretical criterion to compare the merits of different models.
 		The $\m{SPSE}^{(M)}$ measures how well a model does in predicting new responses from new data:
 		\[
 			\m{SPSE}^{(M)} \define \sum_{i = 1}^n \expect \curvb{Y_{n+i} - \hat{Y}_i^{(M)}}^2
 		\]
-		which simplifies to % to be elaborated
+		which simplifies to \cite[29-30]{schumacher:16a}
 		\[
 			\m{SPSE}^{(M)} = n\sigma^2 + \m{p}\sigma^2
 		\]
@@ -154,8 +152,6 @@
 	\subsection{Simulated Annealing}
 	\label{ssec:model-selec}
 	
-		
-		% The proposed solution in \ref{ssec:mallows-C_p} is to reduce the number of predictors.
 		We can now formulate the following minimisation problem.
 		Let
 		\[
@@ -168,14 +164,13 @@
 		\[
 			\Omega \define \minimize \set[M\in\s{H}]{C_\m{p}^{(M)}}
 		\]
-		This problem is a discrete optimisation problem, which is in general np-hard. %citation
+		This problem is a discrete optimisation problem, which is in general np-hard \cite[245-50]{schrijver:98a}.
 		Unfortunately, $\abs{\s{H}} = 2^{319}$, which is too large for a complete search.
 		Therefore, we need a heuristic search algorithm that does not depend on further information of the cost function.
 
-		Simulated annealing (SANN) is a heuristic algorithm that approximates global optima of a given function.
+		Simulated annealing (SANN) is a heuristic algorithm that approximates global optima of a given function \cite[549-54]{press:07a}.
 		Note that the SANN returns only a probabilistically good approximation $\s{M}\in\s{H}$ to a true solution to $\Omega$.
 		Lacking similarly reliable and computationally feasible alternatives we use the solution returned by SANN instead.
-		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
 
 		The algorithm is applicable to arbitrary sets, in our case $\s{H}$.
 		It simulates the slow cooling of a thermodynamic system.
@@ -188,9 +183,9 @@
 				Calculates the temperature according to the given initial temperature and time steps.
 				It is a monotonically decreasing function in the second parameter.
 			\item $\func{\m{nbr}}{\s{H}}{\s{H}}$ \\
-				Generates a random neighbor of a given predictor set.
+				Generates a random neighbour of a given predictor set.
 			\item $\func{\m{prob}}{\SR^2\times(0,\infty)}{[0,1]}$ \\
-				Calculates the probability of changing the current set or state to the neighbor.
+				Calculates the probability of changing the current set or state to the neighbour.
 			\item $\m{rnd}(0,1)$ \\
 				Returns a random number in the interval $[0,1]$.
 		\end{itemize}
@@ -207,8 +202,7 @@
 	\subsection{Model Validation}
 	\label{ssec:model-validation}
 	
-		% goodness of prediction/R^2 discussion
-		To examine the models selected by SANN, we recur to the often used $R^2$ measure.
+		To examine the models selected by SANN, we recur to the often used $R^2$ measure \cite[33-4]{draper:98a}.
 		For $M\in\s{H}$ it is given by
 		\[
 			\curvb{R^2}^{(M)} \define \frac {\sum_{i=1}^n \curvb{\hat{y}^{(M)}_i - \overline{y}}^2}{\sum_{i=1}^n \curvb{y_i - \overline{y}}^2} \in [0,1]
