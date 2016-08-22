@@ -239,7 +239,8 @@
 		Due to the heuristic nature of the selection algorithm, we might end up with an exceptionally bad value.
 		To address this, we repeat this process $r$ times.
 		
-		To gauge how much the resolution of the NIRS influences the model selection, we repeat the model selection on the simulations, but allow only models from
+		In addition to parameters of the random vector $\widetilde{Y}$, $\widehat{\m{SPSE}}^{(M)}$ depends on the hyperparameters, resolution $k = \abs{\Lambda}$ and the number of observations, $n$, as well.
+		To gauge influences of the resolution on the model selection, we repeat the simulations described above as follows:
 		\[
 			\Lambda^{(m)} \define \set{\lambda_{mi} | \lambda_{mi} \in \Lambda, i = 1, 2, \ldots} \qquad m \in \set{2, 3, 4}
 		\]
