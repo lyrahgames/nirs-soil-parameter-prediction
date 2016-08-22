@@ -86,7 +86,7 @@
 	\label{ssec:mlr}
 	
 		Multivariate linear regression (MLR) is a statistical method for finding parameters of linear relations between a response variable and a set of predictors.
-		These can be reused to predict new responses.
+		These can be reused to predict new responses \cite{draper:98a, pardoe:12a, schumacher:16a}
 		Let $\mathbb{X}\in\SR^{n\times(k+1)}, n,k\in\SN,k<n$ be the design matrix, $\sigma^2\in(0,\infty)$ and $Y$ be the random vector of a response variable with
 		\[
 			Y \sim \FN\curvb{\mathbb{X}\beta,\sigma^2\idmat_n}
@@ -103,7 +103,6 @@
 			\hat{y} &\define&&\ \mathbb{X}\hat{\beta}(y) = \mathbb{X}\inv{\curvb{\transp{\mathbb{X}}\mathbb{X}}}\transp{\mathbb{X}}y \\
 			\widehat{{\sigma}^2} &\define&&\ \hat{\sigma}^2(y)
 		\end{alignat*}
-		%citation
 
 	% subsection mlr
 
@@ -112,7 +111,7 @@
 	
 		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole measured spectra for each soil sample.
 		This set of predictors is comparatively large, $n-k < k$.
-		Further, the reflectances of neighbouring lightwaves are correlated. % citation
+		Further, the reflectances of neighbouring lightwaves are correlated \cite[252]{agelet:10a}.
 		In these circumstances, we might overfit the data, i.e. the variance of our estimated parameters $\hat{\beta}_i(Y)$ might be too large, compromising their usability for future measurements.
 		To address this problem, it is sensible to limit each actual model to a \enquote{good} subset of the predictors. Hence, our task becomes to select the best or at least a \enquote{sufficiently} good model $M$ defined by
 		\[
@@ -126,16 +125,15 @@
 			\curvb{\hat{\sigma}^2}^{(M)}(Y) &=&&\ \frac{1}{n-\m{p}}\norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2_2,
 		\end{alignat*}
 		where $\m{p} \in \set{2,\ldots,k}$ corresponds to the number of predictors included in $M$.
-		%to follow the logic of our argumentation, we should start with the SPSE
 		
 		The sum of predicted squared errors ($\m{SPSE}$) is a theoretical criterion to compare the merits of different models.
 		The $\m{SPSE}^{(M)}$ measures how well a model does in predicting new responses from new data:
 		\[
 			\m{SPSE}^{(M)} \define \sum_{i = 1}^n \expect \curvb{Y_{n+i} - \hat{Y}_i^{(M)}}^2
 		\]
-		which simplifies to % to be elaborated
+		which simplifies to \cite[29-30]{schumacher:16a}
 		\[
-			\m{SPSE}^{(M)} = n\sigma^2 + \m{p}\sigma^2
+			\m{SPSE}^{(M)} = n\sigma^2 + \m{p}\sigma^2 + \curvb{\m{bias}^2}^{(M)}
 		\]
 		Unfortunately, the true $\sigma^2$ is unobservable so that it has to be estimated by
 		\[
@@ -154,28 +152,25 @@
 	\subsection{Simulated Annealing}
 	\label{ssec:model-selec}
 	
-		
-		% The proposed solution in \ref{ssec:mallows-C_p} is to reduce the number of predictors.
 		We can now formulate the following minimisation problem.
 		Let
 		\[
 			\s{H} \define \set[A\in\setpow(\Lambda)]{A \cup \set{\lambda_0}} \subset \setpow\curvb{\overline{\Lambda}}
 		\]
 		Then the model we want to select is a solution to
+%		\[
+%			\curvb{\Omega} \qquad \minimize_{M\in\s{H}} \qquad C_\m{p}^{(M)}
+%		\]
 		\[
-			\curvb{\Omega} \qquad \minimize_{M\in\s{H}} \qquad C_\m{p}^{(M)}
+			\Omega \define \minimize \; \set[M\in\s{H}]{C_\m{p}^{(M)}}
 		\]
-		\[
-			\Omega \define \minimize \set[M\in\s{H}]{C_\m{p}^{(M)}}
-		\]
-		This problem is a discrete optimisation problem, which is in general np-hard. %citation
+		This problem is a discrete optimisation problem, which is in general np-hard \cite[245-50]{schrijver:98a}.
 		Unfortunately, $\abs{\s{H}} = 2^{319}$, which is too large for a complete search.
 		Therefore, we need a heuristic search algorithm that does not depend on further information of the cost function.
 
-		Simulated annealing (SANN) is a heuristic algorithm that approximates global optima of a given function.
+		Simulated annealing (SANN) is a heuristic algorithm that approximates global optima of a given function \cite[549-54]{press:07a}.
 		Note that the SANN returns only a probabilistically good approximation $\s{M}\in\s{H}$ to a true solution to $\Omega$.
 		Lacking similarly reliable and computationally feasible alternatives we use the solution returned by SANN instead.
-		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
 
 		The algorithm is applicable to arbitrary sets, in our case $\s{H}$.
 		It simulates the slow cooling of a thermodynamic system.
@@ -188,9 +183,9 @@
 				Calculates the temperature according to the given initial temperature and time steps.
 				It is a monotonically decreasing function in the second parameter.
 			\item $\func{\m{nbr}}{\s{H}}{\s{H}}$ \\
-				Generates a random neighbor of a given predictor set.
+				Generates a random neighbour of a given predictor set.
 			\item $\func{\m{prob}}{\SR^2\times(0,\infty)}{[0,1]}$ \\
-				Calculates the probability of changing the current set or state to the neighbor.
+				Calculates the probability of changing the current set or state to the neighbour.
 			\item $\m{rnd}(0,1)$ \\
 				Returns a random number in the interval $[0,1]$.
 		\end{itemize}
@@ -207,15 +202,15 @@
 	\subsection{Model Validation}
 	\label{ssec:model-validation}
 	
-		% goodness of prediction/R^2 discussion
-		To examine the models selected by SANN, we recur to the often used $R^2$ measure.
+		To examine the models selected by SANN, we recur to the often used $R^2$ measure \cite[33-4]{draper:98a}.
 		For $M\in\s{H}$ it is given by
 		\[
 			\curvb{R^2}^{(M)} \define \frac {\sum_{i=1}^n \curvb{\hat{y}^{(M)}_i - \overline{y}}^2}{\sum_{i=1}^n \curvb{y_i - \overline{y}}^2} \in [0,1]
 		\]
 		where $\overline{y}$ is the arithmetic mean of $y_i$ for $i=1,\ldots,n$ and describes how much of the total variation of $y$ is explained by the model $M$.
 		$\curvb{R^2}^{(M)} = 0$ is equivalent to no, $\curvb{R^2}^{(M)} = 1$ to full agreement of the model with the observations.
-		We shall be note though, that the measure is increasing with $\abs{M}$.
+		
+		We shall note though, that the measure is increasing with $\abs{M}$.
 		In contrast the actual upper bound of $R^2$ is lowered by the presence of measurement errors.
 		We will therefore consult the correlation diagrams for each response variable observation vector and its respective prediction vector to complement our judgement based on the $R^2$ measure.
 
@@ -225,23 +220,32 @@
 	\label{ssec:simulation}
 	
 		As the true $\m{SPSE}$ is unobservable, we need to assess how well our procedure minimises the true $\m{SPSE}$ in general.
-		For limitation of data we have to resort to so called pseudo-observations of a response variable.
-		These are collected in a random vector as follows
-		
+		For limitations of available data we have to resort to so called pseudo-observations of a response variable, which we collect in a random vector as follows
+		\begin{alignat*}{3}
+			\widetilde{Y} \define \hat{y}^{(\s{M})} + \varepsilon,\qquad &\varepsilon \sim  \FN \curvb{0,\sigma^2\idmat_n} \\
+			 \sigma^2 \define \curvb{\widehat{\sigma^2}}^{(\s{M})}
+		\end{alignat*}
+		Having fixed the parameters for the random vector $\widetilde{Y}$ we can now calculate the true $\m{SPSE}$ from them by
 		\[
-			\widetilde{Y} \define \hat{y}^{(\s{M})} + \varepsilon,\qquad \varepsilon \sim  \FN \curvb{0,\curvb{\widehat{\sigma^2}}^{(\s{M})}\idmat_n}
+			\m{SPSE} = \curvb{ n + \abs{\s{M}} } \sigma^2
 		\]
-
-		As we have fixed the parameters for the random vector $\widetilde{Y}$ we can now calculate the true $\m{SPSE}$ for the model.
-
-		we resort to simulation of pseudo response variable $\tilde{Y}^{(j)}, j \in \SN, j \leq 1000$, where we can fix both, $\expect{\tilde{Y}^{(j)}}$ and $C^{(j)}$.
-		The resulting values for the response variable are also called pseudo-observations.
-		We then apply our model selection algorithm to each simulation and compare the resulting estimators $\widehat{\m{SPSE}}^{(j)}$ with the \enquote{true} $\m{SPSE}$ computed from the fixed parameters.
-				
-		The pseudo-observations of one simulation are generated as follows
 		
-		where $\hat{y}$ is the selected model from \ref{ssec:model-selec} and $\curvb{\widehat{\sigma^2}}^{(\s{M})}$ the estimator for $\sigma^2$ in said model.
-		We then proceed to use the complete model space $\overline{\Lambda}$ to select the best model for each simulation and estimate the $\m{SPSE}$ through $\widehat{\m{SPSE}}^{(j)}$.
+		We can now simulate a new application of our model selection algorithm for
+		\[
+			\widetilde{Y} \sim \FN\curvb{\mathbb{X}\widetilde{\beta},\sigma^2\idmat_n}
+		\]
+		treating $\sigma^2$ as unknown.
+		The algorithm returns a model $\widetilde{\s{M}}$. We can now calculate $\widehat{\m{SPSE}}^{(\widetilde{\s{M}})}$ and compare it to the true value
+		
+
+		
+%		The resulting values for the response variable are also called pseudo-observations.
+%		We then apply our model selection algorithm to each simulation and compare the resulting estimators $\widehat{\m{SPSE}}^{(j)}$ with the \enquote{true} $\m{SPSE}$ computed from the fixed parameters.
+%				
+%		The pseudo-observations of one simulation are generated as follows
+%		
+%		where $\hat{y}$ is the selected model from \ref{ssec:model-selec} and $\curvb{\widehat{\sigma^2}}^{(\s{M})}$ the estimator for $\sigma^2$ in said model.
+%		We then proceed to use the complete model space $\overline{\Lambda}$ to select the best model for each simulation and estimate the $\m{SPSE}$ through $\widehat{\m{SPSE}}^{(j)}$.
 		We then compare the estimates with the fixed \enquote{true} $\m{SPSE}$.
 		
 		To gauge how much the resolution of the NIRS influences the model selection, we repeat the model selection on the simulations, but allow only models from
