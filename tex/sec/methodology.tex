@@ -5,7 +5,7 @@
 	\label{ssec:measured-data}
 	
 		As a single spectrum contains overlapping information, it is necessary to determine both relevant wavelengths and the respective parameters to apply NIRS to practical problems.
-		To select wavelengths and determine parameters we use an example data set, which contains $p^\m{(SOC)},p^\m{(N)},\m{pH}$ and wave reflectances of 319 wavelengths ranging from $1400 \unit{nm}$ to $2672 \unit{nm}$ by steps of $4 \unit{nm}$ for 533 samples.%citation
+		To select wavelengths and determine parameters we use an example data set, which contains $p^\m{(SOC)},p^\m{(N)},\m{pH}$ and wave reflectances of 319 wavelengths ranging from $1400 \unit{nm}$ to $2672 \unit{nm}$ by steps of $4 \unit{nm}$ for 533 samples \cite{don:a}.
 
 		We define $\Lambda$ as the set of all measured wavelengths. The reflectance $\varrho(\lambda)$ of a sample at a wavelength $\lambda \in \Lambda$ is recorded as
 		\[
@@ -37,15 +37,11 @@
 	
 		We define the measured ASF of $\m{SOC}$ of the $i$th sample for every $i\in\SN,i\leq n$ as $p^\m{(SOC)}_i$ to which we will also refer to as response variable.
 		To simplify notation, we then define the $n$-dimensional vector
-%		\begin{alignat*}{3}
 		\[
 			p^\m{(SOC)} \define \curvb{p^\m{(SOC)}_i}
 		\]
-			%p^\m{(N)} &\define&&\ \curvb{p^\m{(N)}_i} \\
-			%\m{pH} &\define&&\ \curvb{\m{pH}_i}
-%		\end{alignat*}
 
-		The Beer-Lambert law allows us to make assumptions on the relations between soil spectra and the response variable.
+		The Beer-Lambert law allows us to make assumptions on the relations between soil spectra and the response variable \cite[247-8, 254]{agelet:10a}.
 		We saw in section \ref{ssec:nirs} that the logarithmised reflectance can be written as a linear combination of molar concentrations.
 		Hence, it seems plausible to assume that an ASF can be represented by a linear combination of logarithmised reflectance values.
 

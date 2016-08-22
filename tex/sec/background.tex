@@ -15,7 +15,7 @@
 			p^{(A)} \define 100\%\cdot\frac{c_A}{c_0} = 100\% \cdot\frac{n_A}{n_0}
 		\]
 
-		In this report, we concentrate on three important soil parameters that are given by existing NIRS-measurements. %\cite{agelet:10a} alternatively cite the data set
+		In this report, we concentrate on three important soil parameters that are given by existing NIRS-measurements. \cite{agelet:10a, don:a}
 		The first two parameters $p^\m{(SOC)}$ and $p^\m{(N)}$ are the ASFs relating to soil organic carbon ($\m{SOC}$) and nitrogen ($\m{N}$) in a given soil sample.
 		$\m{SOC}$ refers to the carbon in the sample that is bound in an organic compound.
 		The third parameter is the $\m{pH}$-value that specifies the acidity of an aqueous solution.
@@ -29,20 +29,18 @@
 	\subsection{Near Infrared Spectroscopy}
 	\label{ssec:nirs}
 	
-		NIRS uses electromagnetic waves, %\cite[247-8]{agelet:10a}
+		NIRS uses electromagnetic waves, \cite[246]{agelet:10a}
 		 famously known as light, with wavelengths ranging from $780\unit{nm}$ to $3000\unit{nm}$, the so called near infrared spectrum.
-		% Quelle: https://de.wikipedia.org/wiki/Nahes_Infrarot
 		An emitted light wave with wavelength $\lambda \in (0,\infty)$ interacts with a soil sample in three ways:
 		It can be reflected, absorbed or transmitted.
 		For most soil samples measuring the transmittance of light waves is not sensible as the thickness of these samples varies.
-		Since the absorptance cannot be determined directly, reflectance is used.
-		% Quelle: Tutorial
+		Since the absorptance cannot be determined directly, reflectance is used \cite[247-8]{agelet:10a}.
+		
 
 		Reflection can be split in specular and diffuse reflection.
 		NIRS uses the latter as it penetrates the sample the most.
 		As a consequence, diffuse reflected light is hemispherically scattered and contains information about the soil sample composition.
-		For a more detailed view on this topic please refer to [Tutorial].
-		% Quelle: Tutorial
+		For a more detailed view on this topic please refer to Agelet \citeyear[248-251]{agelet:10a}.
 
 		The reflectance 
 		\[
@@ -52,12 +50,10 @@
 		In our case, this function $\varrho$ is defined as the near infrared spectrum of the soil sample.
 
 		Absorptance itself originates from the existence of vibrational modes in molecules.
-		A photon with a wavelength $\lambda \in (0,\infty)$ can only be absorbed if the appropriate frequency $f$ exactly matches a multiple of the transition energy of the bond or group that vibrates.%citation
-		This is why the spectra of soil samples are formed of overtones and combination bands.
-		% Quelle: Tutorial, https://en.wikipedia.org/wiki/Infrared_spectroscopy
+		A photon with a wavelength $\lambda \in (0,\infty)$ can only be absorbed if the appropriate frequency $f$ exactly matches a multiple of the transition energy of the bond or group that vibrates.
+		This is why the spectra of soil samples are formed of overtones and combination bands \cite[247]{agelet:10a}.
 
-		Due to the similarity of diffuse reflected and transmitted light we can use Beer-Lambert's law as an approximation of the relation of the attenuation of light and the properties of samples.
-		% Quelle: Tutorial, https://en.wikipedia.org/wiki/Beer%E2%80%93Lambert_law
+		Due to the similarity of diffuse reflected and transmitted light we can use Beer-Lambert's law as an approximation of the relation of the attenuation of light and the properties of samples \cite[247-8]{agelet:10a}.
 		Let $n\in\SN$ be the count of different substances in a sample and $c_i$ be the molar concentration of the $i$th substance for $i\in\SN,i\leq n$.
 		Is again $\lambda \in (0,\infty)$ the wavelength of the used light then there exist certain coefficients $\varepsilon_i(\lambda)$ for all $i\in\SN,i\leq n$ such that
 
