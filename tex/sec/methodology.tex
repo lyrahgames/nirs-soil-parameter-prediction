@@ -237,20 +237,17 @@
 		treating $\sigma^2$ as unknown.
 		The algorithm returns a model $\widetilde{\s{M}}$. We can now calculate $\widehat{\m{SPSE}}^{(\widetilde{\s{M}})}$ and compare it to the true $\m{SPSE}$.
 		Due to the heuristic nature of the selection algorithm, we might end up with an exceptionally bad value.
-		To address this, we repeat this process $r$ times.
+		To address this, we repeat this process $r$ times \cite{schumacher:16b}.
 		
 		In addition to parameters of the random vector $\widetilde{Y}$, $\widehat{\m{SPSE}}^{(M)}$ depends on the hyperparameters, resolution $k = \abs{\Lambda}$ and the number of observations, $n$, as well.
-		To gauge influences of the resolution on the model selection, we repeat the simulations described above as follows:
+		To gauge influences of the resolution on the model selection, we augment the procedure above to include the sets
 		\[
-			\Lambda^{(m)} \define \set{\lambda_{mi} | \lambda_{mi} \in \Lambda, i = 1, 2, \ldots} \qquad m \in \set{2, 3, 4}
+			\Lambda^{(m)} \define \set{\lambda_j \in \Lambda \,|\, j = m \cdot i \leq k} \qquad m \in \set{1, 2, 3, 4}
 		\]
-		where $\overline{\Lambda}^{(m)}$ takes the place of $\overline\Lambda$ in the algorithm.
+		where $\Lambda^{(m)}$ replaces $\Lambda$ in \ref{ssec:mallows-C_p} and \ref{ssec:model-selec}.
 		
-		Just as with resolution, we can also assess the influence of availability of measurements.
-		Choosing a suitable $N \in \SN^L$ with entries $N_l > k, l \in \set{1,\ldots,L}$, we randomly select a subset of the simulation data of size $N_l$ and proceed as above.
-		As $n-k \le k$, we perform this inquiry with $\Lambda^{(3)}$ instead to reduce computational cost and capture a larger variety of L.
-		
-		Using the same algorithm for all three response variables, we can limit the algorithm examination to one response variable, $\m{SOC}$, to be better able to compare the results and reduce redundant analyses.		
+		To assess the influence of the number of available measurements, we choose randomly selected subsets of the existing measurements of sizes $n \in \set{100, 200, 300, 500, 533}$ and augment the simulation accordingly.
+		In this way we, we can compare the $\widehat{\m{SPSE}}^{(\widetilde{\s{M}})}$ with the \enquote{true} model's $\m{SPSE}$ in 19 situations and on the same r pseudo-observations for each.
 		
 	% subsection simulation
 % section methodology

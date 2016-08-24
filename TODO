@@ -57,16 +57,15 @@ tex doc:
 		☐	implementation/pre: X^M is full rank (right), place for stating full rank of X
 		☐	implementation/pre: reformat equation system
 		☐	implementation/pre: inverse of sigma²
-		☐	implementation/simulation: spse needs the amount of parameters for each best model (pseudo-observation-wise) @added by kaz
 		☐	ms/calibration: beslightly -> be slightly
 		☐	ms/calibration: introduction to the selected model too short
 		☐	ms/calibration: bandwidth is not the right term
 		☐	ms/calibration: intercepts are not 0 for soc and n
 		☐	ms/gof: figure caption: blue in small letters
-		☐	ms/gof: corroborate?
+		☐	ms/gof: corroborate == festigen, unterstützen, stärken
 		☐	ms/gof: maybe no new paragraph at the end? 
 		☐	simulation/cs: again problem spse
-		☐	methodology/sa: choose between two formulation of minimization problem
+		☐	methodology/sa: choose between two formulations of minimization problem
 		☐	methodology/cp: definition of M
 
 code:

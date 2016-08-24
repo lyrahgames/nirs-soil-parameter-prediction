@@ -10,7 +10,7 @@
 		In most cases it is best to select a neighbour not too far away from the given subset. %citation!
 		% Quelle: https://en.wikipedia.org/wiki/Simulated_annealing
 
-		Our $\m{nbr}$-function generates a random natural number $r\in\set{2,\ldots,k+1}$ that represents the index of a measured wavelength.
+		Our $\m{nbr}$ function generates a random natural number $r\in\set{1,\ldots,k}$ that represents the index of a measured wavelength.
 		If this predictor is already in our current subset then we remove it.
 		If not, we include it to the new subset.
 		That way, new neighbours are not too far away from the current parameter vector.
@@ -49,16 +49,16 @@
 		 Implementing the algorithm described in \ref{ssec:model-selec} takes a sizeable toll on computing power.
 		 The most expensive calculations are performed in the computation of the residual sum of squares
 		 \[
-		 	\norm{y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(y)}^2_2,
+		 	\norm{y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(y)}^2_2
 		 \] 
 		 which requires the computation of
 		 \[
 		 	\hat{\beta}^{(M)}(y) = \inv{\curvb{\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}}}\transp{\mathbb{X}^{(M)}}y
 		\]
 		
-		 It is more efficient to compute $\hat{\beta}$ first and then proceed to solve
+		 Instead of solving this, it is more efficient to solve
 		 \[
-		 	\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}\hat{\beta}(y) = \transp{\mathbb{X}^{(M)}}y,
+		 	\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}\hat{\beta}(y) = \transp{\mathbb{X}^{(M)}}y
 		\]
 		which can be done through QR-decomposition or an adequate alternative.
 		
