@@ -36,7 +36,7 @@ tss <- as.numeric( t(gv_obs_vec - obs_mean) %*% (gv_obs_vec - obs_mean) )
 rss <- as.numeric( t(gv_obs_vec - expect_vec) %*% (gv_obs_vec - expect_vec) )
 # explained sum of squares
 ess <- as.numeric( t(expect_vec - obs_mean) %*% (expect_vec - obs_mean) )
-# compute r² value 
+# compute r^2 value 
 r2 <- 1-(rss/tss)
 
 # output
@@ -50,7 +50,7 @@ print("estimated spse:")
 ms.spse.est(idx_vec)
 print("computed spse:")
 rss * ( (length(idx_vec) + gv_sample_size)/(gv_sample_size - length(idx_vec)) )
-print("r²")
+print("r^2")
 c( r2, ess/tss )
 print("time:")
 t2-t1
