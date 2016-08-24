@@ -1,27 +1,3 @@
-# calculate the gram matrix of a given matrix
-# gram.mat <- function(mat){
-# 	#return
-# 	t(mat) %*% mat
-# }
-
-# mlr.transf.obs.vec <- function(obs_vec, design_mat){
-
-# }
-
-# get matrix for calculating parameters
-# mlr.par.mat = function(design_mat){
-# 	transp_design_mat <- t(design_mat)
-
-# 	# return
-# 	solve(transp_design_mat %*% design_mat) %*% transp_design_mat
-# }
-
-# calculate parameters
-# mlr.par = function(obs_vec, design_mat){
-# 	# return
-# 	as.vector(mlr.par.mat(design_mat) %*% obs_vec)
-# }
-
 # initialize observables and design matrix (needed for fast calculation)
 init.data = function(obs_vec, design_mat){
 	gv_obs_vec <<- obs_vec

@@ -67,6 +67,14 @@ tex doc:
 		☐	simulation/cs: again problem spse
 		☐	methodology/sa: choose between two formulations of minimization problem
 		☐	methodology/cp: definition of M
+		☐	methodology/cp definition spse with definition of Y_{n+i} and bias
+		☐	methodology/sim: definition of lambda^(m)
+		✔	methodology/sim: double we @done (16-08-24 23:23)
+		☐	reformat some equation systems
+		☐	cp values in calibration
+		☐	conclusion: something about using parameters in real world
+		☐	implementation: check last paragraph for variance
+		☐	think about appendix for model selection graph
 
 code:
 	☐	easier implementation
