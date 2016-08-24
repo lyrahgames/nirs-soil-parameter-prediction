@@ -70,8 +70,8 @@
 		that maps the indices of the design matrix $\mathbb{X}^{(M)}$ to the indices of the full design matrix $\mathbb{X}$.
 		We then only have to precompute $\transp{\mathbb{X}}\mathbb{X}$ and $\transp{\mathbb{X}}y$ and construct $\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)}$ and $\transp{\mathbb{X}^{(M)}}y$ by 
 		\begin{alignat*}{3}
-		 	\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)} &=& \curvb{\angleb{x_{\delta(i)}, x_{\delta(j)}}} \qquad i,j& &\ \in&\  M \\
-			\transp{\mathbb{X}^{(M)}}y &=& \curvb{\curvb{\transp{\mathbb{X}}y}_{\delta(i)}} \qquad i& &\ \in&\  M
+		 	\transp{\mathbb{X}^{(M)}}\mathbb{X}^{(M)} &=&&\  \curvb{\angleb{x_{\delta(i)}, x_{\delta(j)}}} \qquad i,j& &\ \in&\  M \\
+			\transp{\mathbb{X}^{(M)}}y &=&&\ \curvb{\curvb{\transp{\mathbb{X}}y}_{\delta(i)}} \qquad i& &\ \in&\  M
 		\end{alignat*}
 		 where $x_{\delta(i)}$ is the $\delta(i)$th column vector of $\mathbb{X}$.
 		 

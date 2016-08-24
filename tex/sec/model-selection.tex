@@ -1,26 +1,4 @@
-\section{Model Selection}
-\label{sec:model-selection}
-	
-	
-	
-	\subsection{Calibration}
-	\label{ssec:calibration}
-	
-		Figures \ref{sfig:calib-soc}, \ref{sfig:calib-n} and \ref{sfig:calib-ph} show the selected wavelengths highlighted in grey.
-		One notes that the density of selected lightwaves varies strongly along the wavelengths for all three response variables, where $p^{(\m{SOC})}$ uses the most and $\m{pH}$ the lowest amount of predictors.
 		
-		For $p^{(\m{SOC})}$ and $p^{(\m{N})}$, we find that similar regions seeminlgy relevant for prediction, albeit the predictors for $p^{(\m{N})}$ appear to be slightly more evenly distributed along the whole domain of measured wavelengths. %Is that the correct term?.
-		In the selected model for $p^{(\m{SOC})}$, predictors are highly concentrated in the regions from 1550 - 1650 $\unit{nm}$, 1790 - 1810 $\unit{nm}$, 1980 - 1990 $\unit{nm}$, around 2500 $\unit{nm}$ and between 2600 and 2672 $\unit{nm}$.
-		
-		The distribution of predictors for the $\m{pH}$ appears to be visibly distinct from the other two models.
-		In particular, the lower-middle wavelengths seem to have more predictive power than for $p^{(\m{SOC})}$ and $p^{(\m{N})}$.
-		
-		Appendix \ref{sec:parameters} hosts the tables with the estimated parameters for the predictors for each model.
-		It is noteworthy to inspect the values of the intercepts for each model.
-		We find that these appear relatively close to 0 in case of $p^{\m{(SOC)}}$ and $p^{\m{(N)}}$.
-		The $\m{pH}$ again sticks out as the value for its intercept is clearly placed in a mildly acidic range. % black coffee range ;)
-
-
 		\begin{figure*}
 			\begin{subfigure}[b]{\textwidth}
 				\centering
@@ -44,16 +22,8 @@
 			\end{subfigure}
 			\caption{Displaying the spectra from figure \ref{fig:soil-spec-rnd} with wavelength included in the selected models for each response highlighted by vertical grey lines}
 		\end{figure*}
-				
 		
-	
-				
-	% subsection calibration
-
-	\subsection{Goodness of Fit}
-	\label{ssec:suitability}
-	
-	\begin{figure*}
+		\begin{figure*}
 			\center
 			% \subcaphangtrue
 			\begin{subfigure}[t]{0.33\textwidth}
@@ -87,6 +57,32 @@
 			\caption{Correlation diagrams plotting $\hat{y}$ on $y$ and the blue line representing the $\id$}
 			\label{fig:gof}
 		\end{figure*}
+
+\section{Model Selection}
+\label{sec:model-selection}
+	
+	\subsection{Calibration}
+	\label{ssec:calibration}
+	
+		Figures \ref{sfig:calib-soc}, \ref{sfig:calib-n} and \ref{sfig:calib-ph} show the selected wavelengths highlighted in grey.
+		One notes that the density of selected lightwaves varies strongly along the wavelengths for all three response variables, where $p^{(\m{SOC})}$ uses the most and $\m{pH}$ the lowest amount of predictors.
+		
+		For $p^{(\m{SOC})}$ and $p^{(\m{N})}$, we find that similar regions seeminlgy relevant for prediction, albeit the predictors for $p^{(\m{N})}$ appear to be slightly more evenly distributed along the whole domain of measured wavelengths. %Is that the correct term?.
+		In the selected model for $p^{(\m{SOC})}$, predictors are highly concentrated in the regions from 1550 - 1650 $\unit{nm}$, 1790 - 1810 $\unit{nm}$, 1980 - 1990 $\unit{nm}$, around 2500 $\unit{nm}$ and between 2600 and 2672 $\unit{nm}$.
+		
+		The distribution of predictors for the $\m{pH}$ appears to be visibly distinct from the other two models.
+		In particular, the lower-middle wavelengths seem to have more predictive power than for $p^{(\m{SOC})}$ and $p^{(\m{N})}$.
+		
+		Appendix \ref{sec:parameters} hosts the tables with the estimated parameters for the predictors for each model.
+		It is noteworthy to inspect the values of the intercepts for each model.
+		We find that these appear relatively close to 0 in case of $p^{\m{(SOC)}}$ and $p^{\m{(N)}}$.
+		The $\m{pH}$ again sticks out as the value for its intercept is clearly placed in a mildly acidic range. % black coffee range ;)
+
+				
+	% subsection calibration
+
+	\subsection{Goodness of Fit}
+	\label{ssec:suitability}
 	
 		Figure \ref{fig:gof} displays the correlation diagrams introduced in \ref{ssec:model-validation} for each response variable together with the values for the $R^2$.
 		Both indicate that our estimation and model selection to predict $\m{pH}$ are working best.
