@@ -65,16 +65,16 @@ tex doc:
 		☐	ms/gof: corroborate == festigen, unterstützen, stärken
 		☐	ms/gof: maybe no new paragraph at the end? 
 		☐	simulation/cs: again problem spse
-		☐	methodology/sa: choose between two formulations of minimization problem
+		✔	methodology/sa: choose between two formulations of minimization problem @done (16-08-25 00:14)
 		☐	methodology/cp: definition of M
 		☐	methodology/cp definition spse with definition of Y_{n+i} and bias
-		☐	methodology/sim: definition of lambda^(m)
+		✔	methodology/sim: definition of lambda^(m) @done (16-08-25 00:44)
 		✔	methodology/sim: double we @done (16-08-24 23:23)
-		☐	reformat some equation systems
+		✔	reformat some equation systems @done (16-08-25 00:41)
 		☐	cp values in calibration
 		☐	conclusion: something about using parameters in real world
 		☐	implementation: check last paragraph for variance
-		☐	think about appendix for model selection graph
+		✔	think about appendix for model selection graph @done (16-08-25 00:44)
 
 code:
 	☐	easier implementation

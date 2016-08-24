@@ -221,10 +221,13 @@
 	
 		As the true $\m{SPSE}$ is unobservable, we need to assess how well our procedure minimises the true $\m{SPSE}$ in general.
 		For limitations of available data we have to resort to so called pseudo-observations of a response variable, which we collect in a random vector as follows
-		\begin{alignat*}{3}
-			&\widetilde{Y} \define \hat{y}^{(\s{M})} + \varepsilon,\qquad \varepsilon \sim  \FN \curvb{0,\sigma^2\idmat_n} \\
-			&\sigma^2 \define \curvb{\widehat{\sigma^2}}^{(\s{M})}
-		\end{alignat*}
+		\[
+			\widetilde{Y} \define \hat{y}^{(\s{M})} + \varepsilon,\qquad \varepsilon \sim  \FN \curvb{0,\sigma^2\idmat_n}
+		\]
+		where we assign
+		\[
+			\sigma^2 \define \curvb{\widehat{\sigma^2}}^{(\s{M})}
+		\]
 		Having fixed the parameters for the random vector $\widetilde{Y}$ we can now calculate the true $\m{SPSE}$ from them by
 		\[
 			\m{SPSE} = \curvb{ n + \abs{\s{M}} } \sigma^2
@@ -239,12 +242,12 @@
 		Due to the heuristic nature of the selection algorithm, we might end up with an exceptionally bad value.
 		To address this, we repeat this process $r$ times \cite{schumacher:16b}.
 		
-		In addition to parameters of the random vector $\widetilde{Y}$, $\widehat{\m{SPSE}}^{(M)}$ depends on the hyperparameters, resolution $k = \abs{\Lambda}$ and the number of observations, $n$, as well.
+		In addition to parameters of the random vector $\widetilde{Y}$, $\widehat{\m{SPSE}}^{(\widetilde{\s{M}})}$ depends on the hyperparameters, resolution $k = \abs{\Lambda}$ and the number of observations, $n$, as well.
 		To gauge influences of the resolution on the model selection, we augment the procedure above to include the sets
 		\[
-			\Lambda^{(m)} \define \set{\lambda_j \in \Lambda \,|\, j = m \cdot i \leq k} \qquad m \in \set{1, 2, 3, 4}
+			\Lambda^{(m)} \define \set[i\in\SN, m \cdot i \leq k]{\lambda_{m\cdot i} \in \Lambda}
 		\]
-		where $\Lambda^{(m)}$ replaces $\Lambda$ in \ref{ssec:mallows-C_p} and \ref{ssec:model-selec}.
+		where $m \in \set{1, 2, 3, 4}$ and $\Lambda^{(m)}$ takes replace of $\Lambda$ in \ref{ssec:mallows-C_p} and \ref{ssec:model-selec}.
 		
 		To assess the influence of the number of available measurements, we choose randomly selected subsets of the existing measurements of sizes $n \in \set{100, 200, 300, 500, 533}$ and augment the simulation accordingly.
 		In this way, we can compare the $\widehat{\m{SPSE}}^{(\widetilde{\s{M}})}$ with the \enquote{true} model's $\m{SPSE}$ in 19 situations and on the same $r$ pseudo-observations for each.
