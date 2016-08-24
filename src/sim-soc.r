@@ -77,12 +77,4 @@ print("time:")
 print(t2-t1)
 
 
-# # code addendum to sketch the plot I'm envisioning
-# # note that I introduced the variable 'gv_spse_soc', but didn't make it global,
-# # so the gv is just for easy retrieval and removal
-
-# spse_data <- data.frame(est_spse = spse_vec)
-# spse_data <- cbind(run = c("533x319"), spse_data)
-# qplot(data = spse_data, y = est_spse, x = run, geom = "violin") + geom_hline(yintercept = gv_spse_soc)
-
 write.table(spse_vec, "../pro-files/data/gen/sim-soc-100-s4-spse-vec.csv", sep="\t", col.names=F, row.names=F)

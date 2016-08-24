@@ -54,15 +54,3 @@ print("r²")
 c( r2, ess/tss )
 print("time:")
 t2-t1
-
-# simulation
-# ms.init.dist(idx_vec)
-
-# t1 <- proc.time()
-# sim_spse <- ms.sim(gv_expect_vec, gv_sd, sim_count=10)
-# t2 <- proc.time()
-
-# print("simulated spse:")
-# sim_spse
-# print("time:")
-# t2-t1

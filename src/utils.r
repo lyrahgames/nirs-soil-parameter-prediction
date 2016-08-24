@@ -1,44 +1,26 @@
 # initialize observables and design matrix (needed for fast calculation)
 init.data = function(obs_vec, design_mat){
+	# global, initialize
 	gv_obs_vec <<- obs_vec
 	gv_design_mat <<- design_mat
 	gv_sample_size <<- length(gv_obs_vec)
 	gv_par_size <<- dim(gv_design_mat)[2]
 
-	# preprocessing
+	# global, preprocessing
 	gv_gram_design_mat <<- t(gv_design_mat) %*% gv_design_mat
 	gv_transf_obs_vec <<- t(gv_design_mat) %*% gv_obs_vec
 }
 
-# generate pseudo observables (needs init.data; first use another function to calculate global variables: gv_expect_vec, gv_sd)
-# gen.pseudo.obs.vec = function(){
-# 	# return
-# 	rnorm(gv_sample_size, gv_expect_vec, gv_sd)
-# }
-
-# initialize global variables for given observables and design matrix (needed for fast calculation of multiple linear regression and model selection)
+# precompute (estimate) parameter vector, variance and inverse variance of full model (needed for fast calculation)
 mlr.init = function(){
-	# transp_design_mat <- t(design_mat)
-
-	# global variables
-	# gv_mlr_design_mat <<- design_mat
-	# gv_mlr_par_size <<- dim(design_mat)[2]
-	# gv_mlr_gram_design_mat <<- transp_design_mat %*% design_mat
-
-	# gv_mlr_obs_vec <<- obs_vec
-	# gv_mlr_sample_size <<- length(obs_vec)
-	# gv_mlr_transf_obs_vec <<- transp_design_mat %*% obs_vec
-	# gv_mlr_expect_vec <<- gv_design_mat %*% gv_mlr_par_vec
-
+	# global
 	gv_mlr_par_vec <<- solve(gv_gram_design_mat, gv_transf_obs_vec)
 	res_vec <- gv_obs_vec - (gv_design_mat %*% gv_mlr_par_vec)
 	gv_mlr_var <<- ( as.numeric( t(res_vec)%*%res_vec) ) / (gv_sample_size - gv_par_size)
 	gv_mlr_inv_var <<- 1.0 / gv_mlr_var
-	
-	# gv_mlr_var <<- gv_mlr_rss  / (gv_mlr_sample_size - gv_mlr_par_size)
 }
 
-#
+# initialize expectation vector and standard deviation for pseudo observations (as global variables: maybe faster)
 ms.init.dist = function(idx_vec){
 	par_vec <- solve(gv_gram_design_mat[idx_vec,idx_vec], gv_transf_obs_vec[idx_vec])
 
@@ -51,50 +33,13 @@ ms.init.dist = function(idx_vec){
 	gv_sd <<- sqrt( as.numeric( t(res_vec) %*% res_vec ) / (gv_sample_size - length(idx_vec)) )
 }
 
-# initialize new observable with the same length (needs mlr.init)
-# mlr.init.obs.vec = function(obs_vec){
-# 	gv_mlr_obs_vec <<- obs_vec
-# 	# gv_mlr_sample_size <<- length(obs_vec)
-# 	gv_mlr_transf_obs_vec <<- t(gv_mlr_design_mat) %*% obs_vec
-# 	gv_mlr_par_vec <<- solve(gv_mlr_gram_design_mat, gv_mlr_transf_obs_vec)
-# 	gv_mlr_expect_vec <<- gv_mlr_design_mat %*% gv_mlr_par_vec
-# 	gv_mlr_res_vec <<- obs_vec - gv_mlr_expect_vec
-# 	gv_mlr_rss <<- as.numeric(t(gv_mlr_res_vec)%*%gv_mlr_res_vec)
-# 	gv_mlr_var <<- gv_mlr_rss  / (gv_mlr_sample_size - gv_mlr_par_size)
-# 	gv_mlr_inv_var <<- 1.0 / gv_mlr_var
-# }
-
-# mlr.init.design.mat = function(design_mat){
-
-# }
-
-# get hat-matrix of a given design-matrix
-# design_mat must have full rank
-# mlr.hat.mat = function(design_mat){
-# 	# return
-# 	design_mat %*% mlr.par.mat(design_mat)
-# }
-
-# multiple linear regression residual sum of squares (rss)
-# mlr.rss = function(obs_vec, design_mat){
-# 	hat_mat <- mlr.hat.mat(design_mat)
-# 	res <- obs_vec - (hat_mat %*% obs_vec)
-
-# 	# return
-# 	as.numeric(t(res) %*% res)
-# }
-
-# multiple linear regression variance estimator
-# mlr.var = function(obs_vec, design_mat){
-# 	# return
-# 	(mlr.rss(obs_vec, design_mat)) / (length(obs_vec) - dim(design_mat)[2])
-# }
-
+# estimate parameter vector for a certain model given through index vector (needs init, mlr.init)
 ms.par.vec = function(idx_vec){
 	#return
 	solve(gv_gram_design_mat[idx_vec,idx_vec], gv_transf_obs_vec[idx_vec])
 }
 
+# estimate expectation vector for a certain model (needs init, mlr.init)
 ms.expect.vec = function(idx_vec){
 	par_vec <- ms.par.vec(idx_vec)
 
@@ -102,7 +47,7 @@ ms.expect.vec = function(idx_vec){
 	as.matrix(gv_design_mat[,idx_vec]) %*% par_vec
 }
 
-# get residual sum of squares for given model (needs mlr.init)
+# get residual sum of squares for given model (needs init, mlr.init)
 ms.rss = function(idx_vec){
 	par_vec <- solve(gv_gram_design_mat[idx_vec,idx_vec], gv_transf_obs_vec[idx_vec])
 	res_vec <- gv_obs_vec - ( as.matrix(gv_design_mat[,idx_vec]) %*% par_vec )
@@ -111,60 +56,17 @@ ms.rss = function(idx_vec){
 	as.numeric( t(res_vec) %*% res_vec )
 }
 
+# estimate spse for given model (needs init, mlr.init)
 ms.spse.est = function(idx_vec){
 	# return
 	ms.rss(idx_vec) + (2 * gv_mlr_var * length(idx_vec))
 }
 
-# get mallows cp for certain model
+# get mallows cp for certain model (needs init, mlr.init)
 ms.cp = function(idx_vec){
 	# return
 	(ms.rss(idx_vec) * gv_mlr_inv_var) + (2*length(idx_vec)) - gv_sample_size
 }
-
-# model selection: forward selection method
-# ms.fwd.sel = function(obs_vec, design_mat, invgv_mlr_var){
-# 	full_idx_vec <- seq(1, dim(design_mat)[2])
-# 	# first column will be used every time
-# 	idx_vec <- 1
-# 	cp <- mallows.cp(obs_vec, design_mat, idx_vec, invgv_mlr_var)
-
-# 	repeat{
-# 		# vector of selection
-# 		sel_vec = setdiff(full_idx_vec, idx_vec)
-
-# 		if (length(sel_vec) == 0){
-# 			break
-# 		}
-
-# 		tmp_idx_vec_1 <- c(idx_vec, sel_vec[1])
-# 		tmp_cp_1 <- mallows.cp(obs_vec, design_mat, tmp_idx_vec_1, invgv_mlr_var)
-
-# 		for (i in 2:length(sel_vec)){
-# 			tmp_idx_vec_2 <- c(idx_vec, sel_vec[i])
-# 			tmp_cp_2 <- mallows.cp(obs_vec, design_mat, tmp_idx_vec_2, invgv_mlr_var)
-
-# 			if (tmp_cp_2 <= tmp_cp_1){
-# 				tmp_cp_1 <- tmp_cp_2
-# 				tmp_idx_vec_1 <- tmp_idx_vec_2
-# 			}
-# 		}
-
-# 		if (cp >= tmp_cp_1){
-# 			cp <- tmp_cp_1
-# 			idx_vec <- tmp_idx_vec_1
-# 		}else{
-# 			break
-# 		}
-
-# 		# debug information
-# 		print(idx_vec)
-# 		print(cp)
-# 	}
-
-# 	# return
-# 	idx_vec
-# }
 
 # model selection: simulated annealing: neighbour function
 ms.sa.nbr = function(idx_vec){
@@ -222,35 +124,35 @@ ms.sa = function(idx_vec = c(1), temp = 100, alpha = 0.99, it_max = 10000, it_ex
 	idx_vec
 }
 
-#
-ms.sim = function(expect_vec, var, sim_count = 10){
-	sd <- sqrt(var)
-	spse <- 0
+# old variant
+# ms.sim = function(expect_vec, var, sim_count = 10){
+# 	sd <- sqrt(var)
+# 	spse <- 0
 
-	for (i in 1:sim_count){
-		# generate and init pseudo observables
-		gv_obs_vec <<- rnorm(gv_sample_size, expect_vec, sd)
-		gv_transf_obs_vec <<- t(gv_design_mat) %*% gv_obs_vec
-		mlr.init()
+# 	for (i in 1:sim_count){
+# 		# generate and init pseudo observables
+# 		gv_obs_vec <<- rnorm(gv_sample_size, expect_vec, sd)
+# 		gv_transf_obs_vec <<- t(gv_design_mat) %*% gv_obs_vec
+# 		mlr.init()
 
-		# select model
-		idx_vec <- ms.sa()
-		tmp_spse <- ms.rss(idx_vec) + (2 * gv_mlr_var * length(idx_vec))
+# 		# select model
+# 		idx_vec <- ms.sa()
+# 		tmp_spse <- ms.rss(idx_vec) + (2 * gv_mlr_var * length(idx_vec))
 
-		# calculate spse
-		spse <- spse + tmp_spse
+# 		# calculate spse
+# 		spse <- spse + tmp_spse
 
-		# debug
-		print("sorted index vector:")
-		print(sort(idx_vec))
-		print("tmp spse:")
-		print(tmp_spse)
-		print("tmp mallows' cp:")
-		print(ms.cp(idx_vec))
-	}
+# 		# debug
+# 		print("sorted index vector:")
+# 		print(sort(idx_vec))
+# 		print("tmp spse:")
+# 		print(tmp_spse)
+# 		print("tmp mallows' cp:")
+# 		print(ms.cp(idx_vec))
+# 	}
 
-	spse <- spse / sim_count
+# 	spse <- spse / sim_count
 
-	# return
-	spse
-}
+# 	# return
+# 	spse
+# }
