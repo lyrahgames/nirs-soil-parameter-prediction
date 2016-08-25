@@ -135,6 +135,9 @@
 		\[
 			\m{SPSE}^{(M)} = n\sigma^2 + \m{p}\sigma^2 + \curvb{\m{bias}^2}^{(M)}
 		\]
+		where $\m{bias}$ describes the divergence of the true expectation from the estimated expection.
+		As it decreases in the number of included parameters, we assume it to be close enough to zero and neglect it from our further considerations.
+		
 		Unfortunately, the true $\sigma^2$ is unobservable so that it has to be estimated by
 		\[
 			\widehat{\m{SPSE}}^{(M)}(Y) \define \norm{Y - \mathbb{X}^{(M)}\hat{\beta}^{(M)}(Y)}^2_2 + 2\m{p}\hat{\sigma}^2(Y)

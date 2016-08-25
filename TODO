@@ -59,6 +59,7 @@ tex doc:
 		☐	implementation/pre: inverse of sigma²
 		✔	ms/calibration: beslightly -> be slightly @done (16-08-25 01:41)
 		☐	ms/calibration: introduction to the selected model too short
+		☐	cp values in calibration intro calibration
 		✔	ms/calibration: bandwidth is not the right term @done (16-08-25 01:44)
 		✔	ms/calibration: intercepts are not 0 for soc and n @done (16-08-25 01:46)
 		✔	ms/gof: figure caption: blue in small letters @done (16-08-25 00:58)
@@ -71,7 +72,7 @@ tex doc:
 		✔	methodology/sim: definition of lambda^(m) @done (16-08-25 00:44)
 		✔	methodology/sim: double we @done (16-08-24 23:23)
 		✔	reformat some equation systems @done (16-08-25 00:41)
-		☐	cp values in calibration intro calibration
+		
 		☐	conclusion: something about using parameters in real world
 		☐	implementation: check last paragraph for variance
 		✔	think about appendix for model selection graph @done (16-08-25 00:44)
