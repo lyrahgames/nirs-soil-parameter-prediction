@@ -40,7 +40,7 @@ tex doc:
 		✘	methodology/sa: what is best k? @cancelled (16-08-21 21:10)
 		✔	methodology/sa: we do not compare two methods @done (16-08-21 21:11)
 		✘	methodology/sa: inequality does not hold in our method; computing is beyond feasibility, so we want to find a good local minimum @cancelled (16-08-21 21:12)
-		✘	methodology/sa: change rnd function description @cancelled (16-08-25 01:18)
+		☐	methodology/sa: change rnd function description
 		✘	methodology/mv: R² measure -> R²-measure @cancelled (16-08-21 21:45)
 		✔	methodology/mv: refer to last definitions @done (16-08-21 21:45)
 		✔	methodology/mv: every variable has to be defined: M,arithmetic mean, maybe second definition of R² @done (16-08-21 22:03)
@@ -71,7 +71,7 @@ tex doc:
 		✔	methodology/sim: definition of lambda^(m) @done (16-08-25 00:44)
 		✔	methodology/sim: double we @done (16-08-24 23:23)
 		✔	reformat some equation systems @done (16-08-25 00:41)
-		☐	cp values in calibration
+		☐	cp values in calibration intro calibration
 		☐	conclusion: something about using parameters in real world
 		☐	implementation: check last paragraph for variance
 		✔	think about appendix for model selection graph @done (16-08-25 00:44)
