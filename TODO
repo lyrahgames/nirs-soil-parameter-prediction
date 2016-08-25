@@ -44,26 +44,26 @@ tex doc:
 		✘	methodology/mv: R² measure -> R²-measure @cancelled (16-08-21 21:45)
 		✔	methodology/mv: refer to last definitions @done (16-08-21 21:45)
 		✔	methodology/mv: every variable has to be defined: M,arithmetic mean, maybe second definition of R² @done (16-08-21 22:03)
-		☐	methodology/simulation: spse est. needs the M
+		✔	methodology/simulation: spse est. needs the M @done (16-08-25 01:26)
 		✔	methodology/simulation: second paragraph not clear (definitions), why using 1000?, what is C^(j), what is ... @done (16-08-25 00:59)
 		✔	methodology/simulation: pseudo generation: hat{Y} -> hat{y}, equations in one line @done (16-08-25 00:56)
 		✔	methodology/simulation: redefine variance estimator @done (16-08-25 00:56)
 		✔	methodology/simulation: Lambda^(m): use cdot (lambda does not have two indices) @done (16-08-25 00:56)
 		✔	methodology/simulation: too complicated definition of random subsets and other predictor subsets @done (16-08-25 00:56)
-		☐	implementation/can: use only one: nbr-function, nbr function
-		☐	implementation/can: change set of r to {1,...,k} (intercept is 0)
+		✔	implementation/can: use only one: nbr-function, nbr function @done (16-08-25 01:26)
+		✔	implementation/can: change set of r to {1,...,k} (intercept is 0) @done (16-08-25 01:26)
 		✔	implementation/can: where is the listing? @done (16-08-22 00:12)
-		☐	implementation/pre: check second paragraph
-		☐	implementation/pre: X^M is full rank (right), place for stating full rank of X
-		☐	implementation/pre: reformat equation system
+		✔	implementation/pre: check second paragraph @done (16-08-25 01:27)
+		✔	implementation/pre: X^M is full rank (right), place for stating full rank of X @done (16-08-25 01:35)
+		✔	implementation/pre: reformat equation system @done (16-08-25 01:35)
 		☐	implementation/pre: inverse of sigma²
-		☐	ms/calibration: beslightly -> be slightly
+		✔	ms/calibration: beslightly -> be slightly @done (16-08-25 01:41)
 		☐	ms/calibration: introduction to the selected model too short
-		☐	ms/calibration: bandwidth is not the right term
-		☐	ms/calibration: intercepts are not 0 for soc and n
+		✔	ms/calibration: bandwidth is not the right term @done (16-08-25 01:44)
+		✔	ms/calibration: intercepts are not 0 for soc and n @done (16-08-25 01:46)
 		✔	ms/gof: figure caption: blue in small letters @done (16-08-25 00:58)
 		✔	ms/gof: corroborate == festigen, unterstützen, stärken @done (16-08-25 00:57)
-		☐	ms/gof: maybe no new paragraph at the end? 
+		✘	ms/gof: maybe no new paragraph at the end?  @cancelled (16-08-25 01:48)
 		☐	simulation/cs: again problem spse
 		✔	methodology/sa: choose between two formulations of minimization problem @done (16-08-25 00:14)
 		☐	methodology/cp: definition of M
