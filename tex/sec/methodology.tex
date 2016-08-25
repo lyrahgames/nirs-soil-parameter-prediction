@@ -101,12 +101,12 @@
 		Then we define
 		\begin{alignat*}{3}
 			\hat{y} &\define&&\ \mathbb{X}\hat{\beta}(y) = \mathbb{X}\inv{\curvb{\transp{\mathbb{X}}\mathbb{X}}}\transp{\mathbb{X}}y \\
-			\widehat{{\sigma}^2} &\define&&\ \hat{\sigma}^2(y)
+			\tilde{\sigma}^2 &\define&&\ \hat{\sigma}^2(y)
 		\end{alignat*}
 
 	% subsection mlr
 
-	\subsection{Mallows' $\m{C_p}$}
+	\subsection{Mallows' $C_\m{p}$}
 	\label{ssec:mallows-C_p}
 	
 		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole measured spectra for each soil sample.
@@ -127,7 +127,7 @@
 		where $\m{p} \in \set{1,\ldots,k+1}$ corresponds to the number of predictors included in $M$.
 		
 		The sum of predicted squared errors ($\m{SPSE}$) is a theoretical criterion to compare the merits of different models.
-		The $\m{SPSE}$ measures how well a model does in predicting new responses from new data:
+		The $\m{SPSE}$ measures how well a model does in predicting new responses for new observations $Y_{n+i}$ which are iid to $Y_i$ for $i \in \SN, i \leq n$ and is given by
 		\[
 			\m{SPSE}^{(M)} \define \sum_{i = 1}^n \expect \curvb{Y_{n+i} - \hat{Y}_i^{(M)}}^2
 		\]
@@ -135,8 +135,8 @@
 		\[
 			\m{SPSE}^{(M)} = n\sigma^2 + \m{p}\sigma^2 + \curvb{\m{bias}^2}^{(M)}
 		\]
-		where $\m{bias}$ describes the divergence of the true expectation from the estimated expection.
-		As it decreases in the number of included parameters, we assume it to be close enough to zero and neglect it from our further considerations.
+		where $\m{bias}$ describes the divergence of the estimated expectation from the true expectation.
+		As it decreases in the number of included parameters, we assume it to be close enough to zero and neglect it from our further considerations \cite{schumacher:16b}.
 		
 		Unfortunately, the true $\sigma^2$ is unobservable so that it has to be estimated by
 		\[
@@ -145,7 +145,7 @@
 		
 		Instead of using the $\widehat{\m{SPSE}}^{(M)}$ directly, we will use Mallow's $C_\m{p}$ instead, given by
 		\[
-			\m{C_p}^{(M)} \define \frac{1}{\widehat{{\sigma}^2}}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
+			C_\m{p}^{(M)} \define \frac{1}{\tilde{\sigma}^2}\sum_{i=1}^n\curvb{y_i-\hat{y}^{(M)}_i}^2 - n + 2\m{p}
 		\]
 		Minimising this value is equivalent to the minimisation of the $\widehat{\m{SPSE}}^{(M)}$.
 		% The proof is trivial, just biject it to a conext-free residue class, whose elements are open manifolds. %citation
@@ -229,7 +229,7 @@
 		\]
 		where we assign
 		\[
-			\sigma^2 \define \curvb{\widehat{\sigma^2}}^{(\s{M})}
+			\sigma^2 \define \curvb{\tilde{\sigma}^2}^{(\s{M})}
 		\]
 		Having fixed the parameters for the random vector $\widetilde{Y}$ we can now calculate the true $\m{SPSE}$ from them by
 		\[
