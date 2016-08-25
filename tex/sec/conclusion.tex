@@ -5,7 +5,7 @@
 	To construct these models, we recurred to the physical relationship between these parameters and the NIRS according to Beer-Lambert's law obtaining three linear models.
 	We then calibrated each models with respect to the wavelengths included and their respective parameters by solving a minimisation problem based on Mallow's $C_\m{p}$ through simulated annealing.
 	
-	To assess the effectiveness of our model selection algorithm, we conducted 1000 simulations in 19 different setups using the estimated model for $p^{(\m{SOC})}$ and estimated the precision of estimating the \enquote{true} $\m{SPSE}$ through the algorithm.
+	To assess the effectiveness of our model selection algorithm, we conducted 1000 simulations, each in 19 different setups using the estimated model for $p^{(\m{SOC})}$ and estimated the precision of estimating the \enquote{true} $\m{SPSE}$ through the algorithm.
 	We found that the resolution and the number of measurements used for estimation both affect the performance of the model selection and estimation strongly.
 	There were further strong signs for high dependance on measurement precision.
 	This indicates a strong need for careful and attentive \textsl{a priori} collection of soil data with a particular focus on measurement precision, resolution and training set size.
@@ -14,7 +14,7 @@
 	Certainly, these limits are difficult to capture within the design of this investigation and hence retain more the quality of a cautionary note.
 	
 	In addition to the above, we strongly recommend to compare the here discussed model selection algorithm used for calibration with alternative approaches.
-	Such approaches should vary the algorithm used to solve the minimisation problem in \ref{ssec:model-selec}, the minimisation problem itself, by replacing Mallow's $C_\m{p}$ with other criteria and by modifying the model itself, such as using an approach that estimates better parameters in terms of prediction such as the ridge regression \cite{schumacher:16b}.
+	Such approaches should vary the algorithm used to solve the minimisation problem in \ref{ssec:model-selec}, the minimisation problem itself, by replacing Mallow's $C_\m{p}$ with other criteria and by modifying the model itself by using an approach that estimates better parameters in terms of prediction such as the ridge regression \cite{schumacher:16b}.
 	
 
 % section conclusion

@@ -5,7 +5,7 @@
 	\label{ssec:measured-data}
 	
 		As a single spectrum contains overlapping information, it is necessary to determine both relevant wavelengths and the respective parameters to apply NIRS to practical problems.
-		To select wavelengths and determine parameters we use an example data set, which contains $p^\m{(SOC)},p^\m{(N)},\m{pH}$ and wave reflectances of 319 wavelengths ranging from $1400 \unit{nm}$ to $2672 \unit{nm}$ by steps of $4 \unit{nm}$ for 533 samples \cite{don:a}.
+		To select wavelengths and determine parameters we use a training set, which contains $p^\m{(SOC)},p^\m{(N)},\m{pH}$ and wave reflectances of 319 wavelengths ranging from $1400 \unit{nm}$ to $2672 \unit{nm}$ by steps of $4 \unit{nm}$ for 533 samples \cite{don:a}.
 
 		We define $\Lambda$ as the set of all measured wavelengths. The reflectance $\varrho(\lambda)$ of a sample at a wavelength $\lambda \in \Lambda$ is recorded as
 		\[
@@ -27,7 +27,7 @@
 	
 		Let $n\in\SN$ be the size of the data set and $k\in\SN$ with $k< n$ the number of measured wavelengths. We define
 		$\varrho_i$ as the soil spectrum of the $i$th sample for every $i\in\SN,i\leq n$.
-		$\lambda_j$ is the $j$th measured wavelength for every $j\in\SN,j\leq k$. We will alternatively refer to these as predictors.%note that we might have to introduce the term predictor at this point
+		$\lambda_j$ is the $j$th measured wavelength for every $j\in\SN,j\leq k$. We will alternatively refer to these as predictors.
 		Then according to section \ref{ssec:measured-data} the measured reflectance values are $x_{ij}$ with
 		\[
 			x_{ij} \define -\lg \varrho_i(\lambda_j)
@@ -85,13 +85,13 @@
 	\subsection{Multivariate Linear Regression}
 	\label{ssec:mlr}
 	
-		Multivariate linear regression (MLR) is a statistical method for finding parameters of linear relations between a response variable and a set of predictors.
-		These can be reused to predict new responses \cite{draper:98a, pardoe:12a, schumacher:16a}
+		Multivariate linear regression (MLR) is a statistical method for estimating parameters of linear relations between a response variable and a set of predictors.
+		These can be reused to predict new responses \cite{draper:98a, pardoe:12a, schumacher:16a}.
 		Let $\mathbb{X}\in\SR^{n\times(k+1)}, n,k\in\SN,k<n$ be the design matrix with $\rank{\mathbb{X}} = k+1$, $\sigma^2\in(0,\infty)$ and $Y$ be the random vector of a response variable with
 		\[
 			Y \sim \FN\curvb{\mathbb{X}\beta,\sigma^2\idmat_n}
 		\]
-		for a certain $\beta\in\SR^{k+1}$
+		for a certain $\beta\in\SR^{k+1}$.
 		Then through the maximum-likelihood-method and a correction we get two best unbiased estimators $\hat{\beta},\hat{\sigma}^2$ for $\beta$ and $\sigma^2$
 		\begin{alignat*}{3}
 			\hat{\beta}(Y) &=&&\ \inv{\curvb{\transp{\mathbb{X}}\mathbb{X}}}\transp{\mathbb{X}}Y \\
@@ -109,11 +109,11 @@
 	\subsection{Mallows' $C_\m{p}$}
 	\label{ssec:mallows-C_p}
 	
-		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole measured spectra for each soil sample.
+		At this point, the model is specified using $k+1 = 320$ predictors for each response variable, using the whole domain of measured spectrum for each soil sample.
 		This set of predictors is comparatively large, $n-k < k$.
 		Further, the reflectances of neighbouring lightwaves are correlated \cite[252]{agelet:10a}.
 		In these circumstances, we might overfit the data, i.e. the variance of our estimated parameters $\hat{\beta}_i(Y)$ might be too large, compromising their usability for future measurements.
-		To address this problem, it is sensible to limit each actual model to a \enquote{good} subset of the predictors. Hence, our task becomes to select the best or at least a \enquote{sufficiently} good model $M$ defined by
+		To address this problem, it is sensible to limit each actual model to a \enquote{good} subset of the predictors. Hence, our task transform into selecting the best or at least a \enquote{sufficiently} good model $M$ defined by
 		\[
 			M\subset \Lambda \cup \set{\lambda_0} \definedby \overline{\Lambda}
 		\]
@@ -136,7 +136,7 @@
 			\m{SPSE}^{(M)} = n\sigma^2 + \m{p}\sigma^2 + \curvb{\m{bias}^2}^{(M)}
 		\]
 		where $\m{bias}$ describes the divergence of the estimated expectation from the true expectation.
-		As it decreases in the number of included parameters, we assume it to be close enough to zero and neglect it from our further considerations \cite{schumacher:16b}.
+		As $\m{bias}$ is decreasing in the number of parameters included in $M$, we assume it to be sufficiently close to zero to neglect it from further considerations \cite{schumacher:16b}.
 		
 		Unfortunately, the true $\sigma^2$ is unobservable so that it has to be estimated by
 		\[
@@ -171,7 +171,7 @@
 		Unfortunately, $\abs{\s{H}} = 2^{319}$, which is too large for a complete search.
 		Therefore, we need a heuristic search algorithm that does not depend on further information of the cost function.
 
-		Simulated annealing (SANN) is a heuristic algorithm that approximates global optima of a given function \cite[549-54]{press:07a}.
+		Simulated annealing (SANN) is such an algorithm that approximates global optima of a given function \cite[549-54]{press:07a}.
 		Note that the SANN returns only a probabilistically good approximation $\s{M}\in\s{H}$ to a true solution to $\Omega$.
 		Lacking similarly reliable and computationally feasible alternatives we use the solution returned by SANN instead.
 
@@ -215,7 +215,7 @@
 		
 		We shall note though, that the measure is increasing with $\abs{M}$.
 		In contrast the actual upper bound of $R^2$ is lowered by the presence of measurement errors.
-		We will therefore consult the correlation diagrams for each response variable observation vector and its respective prediction vector to complement our judgement based on the $R^2$ measure.
+		We will therefore consult the correlation diagrams for each response variable observation vector and its respective prediction vector to complement our judgement based on the $R^2$ measure alone.
 
 	% subsection model-validation
 	
@@ -243,7 +243,7 @@
 		treating $\sigma^2$ as unknown.
 		The algorithm returns a model $\widetilde{\s{M}}$. We can now calculate $\widehat{\m{SPSE}}^{(\widetilde{\s{M}})}$ and compare it to the true $\m{SPSE}$.
 		Due to the heuristic nature of the selection algorithm, we might end up with an exceptionally bad value.
-		To address this, we repeat this process $r$ times \cite{schumacher:16b}.
+		To address this, we repeat this process $q\in\SN$ times \cite{schumacher:16b}.
 		
 		In addition to parameters of the random vector $\widetilde{Y}$, $\widehat{\m{SPSE}}^{(\widetilde{\s{M}})}$ depends on the hyperparameters, resolution $k = \abs{\Lambda}$ and the number of observations, $n$, as well.
 		To gauge influences of the resolution on the model selection, we augment the procedure above to include the sets
