@@ -40,7 +40,7 @@ tex doc:
 		✘	methodology/sa: what is best k? @cancelled (16-08-21 21:10)
 		✔	methodology/sa: we do not compare two methods @done (16-08-21 21:11)
 		✘	methodology/sa: inequality does not hold in our method; computing is beyond feasibility, so we want to find a good local minimum @cancelled (16-08-21 21:12)
-		☐	methodology/sa: change rnd function description
+		✘	methodology/sa: change rnd function description @cancelled (16-08-25 13:17)
 		✘	methodology/mv: R² measure -> R²-measure @cancelled (16-08-21 21:45)
 		✔	methodology/mv: refer to last definitions @done (16-08-21 21:45)
 		✔	methodology/mv: every variable has to be defined: M,arithmetic mean, maybe second definition of R² @done (16-08-21 22:03)
@@ -56,28 +56,30 @@ tex doc:
 		✔	implementation/pre: check second paragraph @done (16-08-25 01:27)
 		✔	implementation/pre: X^M is full rank (right), place for stating full rank of X @done (16-08-25 01:35)
 		✔	implementation/pre: reformat equation system @done (16-08-25 01:35)
-		☐	implementation/pre: inverse of sigma²
+		✔	implementation/pre: inverse of sigma² @done (16-08-25 13:19)
 		✔	ms/calibration: beslightly -> be slightly @done (16-08-25 01:41)
-		☐	ms/calibration: introduction to the selected model too short
-		☐	cp values in calibration intro calibration
+		✔	ms/calibration: introduction to the selected model too short @done (16-08-25 13:21)
+		✔	cp values in calibration intro calibration @done (16-08-25 13:21)
 		✔	ms/calibration: bandwidth is not the right term @done (16-08-25 01:44)
 		✔	ms/calibration: intercepts are not 0 for soc and n @done (16-08-25 01:46)
 		✔	ms/gof: figure caption: blue in small letters @done (16-08-25 00:58)
 		✔	ms/gof: corroborate == festigen, unterstützen, stärken @done (16-08-25 00:57)
 		✘	ms/gof: maybe no new paragraph at the end?  @cancelled (16-08-25 01:48)
-		☐	simulation/cs: again problem spse
+		✔	simulation/cs: again problem spse @done (16-08-25 13:23)
 		✔	methodology/sa: choose between two formulations of minimization problem @done (16-08-25 00:14)
-		☐	methodology/cp: definition of M
-		☐	methodology/cp definition spse with definition of Y_{n+i} and bias
+		✘	methodology/cp: definition of M @cancelled (16-08-25 13:39)
+		✔	methodology/cp definition spse with definition of Y_{n+i} and bias @done (16-08-25 13:38)
 		✔	methodology/sim: definition of lambda^(m) @done (16-08-25 00:44)
 		✔	methodology/sim: double we @done (16-08-24 23:23)
 		✔	reformat some equation systems @done (16-08-25 00:41)
 		
-		☐	conclusion: something about using parameters in real world
-		☐	implementation: check last paragraph for variance
+		✔	conclusion: something about using parameters in real world @done (16-08-25 13:53)
+		✔	implementation: check last paragraph fo rvariance @done (16-08-25 13:28)
 		✔	think about appendix for model selection graph @done (16-08-25 00:44)
-		☐	say that figure 3 is in appendix
-		☐	spse: say that bias is 0
+		✔	say that figure 3 is in appendix @done (16-08-25 13:21)
+		✔	spse: say that bias is 0 @done (16-08-25 13:26)
+		✔	cite r @done (16-08-25 14:07)
+		✔	spse in text @done (16-08-25 14:07)
 
 code:
 	✘	easier implementation @cancelled (16-08-25 00:51)
