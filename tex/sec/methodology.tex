@@ -87,7 +87,7 @@
 	
 		Multivariate linear regression (MLR) is a statistical method for finding parameters of linear relations between a response variable and a set of predictors.
 		These can be reused to predict new responses \cite{draper:98a, pardoe:12a, schumacher:16a}
-		Let $\mathbb{X}\in\SR^{n\times(k+1)}, n,k\in\SN,k<n$ be the design matrix, $\sigma^2\in(0,\infty)$ and $Y$ be the random vector of a response variable with
+		Let $\mathbb{X}\in\SR^{n\times(k+1)}, n,k\in\SN,k<n$ be the design matrix with $\rank{\mathbb{X}} = k+1$, $\sigma^2\in(0,\infty)$ and $Y$ be the random vector of a response variable with
 		\[
 			Y \sim \FN\curvb{\mathbb{X}\beta,\sigma^2\idmat_n}
 		\]
